@@ -1,4 +1,4 @@
-//john test commit
+//John test 3/3/14 .
 package com.example.letterchecker;
 
 import android.os.Bundle;
