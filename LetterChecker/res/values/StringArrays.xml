@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name = "namesArray">
+        <item> Names of Students in Class</item>
+        
+		<item> Robert McEvoy</item>
+		<item> John Molly</item>
+		<item> John Smith</item>
+		<item> Ronan OGara</item>
+		<item> Cian Healy</item>
+		<item> Johnny Sexton</item>
+		<item> Brian ODriscol</item>
+		<item> Gordan Darcy </item>
+		<item> Andrew Trimble</item>
+		<item> Dave Kearney</item>
+		<item> Cian Healy</item>
+		<item> Johnny Sexton</item>
+		<item> Brian ODriscol</item>
+		<item> Gordan Darcy </item>
+		<item> Andrew Trimble</item>
+		<item> Dave Kearney</item>
+		<item> Cian Healy</item>
+		<item> Johnny Sexton</item>
+		<item> Brian ODriscol</item>
+		<item> Gordan Darcy </item>
+		<item> Andrew Trimble</item>
+		<item> Dave Kearney</item>
+		<item> Dave Kearney</item>
+		<item> Cian Healy</item>
+		<item> Johnny Sexton</item>
+		<item> Brian ODriscol</item>
+		<item> Gordan Darcy </item>
+		<item> Andrew Trimble</item>
+		<item> Dave Kearney</item>
+    </string-array>
+    
+</resources>
