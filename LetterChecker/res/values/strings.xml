@@ -8,5 +8,6 @@
     <string name="title_activity_teacher_login">Teacher Login</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_show_class_names">ShowClassNames</string>
+    <string name="title_activity_list_of_teachers">ListOfTeachers</string>
 
 </resources>
