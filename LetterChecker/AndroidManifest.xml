@@ -42,6 +42,10 @@
             android:name="com.example.letterchecker.ListOfTeachers"
             android:label="@string/title_activity_list_of_teachers" >
         </activity>
+        <activity
+            android:name="com.example.letterchecker.Lesson"
+            android:label="@string/title_activity_lesson" >
+        </activity>
     </application>
 
 </manifest>
