@@ -1,15 +1,26 @@
 package com.example.letterchecker;
 
 import android.os.Bundle;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Context;
+
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.LinearLayout;
 
-public class Lesson extends Activity {
+public class Lesson extends Activity implements OnTouchListener{
 
 	OurView view;
+	//float x,y;
 	
 	
 	@Override
@@ -17,6 +28,7 @@ public class Lesson extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lesson);
 		view = new OurView(this);
+		view.setOnTouchListener(this);
 		setContentView(view);
 	}
 
@@ -42,20 +54,45 @@ public class Lesson extends Activity {
 	}
 	
 	public class OurView extends SurfaceView implements Runnable{
-
+	
 		Thread t = null;
 		SurfaceHolder holder;
 		boolean okToRun = false;
-		
+		//
+		public Paint paint = new Paint();
+		public Path path = new Path();
+		public LayoutParams params;
+		LinearLayout parentLinearLayout;
+		//
 		public OurView(Context context) {
+		//Constructor
 			super(context);
-			// TODO Auto-generated constructor stub
 			holder = getHolder();
+			
+			//
+			
+			paint.setAntiAlias(true);
+			paint.setColor(Color.BLACK);
+			paint.setStyle(Paint.Style.STROKE);
+			paint.setStrokeJoin(Paint.Join.ROUND);
+			paint.setStrokeWidth(10f);
+			
+			parentLinearLayout = new LinearLayout(context);
 		}
 		
 		public void run() {
-			if(okToRun == true){
+		//First method run when thread starts
+			while(okToRun == true){
 				// draw to canvas
+				if(!holder.getSurface().isValid()){
+					continue;
+				}
+				
+				Canvas c = holder.lockCanvas();
+				c.drawARGB(255, 0, 50, 255);
+				c.drawPath(path, paint);
+				holder.unlockCanvasAndPost(c);
+				
 			}
 		}
 		
@@ -77,6 +114,54 @@ public class Lesson extends Activity {
 			t = new Thread(this);
 			t.start();
 		}
+	
+		
+	
+	
+	/*@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		// TODO Auto-generated method stub
+		float x = event.getX();
+		float y = event.getY();
+		switch(event.getAction()){
+		case MotionEvent.ACTION_DOWN:
+			path.moveTo(x, y);
+			return true;
+		case MotionEvent.ACTION_MOVE:
+			path.lineTo(x, y);
+			break;
+		case MotionEvent.ACTION_UP:
+			break;
+		default:
+			return false;
+		}
+		return true;
+	}
+	}*/
 	}
 
+	@Override
+	public boolean onTouch(View view, MotionEvent me) {
+	//When user touches screen onTouch is called.
+		
+		
+		
+			float x = me.getX();
+			float y = me.getY();
+			switch(me.getAction()){
+			case MotionEvent.ACTION_DOWN:
+				path.moveTo(x, y);
+				return true;
+			case MotionEvent.ACTION_MOVE:
+				path.lineTo(x, y);
+				break;
+			case MotionEvent.ACTION_UP:
+				break;
+			default:
+				return false;
+			}
+			return true;
+	}
+	
 }
+
