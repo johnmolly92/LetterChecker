@@ -20,6 +20,8 @@ import android.widget.LinearLayout;
 public class Lesson extends Activity implements OnTouchListener{
 
 	OurView view;
+	public Paint paint = new Paint();
+	public Path path = new Path();
 	//float x,y;
 	
 	
@@ -59,8 +61,7 @@ public class Lesson extends Activity implements OnTouchListener{
 		SurfaceHolder holder;
 		boolean okToRun = false;
 		//
-		public Paint paint = new Paint();
-		public Path path = new Path();
+		
 		public LayoutParams params;
 		LinearLayout parentLinearLayout;
 		//
