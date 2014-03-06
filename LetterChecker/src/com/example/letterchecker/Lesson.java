@@ -56,7 +56,9 @@ public class Lesson extends Activity implements OnTouchListener{
 	}
 	
 	public class OurView extends SurfaceView implements Runnable{
-	
+	 
+		
+
 		Thread t = null;
 		SurfaceHolder holder;
 		boolean okToRun = false;
@@ -83,19 +85,27 @@ public class Lesson extends Activity implements OnTouchListener{
 		
 		public void run() {
 		//First method run when thread starts
+			//Draw guide circles
+			Canvas c = holder.lockCanvas();
+			c.drawColor(Color.BLACK);
+			c.drawCircle(10,10,50,paint);
+			holder.unlockCanvasAndPost(c);
+			
 			while(okToRun == true){
 				// draw to canvas
 				if(!holder.getSurface().isValid()){
 					continue;
 				}
 				
-				Canvas c = holder.lockCanvas();
+				holder.lockCanvas();
 				c.drawARGB(255, 0, 50, 255);
 				c.drawPath(path, paint);
 				holder.unlockCanvasAndPost(c);
 				
 			}
 		}
+		
+		
 		
 		public void pause() {
 			okToRun = false;
@@ -154,7 +164,7 @@ public class Lesson extends Activity implements OnTouchListener{
 				path.moveTo(x, y);
 				return true;
 			case MotionEvent.ACTION_MOVE:
-				path.lineTo(x, y);
+			 	path.lineTo(x, y);
 				break;
 			case MotionEvent.ACTION_UP:
 				break;
