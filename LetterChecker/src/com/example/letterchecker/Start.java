@@ -19,6 +19,7 @@ public class Start extends Activity {
 		Button StudentLogin = (Button)findViewById(R.id.StudentLoginBtn);
 		Button TeacherLogin = (Button)findViewById(R.id.TeacherLoginBtn);
 		Button Register = (Button)findViewById(R.id.RegisterBtn);
+		Button Lesson = (Button)findViewById(R.id.lessonBtn);
 
 		//student login page
 		StudentLogin.setOnClickListener(new View.OnClickListener()
@@ -26,8 +27,6 @@ public class Start extends Activity {
             public void onClick(View v)
             {
             	Intent i = new Intent(getApplicationContext(), ListOfTeachers.class);
-            	//Intent i = new Intent(getApplicationContext(), Lesson.class);
-
             	startActivity(i);
             }
         });
@@ -51,6 +50,17 @@ public class Start extends Activity {
             	startActivity(i);
             }
         });
+		
+		
+		//lesson page
+		Lesson.setOnClickListener(new View.OnClickListener()
+		{
+			public void onClick(View v)
+		    {
+				Intent i = new Intent(getApplicationContext(), Lesson.class);
+            	startActivity(i);
+		    }
+		});
 	}
 
 
