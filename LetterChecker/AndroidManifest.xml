@@ -70,6 +70,10 @@
             android:name="com.example.letterchecker.ListOfStudents"
             android:label="@string/title_activity_list_of_students" >
         </activity>
+		<activity
+		    android:name="com.example.letterchecker.Lesson"
+            android:label="@string/title_activity_lesson" >
+        </activity>
     </application>
 
 </manifest>

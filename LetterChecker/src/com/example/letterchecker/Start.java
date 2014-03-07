@@ -26,6 +26,8 @@ public class Start extends Activity {
             public void onClick(View v)
             {
             	Intent i = new Intent(getApplicationContext(), ListOfTeachers.class);
+            	//Intent i = new Intent(getApplicationContext(), Lesson.class);
+
             	startActivity(i);
             }
         });
