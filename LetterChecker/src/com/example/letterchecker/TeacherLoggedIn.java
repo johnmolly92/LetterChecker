@@ -16,7 +16,7 @@ public class TeacherLoggedIn extends Activity {
 		Button ManageStudents = (Button)findViewById(R.id.manageStudentsBtn);
 		Button ChooseLessons = (Button)findViewById(R.id.chooseLessonsBtn);
 		Button ViewResults = (Button)findViewById(R.id.viewResultsBtn);
-		Button Logout = (Button)findViewById(R.id.loginBtn);
+		Button Logout = (Button)findViewById(R.id.LogoutBtn);
 		final Bundle extras = getIntent().getExtras();
 		
 		
