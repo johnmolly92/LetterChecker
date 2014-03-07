@@ -38,6 +38,38 @@
             android:name="com.example.letterchecker.ShowClassNames"
             android:label="@string/title_activity_show_class_names" >
         </activity>
+        <activity
+            android:name="com.example.letterchecker.ListOfTeachers"
+            android:label="@string/title_activity_list_of_teachers" >
+        </activity>
+        <activity
+            android:name="com.example.letterchecker.TeacherLoggedIn"
+            android:label="@string/title_activity_teacher_logged_in" >
+        </activity>
+        <activity
+            android:name="com.example.letterchecker.ManageStudents"
+            android:label="@string/title_activity_manage_students" >
+        </activity>
+        <activity
+            android:name="com.example.letterchecker.ViewStudents"
+            android:label="@string/title_activity_view_students" >
+        </activity>
+        <activity
+            android:name="com.example.letterchecker.AddStudent"
+            android:label="@string/title_activity_add_student" >
+        </activity>
+        <activity
+            android:name="com.example.letterchecker.RemoveStudent"
+            android:label="@string/title_activity_remove_student" >
+        </activity>
+        <activity
+            android:name="com.example.letterchecker.StudentLoggedIn"
+            android:label="@string/title_activity_student_logged_in" >
+        </activity>
+        <activity
+            android:name="com.example.letterchecker.ListOfStudents"
+            android:label="@string/title_activity_list_of_students" >
+        </activity>
     </application>
 
 </manifest>

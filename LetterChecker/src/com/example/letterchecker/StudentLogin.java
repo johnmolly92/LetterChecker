@@ -14,25 +14,24 @@ import android.widget.ListView;
 
 
 public class StudentLogin extends Activity {
-	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_student_login);
-		
+
 		Button enter = (Button)findViewById(R.id.enterBtn);
-		
-		
+
 		final ListView listview;
 		String[] names = this.getResources().getStringArray(R.array.namesArray);
-		
+
 		listview = (ListView)findViewById(R.id.list);
-		
-		
+
+
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,names);
-		
-		
+
+		//listen for click of student name on list
 		enter.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -45,11 +44,11 @@ public class StudentLogin extends Activity {
             	
             }
         });
-		
-		
+
+
 	}
-	
-	
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

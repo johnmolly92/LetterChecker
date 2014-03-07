@@ -15,20 +15,22 @@ public class Start extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_start);
-		
+
 		Button StudentLogin = (Button)findViewById(R.id.StudentLoginBtn);
 		Button TeacherLogin = (Button)findViewById(R.id.TeacherLoginBtn);
 		Button Register = (Button)findViewById(R.id.RegisterBtn);
-		
+
+		//student login page
 		StudentLogin.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-            	Intent i = new Intent(getApplicationContext(), StudentLogin.class);
+            	Intent i = new Intent(getApplicationContext(), ListOfTeachers.class);
             	startActivity(i);
             }
         });
-		
+
+		//teacher login page
 		TeacherLogin.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -37,7 +39,8 @@ public class Start extends Activity {
             	startActivity(i);
             }
         });
-		
+
+		//registration page
 		Register.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -47,7 +50,7 @@ public class Start extends Activity {
             }
         });
 	}
-	
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

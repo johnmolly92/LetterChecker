@@ -8,9 +8,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TeacherLogin" >
 
-    <TextView
+    <EditText
+        android:id="@+id/passwordLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignLeft="@+id/emailLogin"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:hint="password.."
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/emailLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/passwordLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="76dp"
+        android:ems="10"
+        android:hint="email.."
+        android:inputType="textEmailAddress" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="81dp"
+        android:text="Login" />
 
 </RelativeLayout>
