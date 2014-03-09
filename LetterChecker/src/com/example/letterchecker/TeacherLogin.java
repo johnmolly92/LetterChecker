@@ -2,7 +2,9 @@ package com.example.letterchecker;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -28,28 +30,31 @@ public class TeacherLogin extends Activity {
         		EditText password = (EditText)findViewById(R.id.passwordLogin);
         		String e,p;
         		Database db = new Database(TeacherLogin.this);
+        		boolean didItWork=false;
             	try{
             		e = email.getText().toString();
             		p = password.getText().toString();
             		db.open();
             		String[] data = db.getTeacherLoginInfo();
             		db.close();
-            		Boolean correct = false;
             		for(int i=0; i<data.length; i=i+2){
             			if((data[i].equals(e)) && (data[i+1].equals(p))){
-            				correct = true;
+            				didItWork = true;
             				i = data.length + 1;
             			}
             		}
-            		if(correct){
+            		/*if(correct){
             			Intent i = new Intent(getApplicationContext(), TeacherLoggedIn.class);
             			//pass on teacher's email to next activity
             			i.putExtra("email", e);
             			startActivity(i);
             		}
+            		*/
             		
             	}
             	catch(Exception ex){
+            		didItWork=false;
+            		/*
             		Dialog d = new Dialog(TeacherLogin.this);
         			String error = ex.toString();
         			d.setTitle("failed to get data");
@@ -57,6 +62,30 @@ public class TeacherLogin extends Activity {
         			tv.setText(error);
         			d.setContentView(tv);
         			d.show();
+        			*/
+            	}
+            	finally{
+            		if(didItWork){
+            			Intent i = new Intent(getApplicationContext(), TeacherLoggedIn.class);
+            			//pass on teacher's email to next activity
+            			String em = email.getText().toString();
+            			i.putExtra("email", em);
+            			startActivity(i);
+            		}
+            		else{
+            			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+								TeacherLogin.this);
+						alertDialogBuilder.setTitle("Unable to Login");
+						alertDialogBuilder.setMessage("Click Ok to Try Again");
+						alertDialogBuilder.setNeutralButton("Ok",new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int id) {
+								Intent i = new Intent(getApplicationContext(), TeacherLogin.class);
+				            	startActivity(i);
+							}
+						  });
+						AlertDialog alertDialog = alertDialogBuilder.create();
+						alertDialog.show();
+            		}
             	}
             }
         });

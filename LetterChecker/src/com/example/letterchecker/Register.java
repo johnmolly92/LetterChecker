@@ -2,7 +2,10 @@ package com.example.letterchecker;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -49,31 +52,47 @@ public class Register extends Activity {
 				}
 				catch(Exception ex){
 					didItWork = false;
-					Dialog d = new Dialog(Register.this);
+					/*Dialog d = new Dialog(Register.this);
 					String error = ex.toString();
 					d.setTitle("failed to enter data");
 					TextView tv = new TextView(Register.this);
 					tv.setText(error);
 					d.setContentView(tv);
 					d.show();
+					*/
 				}
-				finally{
+				finally{						
+					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Register.this);
+					Intent i;
 					if(didItWork){
-						/*Dialog d = new Dialog(Register.this);
-						TextView tv = new TextView(Register.this);
-						tv.setText(output);
-						d.setContentView(tv);
-						d.show();*/
-						
-						Intent i = new Intent(getApplicationContext(), Start.class);
-		            	startActivity(i);
+						alertDialogBuilder.setTitle("Successfull Registration");
+						alertDialogBuilder.setMessage("Click Ok to Login");
 					}
-				}
-			}	
-				
-		});
+					else{
+						alertDialogBuilder.setTitle("Registration Failed");
+						alertDialogBuilder.setMessage("Click Ok to Try Again");
+					}
+					final boolean whereToGo = didItWork;
+					alertDialogBuilder.setNeutralButton("Ok",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							Intent i;
+							if(whereToGo){
+								i = new Intent(getApplicationContext(), TeacherLogin.class);
+							}
+							else{
+								i = new Intent(getApplicationContext(), Register.class);
+							}
+				            startActivity(i);
+						}
+					});
+					AlertDialog alertDialog = alertDialogBuilder.create();
+					alertDialog.show();
+			}
+		}	
 		
-	}
+	});
+		
+}
 	
 
 	@Override
