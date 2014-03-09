@@ -26,6 +26,7 @@ public class ListOfStudents extends Activity {
     	if (extras != null) {
 		    teacherName = extras.getString("name");
 		}
+    	
     	try{
 			Database info = new Database(this);
 			info.open();

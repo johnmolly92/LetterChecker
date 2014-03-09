@@ -8,19 +8,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".StudentLoggedIn" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Student Logged in" />
-
     <Button
         android:id="@+id/studentLogoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/startLessonBtn"
         android:layout_alignRight="@+id/startLessonBtn"
-        android:layout_below="@+id/textView1"
         android:layout_marginTop="289dp"
         android:background="#FF0000"
         android:text="Logout" />
@@ -32,7 +25,6 @@
         android:layout_alignBottom="@+id/studentLogoutBtn"
         android:layout_marginBottom="128dp"
         android:layout_marginLeft="83dp"
-        android:layout_toRightOf="@+id/textView1"
         android:text="Start Lesson" />
 
 </RelativeLayout>

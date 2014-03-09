@@ -82,6 +82,10 @@ public class Database{
 	public void close(){
 		myHelper.close();
 	}
+	
+	public void deleteStudent(String studentName, String teacherEmail) throws SQLException{
+		myDatabase.delete(DATABASE_S_TABLE, KEY_S_NAME + "=" + studentName, null);
+	}
 
 	public long createEntry(String n, String e, String p) throws SQLException{
 		ContentValues cv = new ContentValues();
