@@ -18,5 +18,6 @@
     <string name="title_activity_student_logged_in">StudentLoggedIn</string>
     <string name="title_activity_list_of_students">ListOfStudents</string>
     <string name="title_activity_lesson">Lesson</string>
+    <string name="title_activity_drawing_board">DrawingBoard</string>
 
 </resources>

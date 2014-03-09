@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -34,19 +35,19 @@ public class Lesson extends Activity implements OnTouchListener{
 		setContentView(view);
 	}
 
-	@Override
+	/*@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		view.pause();
-	}
+	}*/
 
-	@Override
+	/*@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		view.resume();
-	}
+	}*/
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,7 +56,7 @@ public class Lesson extends Activity implements OnTouchListener{
 		return true;
 	}
 	
-	public class OurView extends SurfaceView implements Runnable{
+	public class OurView extends SurfaceView {
 	 
 		
 
@@ -73,17 +74,33 @@ public class Lesson extends Activity implements OnTouchListener{
 			holder = getHolder();
 			
 			//
-			
+			/*
 			paint.setAntiAlias(true);
 			paint.setColor(Color.BLACK);
 			paint.setStyle(Paint.Style.STROKE);
 			paint.setStrokeJoin(Paint.Join.ROUND);
-			paint.setStrokeWidth(10f);
+			paint.setStrokeWidth(10f);*/
 			
-			parentLinearLayout = new LinearLayout(context);
+			//parentLinearLayout = new LinearLayout(context);
 		}
 		
-		public void run() {
+		
+		
+		@Override
+		protected void onDraw(Canvas canvas) {
+			// TODO Auto-generated method stub
+			super.onDraw(canvas);
+			Rect ourRect = new Rect();
+			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
+			Paint blue = new Paint();
+			blue.setColor(Color.CYAN);
+			blue.setStyle(Paint.Style.FILL); 
+			canvas.drawRect(ourRect, blue);
+		}
+
+
+
+		/*public void run() {
 		//First method run when thread starts
 			//Draw guide circles
 			Canvas c = holder.lockCanvas();
@@ -103,7 +120,7 @@ public class Lesson extends Activity implements OnTouchListener{
 				holder.unlockCanvasAndPost(c);
 				
 			}
-		}
+		}*/
 		
 		
 		
@@ -120,11 +137,11 @@ public class Lesson extends Activity implements OnTouchListener{
 			t = null;
 		}
 		
-		public void resume() {
+		/*public void resume() {
 			okToRun = true;
-			t = new Thread(this);
+			//t = new Thread(this);
 			t.start();
-		}
+		}*/
 	
 		
 	
@@ -156,7 +173,7 @@ public class Lesson extends Activity implements OnTouchListener{
 	//When user touches screen onTouch is called.
 		
 		
-		
+		/*
 			float x = me.getX();
 			float y = me.getY();
 			switch(me.getAction()){
@@ -170,7 +187,7 @@ public class Lesson extends Activity implements OnTouchListener{
 				break;
 			default:
 				return false;
-			}
+			}*/
 			return true;
 	}
 	
