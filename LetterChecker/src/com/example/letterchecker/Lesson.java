@@ -18,7 +18,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.LinearLayout;
 
-public class Lesson extends Activity implements OnTouchListener{
+public class Lesson extends Activity {
 
 	OurView view;
 	public Paint paint = new Paint();
@@ -31,7 +31,7 @@ public class Lesson extends Activity implements OnTouchListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lesson);
 		view = new OurView(this);
-		view.setOnTouchListener(this);
+		//view.setOnTouchListener(this);
 		setContentView(view);
 	}
 
@@ -56,7 +56,7 @@ public class Lesson extends Activity implements OnTouchListener{
 		return true;
 	}
 	
-	public class OurView extends SurfaceView {
+	public class OurView extends View {
 	 
 		
 
@@ -64,6 +64,10 @@ public class Lesson extends Activity implements OnTouchListener{
 		SurfaceHolder holder;
 		boolean okToRun = false;
 		//
+		private Paint paint = new Paint();
+		private Path path = new Path();
+		
+		
 		
 		public LayoutParams params;
 		LinearLayout parentLinearLayout;
@@ -71,17 +75,17 @@ public class Lesson extends Activity implements OnTouchListener{
 		public OurView(Context context) {
 		//Constructor
 			super(context);
-			holder = getHolder();
+			//holder = getHolder();
 			
-			//
-			/*
+			//params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			
 			paint.setAntiAlias(true);
 			paint.setColor(Color.BLACK);
 			paint.setStyle(Paint.Style.STROKE);
 			paint.setStrokeJoin(Paint.Join.ROUND);
-			paint.setStrokeWidth(10f);*/
+			paint.setStrokeWidth(10f);
 			
-			//parentLinearLayout = new LinearLayout(context);
+			parentLinearLayout = new LinearLayout(context);
 		}
 		
 		
@@ -96,6 +100,9 @@ public class Lesson extends Activity implements OnTouchListener{
 			blue.setColor(Color.CYAN);
 			blue.setStyle(Paint.Style.FILL); 
 			canvas.drawRect(ourRect, blue);
+			
+			canvas.drawPath(path, paint);
+			
 		}
 
 
@@ -146,7 +153,7 @@ public class Lesson extends Activity implements OnTouchListener{
 		
 	
 	
-	/*@Override
+	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		// TODO Auto-generated method stub
 		float x = event.getX();
@@ -163,17 +170,18 @@ public class Lesson extends Activity implements OnTouchListener{
 		default:
 			return false;
 		}
+		invalidate();
 		return true;
 	}
-	}*/
+	
 	}
 
-	@Override
+	/*@Override
 	public boolean onTouch(View view, MotionEvent me) {
 	//When user touches screen onTouch is called.
 		
 		
-		/*
+		
 			float x = me.getX();
 			float y = me.getY();
 			switch(me.getAction()){
@@ -187,9 +195,9 @@ public class Lesson extends Activity implements OnTouchListener{
 				break;
 			default:
 				return false;
-			}*/
+			}
 			return true;
-	}
+	}*/
 	
 }
 
