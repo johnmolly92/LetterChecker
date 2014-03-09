@@ -61,40 +61,43 @@ public final class R {
     }
     public static final class layout {
         public static final int activity_add_student=0x7f030000;
-        public static final int activity_lesson=0x7f030001;
-        public static final int activity_list_of_students=0x7f030002;
-        public static final int activity_list_of_teachers=0x7f030003;
-        public static final int activity_manage_students=0x7f030004;
-        public static final int activity_register=0x7f030005;
-        public static final int activity_remove_student=0x7f030006;
-        public static final int activity_start=0x7f030007;
-        public static final int activity_student_logged_in=0x7f030008;
-        public static final int activity_student_login=0x7f030009;
-        public static final int activity_teacher_logged_in=0x7f03000a;
-        public static final int activity_teacher_login=0x7f03000b;
-        public static final int activity_view_students=0x7f03000c;
+        public static final int activity_drawing_board=0x7f030001;
+        public static final int activity_lesson=0x7f030002;
+        public static final int activity_list_of_students=0x7f030003;
+        public static final int activity_list_of_teachers=0x7f030004;
+        public static final int activity_manage_students=0x7f030005;
+        public static final int activity_register=0x7f030006;
+        public static final int activity_remove_student=0x7f030007;
+        public static final int activity_start=0x7f030008;
+        public static final int activity_student_logged_in=0x7f030009;
+        public static final int activity_student_login=0x7f03000a;
+        public static final int activity_teacher_logged_in=0x7f03000b;
+        public static final int activity_teacher_login=0x7f03000c;
+        public static final int activity_view_students=0x7f03000d;
     }
     public static final class menu {
         public static final int add_student=0x7f080000;
-        public static final int lesson=0x7f080001;
-        public static final int list_of_students=0x7f080002;
-        public static final int list_of_teachers=0x7f080003;
-        public static final int manage_students=0x7f080004;
-        public static final int register=0x7f080005;
-        public static final int remove_student=0x7f080006;
-        public static final int start=0x7f080007;
-        public static final int student_logged_in=0x7f080008;
-        public static final int student_login=0x7f080009;
-        public static final int teacher_list=0x7f08000a;
-        public static final int teacher_logged_in=0x7f08000b;
-        public static final int teacher_login=0x7f08000c;
-        public static final int view_students=0x7f08000d;
+        public static final int drawing_board=0x7f080001;
+        public static final int lesson=0x7f080002;
+        public static final int list_of_students=0x7f080003;
+        public static final int list_of_teachers=0x7f080004;
+        public static final int manage_students=0x7f080005;
+        public static final int register=0x7f080006;
+        public static final int remove_student=0x7f080007;
+        public static final int start=0x7f080008;
+        public static final int student_logged_in=0x7f080009;
+        public static final int student_login=0x7f08000a;
+        public static final int teacher_list=0x7f08000b;
+        public static final int teacher_logged_in=0x7f08000c;
+        public static final int teacher_login=0x7f08000d;
+        public static final int view_students=0x7f08000e;
     }
     public static final class string {
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
         public static final int hello_world=0x7f060002;
         public static final int title_activity_add_student=0x7f06000c;
+        public static final int title_activity_drawing_board=0x7f060011;
         public static final int title_activity_lesson=0x7f060010;
         public static final int title_activity_list_of_students=0x7f06000f;
         public static final int title_activity_list_of_teachers=0x7f060009;
