@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -65,7 +66,14 @@ public class Lesson extends Activity {
 		boolean okToRun = false;
 		//
 		private Paint paint = new Paint();
+		private Paint red = new Paint();
+		private Paint green = new Paint();
 		private Path path = new Path();
+		
+		float x =0;
+		float y =0;
+		
+		
 		
 		
 		
@@ -84,6 +92,9 @@ public class Lesson extends Activity {
 			paint.setStyle(Paint.Style.STROKE);
 			paint.setStrokeJoin(Paint.Join.ROUND);
 			paint.setStrokeWidth(10f);
+			red.setColor(Color.RED);
+			green.setColor(Color.GREEN);
+			green.setStyle(Paint.Style.FILL);
 			
 			parentLinearLayout = new LinearLayout(context);
 		}
@@ -95,13 +106,31 @@ public class Lesson extends Activity {
 			// TODO Auto-generated method stub
 			super.onDraw(canvas);
 			Rect ourRect = new Rect();
-			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
+			RectF start = new RectF();
+			start.set(100, 150, 150, 200);
+			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight()/2);
 			Paint blue = new Paint();
 			blue.setColor(Color.CYAN);
 			blue.setStyle(Paint.Style.FILL); 
-			canvas.drawRect(ourRect, blue);
+			//canvas.drawRect(ourRect, blue);
+			canvas.drawRect(start, green);
+			canvas.drawCircle(canvas.getWidth()/3, canvas.getHeight()/2, 20, green);
+			canvas.drawCircle((canvas.getWidth()/3)*2, canvas.getHeight()/2, 20, red);
+			//canvas.drawRect(100, 150, 120, 170, green);
+			
+			
 			
 			canvas.drawPath(path, paint);
+			
+			if(start.contains(x, y));{
+				canvas.drawRect(ourRect, blue);
+			}
+			/*if(path.isRect(start)){
+				path.reset();
+			}*/
+			
+			
+			
 			
 		}
 
@@ -156,8 +185,8 @@ public class Lesson extends Activity {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		// TODO Auto-generated method stub
-		float x = event.getX();
-		float y = event.getY();
+		x = event.getX();
+		y = event.getY();
 		switch(event.getAction()){
 		case MotionEvent.ACTION_DOWN:
 			path.moveTo(x, y);
