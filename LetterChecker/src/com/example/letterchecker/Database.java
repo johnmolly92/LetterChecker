@@ -97,7 +97,20 @@ public class Database{
 	}
 	
 	public void deleteStudent(String studentName, String teacherEmail) throws SQLException{
-		myDatabase.delete(DATABASE_S_TABLE, KEY_S_NAME + "=" + studentName, null);
+		String[] array = getStudentInfo();
+		String row, name, email, lesson;
+		int rowToBeDeleted=-1;
+		for(int i=0; i<array.length; i=i+4){
+			row = array[i];
+			name= array[i+1];
+			email = array[i+2];
+			lesson = array[i+3];
+			if(studentName.equals(name) && teacherEmail.equals(email)){
+				rowToBeDeleted=Integer.parseInt(row);
+				i = array.length + 1;
+			}
+		}
+		myDatabase.delete(DATABASE_S_TABLE, KEY_S_ROWID + "=" + rowToBeDeleted, null);
 	}
 
 	public long createEntry(String n, String e, String p) throws SQLException{
