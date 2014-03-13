@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -65,7 +66,23 @@ public class Lesson extends Activity {
 		boolean okToRun = false;
 		//
 		private Paint paint = new Paint();
+		private Paint red = new Paint();
+		private Paint green = new Paint();
+		private Paint blue = new Paint();
+		private Paint black = new Paint();
 		private Path path = new Path();
+		
+		float x0 =0;
+		float y0 =0;
+		
+		boolean startBool = false;
+		boolean middle1 = false;
+		boolean endBool = false;
+		
+		Rect ourRect = new Rect();
+		RectF start = new RectF();
+		RectF end = new RectF();
+		RectF mid1 = new RectF();
 		
 		
 		
@@ -84,8 +101,17 @@ public class Lesson extends Activity {
 			paint.setStyle(Paint.Style.STROKE);
 			paint.setStrokeJoin(Paint.Join.ROUND);
 			paint.setStrokeWidth(10f);
+			red.setColor(Color.RED);
+			green.setColor(Color.GREEN);
+			green.setStyle(Paint.Style.FILL);
+			blue.setColor(Color.CYAN);
+			blue.setStyle(Paint.Style.FILL); 
+			black.setColor(Color.BLACK);
+			black.setStyle(Paint.Style.FILL);
 			
 			parentLinearLayout = new LinearLayout(context);
+			
+			
 		}
 		
 		
@@ -94,14 +120,51 @@ public class Lesson extends Activity {
 		protected void onDraw(Canvas canvas) {
 			// TODO Auto-generated method stub
 			super.onDraw(canvas);
-			Rect ourRect = new Rect();
+			
+			start.set(50, 325, 100, 375);
+			end.set(350,325,400,375);
+			mid1.set(200,325,250,375);
 			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
-			Paint blue = new Paint();
-			blue.setColor(Color.CYAN);
-			blue.setStyle(Paint.Style.FILL); 
-			canvas.drawRect(ourRect, blue);
+			
+			if(startBool == true && middle1 == true && endBool == true){
+				canvas.drawRect(ourRect, blue);
+			}
+			//canvas.drawRect(ourRect, blue);
+			canvas.drawRect(start, green);
+			canvas.drawRect(end,red);
+			canvas.drawRect(mid1, black);
+			//canvas.drawCircle(canvas.getWidth()/3, canvas.getHeight()/2, 20, green);
+			//canvas.drawCircle((canvas.getWidth()/3)*2, canvas.getHeight()/2, 20, red);
+			//canvas.drawRect(100, 150, 120, 170, green);
+			
+			
+			
+			if(x0 > 50 && x0 < 100 && y0 > 325 && y0 < 375){
+				startBool = true;
+			}
+			if(startBool == true && x0 > 200 && x0 < 250 && y0 > 325 && y0 < 375){
+				middle1 = true;
+			}
+			if(startBool == true && middle1 == true && x0 > 350 && x0 < 400 && y0 > 325 && y0 < 375){
+				endBool = true;
+			}
+			
+			
+			
+			
+			
 			
 			canvas.drawPath(path, paint);
+			
+			/*if(start.contains(x, y));{
+				canvas.drawRect(ourRect, blue);
+			}*/
+			/*if(path.isRect(start)){
+				path.reset();
+			}*/
+			
+			
+			
 			
 		}
 
@@ -158,6 +221,8 @@ public class Lesson extends Activity {
 		// TODO Auto-generated method stub
 		float x = event.getX();
 		float y = event.getY();
+		x0 = x;
+		y0 = y;
 		switch(event.getAction()){
 		case MotionEvent.ACTION_DOWN:
 			path.moveTo(x, y);
