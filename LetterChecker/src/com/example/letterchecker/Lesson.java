@@ -14,9 +14,7 @@ import android.graphics.RectF;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.LinearLayout;
 
 public class Lesson extends Activity {
@@ -104,7 +102,7 @@ public class Lesson extends Activity {
 				canvas.drawRect(ourRect, blue);
 			}
 			
-			canvas.drawRect(start, green);
+ 			canvas.drawRect(start, green);
 			canvas.drawRect(end,red);
 			canvas.drawRect(mid1, black);
 			//canvas.drawCircle(canvas.getWidth()/3, canvas.getHeight()/2, 20, green);
@@ -126,76 +124,29 @@ public class Lesson extends Activity {
 			
 			canvas.drawPath(path, paint);	
 		}
-
-	/*	public void pause() {
-			okToRun = false;
-			while(true){
-				try{
-					t.join();
-				}catch(InterruptedException e){
-					e.printStackTrace();
-				}
-				break;
-			}
-			t = null;
-		}
-		
-		/*public void resume() {
-			okToRun = true;
-			//t = new Thread(this);
-			t.start();
-		}*/
 	
-		
-	
-	
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		// TODO Auto-generated method stub
-		float x = event.getX();
-		float y = event.getY();
-		x0 = x;
-		y0 = y;
-		switch(event.getAction()){
-		case MotionEvent.ACTION_DOWN:
-			path.moveTo(x, y);
-			return true;
-		case MotionEvent.ACTION_MOVE:
-			path.lineTo(x, y);
-			break;
-		case MotionEvent.ACTION_UP:
-			break;
-		default:
-			return false;
-		}
-		invalidate();
-		return true;
-	}
-	
-	}
-
-	/*@Override
-	public boolean onTouch(View view, MotionEvent me) {
-	//When user touches screen onTouch is called.
-		
-		
-		
-			float x = me.getX();
-			float y = me.getY();
-			switch(me.getAction()){
+		@Override
+		public boolean onTouchEvent(MotionEvent event) {
+			// TODO Auto-generated method stub
+			float x = event.getX();
+			float y = event.getY();
+			x0 = x;
+			y0 = y;
+			switch(event.getAction()){
 			case MotionEvent.ACTION_DOWN:
 				path.moveTo(x, y);
 				return true;
 			case MotionEvent.ACTION_MOVE:
-			 	path.lineTo(x, y);
+				path.lineTo(x, y);
 				break;
 			case MotionEvent.ACTION_UP:
 				break;
 			default:
 				return false;
 			}
+			invalidate();
 			return true;
-	}*/
-	
+		}
+	}
 }
 

@@ -78,6 +78,14 @@
             android:name="com.example.letterchecker.DrawingBoard"
             android:label="@string/title_activity_drawing_board" >
         </activity>
+        <activity
+            android:name="com.example.letterchecker.Triangle"
+            android:label="@string/title_activity_triangle" >
+        </activity>
+        <activity
+            android:name="com.example.letterchecker.Square"
+            android:label="@string/title_activity_square" >
+        </activity>
     </application>
 
 </manifest>
