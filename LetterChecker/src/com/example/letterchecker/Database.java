@@ -321,14 +321,13 @@ public class Database{
 			row = tmp[i];
 			name = tmp[i+1];
 			email = tmp[i+2];
-			lesson = tmp[1+3];
+			lesson = tmp[i+3];
 			if(name.equals(studentName) && email.equals(teacherEmail)){
 				result = lesson;
 				i = tmp.length + 1;
 			}
 		}
-		return result ;
-		
+		return result;
 	}
 }
 

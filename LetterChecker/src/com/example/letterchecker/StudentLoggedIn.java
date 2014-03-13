@@ -3,11 +3,13 @@ package com.example.letterchecker;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class StudentLoggedIn extends Activity {
 
@@ -18,16 +20,6 @@ public class StudentLoggedIn extends Activity {
 		Button Logout = (Button)findViewById(R.id.studentLogoutBtn);
 		Button StartLesson = (Button)findViewById(R.id.startLessonBtn);
 		
-		final Bundle extras = getIntent().getExtras();
-		String studentSelected ="";
-		String teacherEmail = "";
-    	if (extras != null) {
-		    studentSelected = extras.getString("studentName");
-		    teacherEmail = extras.getString("email");
-		}
-    	
-    	final String tmpStudent = studentSelected; 
-    	final String tmpEmail = teacherEmail;
 		
 		Logout.setOnClickListener(new View.OnClickListener()
         {
@@ -42,22 +34,28 @@ public class StudentLoggedIn extends Activity {
         {
             public void onClick(View v)
             {	
-            	
-            	AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-						StudentLoggedIn.this);
-				alertDialogBuilder.setTitle("Current Lesson is");
-				Database db = new Database(StudentLoggedIn.this);
-				db.open();
-				String Lesson = db.getStudentNextLesson(tmpStudent, tmpEmail);
-				alertDialogBuilder.setMessage(Lesson);
-				alertDialogBuilder.setNeutralButton("Ok",new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,int id) {
-						Intent i = new Intent(getApplicationContext(), Start.class);
-		            	startActivity(i);
-					}
-				  });
-				AlertDialog alertDialog = alertDialogBuilder.create();
-				alertDialog.show();
+            	Bundle extras = getIntent().getExtras();
+    			String studentSelected ="";
+    			String teacherEmail = "";
+        		if (extras != null) {
+    		    	studentSelected = extras.getString("studentName");
+    		    	teacherEmail = extras.getString("email");
+    			}
+        		Database db = new Database(StudentLoggedIn.this);
+        		db.open();
+        		String lesson = db.getStudentNextLesson(studentSelected, teacherEmail);
+        		db.close(); 
+            	Dialog d = new Dialog(StudentLoggedIn.this);
+    			d.setTitle("Next Lesson is");
+    			TextView tv = new TextView(StudentLoggedIn.this);
+    			tv.setText(lesson);
+    			d.setContentView(tv);
+    			d.show();
+    			/*
+            	Intent i = new Intent(getApplicationContext(), Test.class);
+            	startActivity(i);
+            	*/
+            
             }
         });
 	}
