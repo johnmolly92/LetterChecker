@@ -1,7 +1,5 @@
 package com.example.letterchecker;
 
-import com.example.letterchecker.Lesson.OurView;
-
 import android.os.Bundle;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
