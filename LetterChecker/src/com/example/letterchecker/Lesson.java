@@ -22,9 +22,8 @@ import android.widget.LinearLayout;
 public class Lesson extends Activity {
 
 	OurView view;
-	public Paint paint = new Paint();
-	public Path path = new Path();
-	//float x,y;
+	//public Paint paint = new Paint();
+	//public Path path = new Path();
 	
 	
 	@Override
@@ -36,20 +35,6 @@ public class Lesson extends Activity {
 		setContentView(view);
 	}
 
-	/*@Override
-	protected void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
-		view.pause();
-	}*/
-
-	/*@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		view.resume();
-	}*/
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -58,13 +43,11 @@ public class Lesson extends Activity {
 	}
 	
 	public class OurView extends View {
-	 
-		
 
 		Thread t = null;
 		SurfaceHolder holder;
 		boolean okToRun = false;
-		//
+	
 		private Paint paint = new Paint();
 		private Paint red = new Paint();
 		private Paint green = new Paint();
@@ -84,17 +67,12 @@ public class Lesson extends Activity {
 		RectF end = new RectF();
 		RectF mid1 = new RectF();
 		
-		
-		
 		public LayoutParams params;
 		LinearLayout parentLinearLayout;
-		//
+		
 		public OurView(Context context) {
 		//Constructor
 			super(context);
-			//holder = getHolder();
-			
-			//params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			
 			paint.setAntiAlias(true);
 			paint.setColor(Color.BLACK);
@@ -110,26 +88,22 @@ public class Lesson extends Activity {
 			black.setStyle(Paint.Style.FILL);
 			
 			parentLinearLayout = new LinearLayout(context);
-			
-			
 		}
-		
-		
 		
 		@Override
 		protected void onDraw(Canvas canvas) {
 			// TODO Auto-generated method stub
 			super.onDraw(canvas);
 			
-			start.set(50, 325, 100, 375);
-			end.set(350,325,400,375);
-			mid1.set(200,325,250,375);
+			start.set(canvas.getWidth()/8-20, canvas.getHeight()/2-20, canvas.getWidth()/8+20, canvas.getHeight()/2+20);
+			mid1.set(canvas.getWidth()/2-20, canvas.getHeight()/2-20, canvas.getWidth()/2+20, canvas.getHeight()/2+20);
+			end.set((canvas.getWidth()/8*7)-20,canvas.getHeight()/2-20,(canvas.getWidth()/8*7)+20,canvas.getHeight()/2+20);
 			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
 			
 			if(startBool == true && middle1 == true && endBool == true){
 				canvas.drawRect(ourRect, blue);
 			}
-			//canvas.drawRect(ourRect, blue);
+			
 			canvas.drawRect(start, green);
 			canvas.drawRect(end,red);
 			canvas.drawRect(mid1, black);
@@ -137,64 +111,23 @@ public class Lesson extends Activity {
 			//canvas.drawCircle((canvas.getWidth()/3)*2, canvas.getHeight()/2, 20, red);
 			//canvas.drawRect(100, 150, 120, 170, green);
 			
-			
-			
-			if(x0 > 50 && x0 < 100 && y0 > 325 && y0 < 375){
+			if((x0 > canvas.getWidth()/8-20) && (x0 < canvas.getWidth()/8+20) && (y0 > canvas.getHeight()/2-20) 
+					&& (y0 < canvas.getHeight()/2+20)){
 				startBool = true;
 			}
-			if(startBool == true && x0 > 200 && x0 < 250 && y0 > 325 && y0 < 375){
+			if(startBool == true && (x0 > canvas.getWidth()/2-20) && (x0 < canvas.getWidth()/2+20) 
+					&& (y0 > canvas.getHeight()/2-20) && (y0 < canvas.getHeight()/2+20)){
 				middle1 = true;
 			}
-			if(startBool == true && middle1 == true && x0 > 350 && x0 < 400 && y0 > 325 && y0 < 375){
+			if(startBool == true && middle1 == true && x0 > ((canvas.getWidth()/8*7)-20) && x0 < ((canvas.getWidth()/8*7)+20) 
+					&& y0 > (canvas.getHeight()/2-20) && y0 < (canvas.getHeight()/2+20)){
 				endBool = true;
 			}
 			
-			
-			
-			
-			
-			
-			canvas.drawPath(path, paint);
-			
-			/*if(start.contains(x, y));{
-				canvas.drawRect(ourRect, blue);
-			}*/
-			/*if(path.isRect(start)){
-				path.reset();
-			}*/
-			
-			
-			
-			
+			canvas.drawPath(path, paint);	
 		}
 
-
-
-		/*public void run() {
-		//First method run when thread starts
-			//Draw guide circles
-			Canvas c = holder.lockCanvas();
-			c.drawColor(Color.BLACK);
-			c.drawCircle(10,10,50,paint);
-			holder.unlockCanvasAndPost(c);
-			
-			while(okToRun == true){
-				// draw to canvas
-				if(!holder.getSurface().isValid()){
-					continue;
-				}
-				
-				holder.lockCanvas();
-				c.drawARGB(255, 0, 50, 255);
-				c.drawPath(path, paint);
-				holder.unlockCanvasAndPost(c);
-				
-			}
-		}*/
-		
-		
-		
-		public void pause() {
+	/*	public void pause() {
 			okToRun = false;
 			while(true){
 				try{
