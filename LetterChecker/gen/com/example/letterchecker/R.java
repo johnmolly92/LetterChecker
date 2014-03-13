@@ -27,7 +27,6 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-<<<<<<< HEAD
         public static final int ChooseLessonsPartTwoLV=0x7f090004;
         public static final int ChooseLessonsStudentLV=0x7f090003;
         public static final int LogoutBtn=0x7f09001c;
@@ -79,7 +78,6 @@ public final class R {
         public static final int activity_student_login=0x7f03000c;
         public static final int activity_teacher_logged_in=0x7f03000d;
         public static final int activity_teacher_login=0x7f03000e;
-=======
         public static final int LogoutBtn=0x7f09001b;
         public static final int RegisterBtn=0x7f09000f;
         public static final int StudentLoginBtn=0x7f09000d;
@@ -130,12 +128,10 @@ public final class R {
         public static final int activity_teacher_logged_in=0x7f03000c;
         public static final int activity_teacher_login=0x7f03000d;
         public static final int activity_triangle=0x7f03000e;
->>>>>>> FETCH_HEAD
         public static final int activity_view_students=0x7f03000f;
     }
     public static final class menu {
         public static final int add_student=0x7f080000;
-<<<<<<< HEAD
         public static final int choose_lessons=0x7f080001;
         public static final int choose_lessons_part_two=0x7f080002;
         public static final int drawing_board=0x7f080003;
@@ -174,7 +170,6 @@ public final class R {
         public static final int title_activity_teacher_logged_in=0x7f050008;
         public static final int title_activity_teacher_login=0x7f050004;
         public static final int title_activity_view_students=0x7f05000b;
-=======
         public static final int drawing_board=0x7f080001;
         public static final int lesson=0x7f080002;
         public static final int list_of_students=0x7f080003;
@@ -213,7 +208,6 @@ public final class R {
         public static final int title_activity_teacher_login=0x7f060004;
         public static final int title_activity_triangle=0x7f060012;
         public static final int title_activity_view_students=0x7f06000b;
->>>>>>> FETCH_HEAD
     }
     public static final class style {
         /** 
