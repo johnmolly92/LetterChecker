@@ -37,12 +37,27 @@
         android:text="Register" />
 
     <Button
-        android:id="@+id/lessonBtn"
+        android:id="@+id/squareBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/triangleBtn"
+        android:layout_alignParentRight="true"
+        android:text="Square" />
+
+    <Button
+        android:id="@+id/triangleBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/RegisterBtn"
+        android:layout_marginTop="34dp"
+        android:text="Triangle" />
+
+    <Button
+        android:id="@+id/lessonBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/squareBtn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
-        android:text="Lesson" />
+        android:text="Line" />
 
 </RelativeLayout>

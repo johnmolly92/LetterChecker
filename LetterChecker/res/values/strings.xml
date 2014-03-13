@@ -19,6 +19,7 @@
     <string name="title_activity_list_of_students">ListOfStudents</string>
     <string name="title_activity_lesson">Lesson</string>
     <string name="title_activity_drawing_board">DrawingBoard</string>
+<<<<<<< HEAD
     <string name="title_activity_choose_lessons">ChooseLessons</string>
     <string name="title_activity_choose_lessons_part_two">ChooseLessonsPartTwo</string>
     
@@ -55,5 +56,9 @@
     </string-array>
     
 
+=======
+    <string name="title_activity_triangle">Triangle</string>
+    <string name="title_activity_square">Square</string>
+>>>>>>> FETCH_HEAD
 
 </resources>
