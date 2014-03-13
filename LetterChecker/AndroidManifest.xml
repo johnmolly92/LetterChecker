@@ -79,6 +79,14 @@
             android:label="@string/title_activity_drawing_board" >
         </activity>
         <activity
+            android:name="com.example.letterchecker.ChooseLessons"
+            android:label="@string/title_activity_choose_lessons" >
+        </activity>
+        <activity
+            android:name="com.example.letterchecker.ChooseLessonsPartTwo"
+            android:label="@string/title_activity_choose_lessons_part_two" >
+        </activity>
+		<activity
             android:name="com.example.letterchecker.Triangle"
             android:label="@string/title_activity_triangle" >
         </activity>

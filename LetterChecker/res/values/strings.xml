@@ -19,7 +19,46 @@
     <string name="title_activity_list_of_students">ListOfStudents</string>
     <string name="title_activity_lesson">Lesson</string>
     <string name="title_activity_drawing_board">DrawingBoard</string>
+<<<<<<< HEAD
+    <string name="title_activity_choose_lessons">ChooseLessons</string>
+    <string name="title_activity_choose_lessons_part_two">ChooseLessonsPartTwo</string>
+    
+    <string-array name = "LessonsArray">
+        <item>line</item>
+        <item>square</item>
+        <item>triangle</item>
+        <item>a</item>
+        <item>b</item>
+        <item>c</item>
+        <item>d</item>
+        <item>e</item>
+        <item>f</item>
+        <item>g</item>
+        <item>h</item>
+        <item>i</item>
+        <item>j</item>
+        <item>k</item>
+        <item>l</item>
+        <item>m</item>
+        <item>n</item>
+        <item>o</item>
+        <item>p</item>
+        <item>q</item>
+        <item>r</item>
+        <item>s</item>
+        <item>t</item>
+        <item>u</item>
+        <item>v</item>
+        <item>w</item>
+        <item>x</item>
+        <item>y</item>
+        <item>z</item>
+    </string-array>
+    
+
+=======
     <string name="title_activity_triangle">Triangle</string>
     <string name="title_activity_square">Square</string>
+>>>>>>> FETCH_HEAD
 
 </resources>
