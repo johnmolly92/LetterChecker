@@ -40,16 +40,13 @@ public class TeacherLoggedIn extends Activity {
         {
             public void onClick(View v)
             {
-            	/*
-            	Intent i = new Intent(getApplicationContext(), .class);
+            	Intent i = new Intent(getApplicationContext(), ChooseLessons.class);
             	String email ="";
             	if (extras != null) {
         		    email = extras.getString("email");
         		}
             	i.putExtra("email", email);
-            	startActivity(i);
-            	*/
-            	
+            	startActivity(i);	
             }
         });
 		

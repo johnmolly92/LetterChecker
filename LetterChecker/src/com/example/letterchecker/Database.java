@@ -77,6 +77,7 @@ public class Database{
 			// TODO Auto-generated method stub
 			db.execSQL(" DROP TABLE IF EXISTS " + DATABASE_TABLE);
 			db.execSQL(" DROP TABLE IF EXISTS " + DATABASE_S_TABLE);
+			db.execSQL(" DROP TABLE IF EXISTS " + DATABASE_R_TABLE);
 			onCreate(db);
 		}
 	}
@@ -116,6 +117,13 @@ public class Database{
 		
 	}
 
+	public long createReportEntry(int studentId, int mark, int complete){
+		ContentValues cv = new ContentValues();
+		cv.put(KEY_R_STUDENTID, studentId);
+		cv.put(KEY_R_MARK, mark);
+		cv.put(KEY_R_COMPLETE, complete);
+		return myDatabase.insert(DATABASE_R_TABLE, null, cv);
+	}
 	
 	public String[] getTeacherInfo() throws SQLException {
 		String columns[] = new String[]{ KEY_ROWID, KEY_NAME, KEY_EMAIL, KEY_PASSWORD};
@@ -215,6 +223,12 @@ public class Database{
 		c.close();
 		String [] results = list.toArray(new String[list.size()]);
 		return results;
+		
+	}
+
+	public void changeNextLesson(String tmpStudent, String tmpEmail,
+			int intLesson) {
+		//myDatabase.execSQL("UPDATE " + DATABASE_S_TABLE + )
 		
 	}
 }
