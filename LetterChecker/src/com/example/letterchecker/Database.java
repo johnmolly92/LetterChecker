@@ -27,6 +27,12 @@ public class Database{
 	public static final String KEY_S_TEACHER_EMAIL = "foreign_key";
 	public static final String KEY_S_NEXT_LESSON = "next_lesson";
 	
+	private static final String DATABASE_R_TABLE = "report_table";
+	public static final String KEY_R_ROWID = "_id";
+	public static final String KEY_R_STUDENTID = "student_fk";   
+	public static final String KEY_R_MARK = "mark";
+	public static final String KEY_R_COMPLETE = "complete";
+	
 	
 	private static final String DATABASE_NAME = "letter_checker_db";
 	private static final int DATABASE_VERSION = 1;
@@ -57,6 +63,12 @@ public class Database{
 							KEY_S_NAME + " TEXT NOT NULL, " +
 							KEY_S_TEACHER_EMAIL + " TEXT NOT NULL, " +
 							KEY_S_NEXT_LESSON + " INTEGER);"
+							);
+				db.execSQL("CREATE TABLE " + DATABASE_R_TABLE + " (" +
+							KEY_R_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+							KEY_R_STUDENTID + " INTEGER, " +
+							KEY_R_MARK + " INTEGER, " + 
+							KEY_R_COMPLETE + " INTEGER);"
 							);
 		}
 
