@@ -1,7 +1,6 @@
 package com.example.letterchecker;
 
 import android.os.Bundle;
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Context;
 
@@ -13,23 +12,17 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.Menu;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
 import android.view.View;
-import android.widget.LinearLayout;
 
 public class Lesson extends Activity {
 
 	OurView view;
-	//public Paint paint = new Paint();
-	//public Path path = new Path();
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lesson);
 		view = new OurView(this);
-		//view.setOnTouchListener(this);
 		setContentView(view);
 	}
 
@@ -100,9 +93,6 @@ public class Lesson extends Activity {
  			canvas.drawRect(start, green);
 			canvas.drawRect(end,red);
 			canvas.drawRect(mid1, black);
-			//canvas.drawCircle(canvas.getWidth()/3, canvas.getHeight()/2, 20, green);
-			//canvas.drawCircle((canvas.getWidth()/3)*2, canvas.getHeight()/2, 20, red);
-			//canvas.drawRect(100, 150, 120, 170, green);
 			
 			if((x0 > canvas.getWidth()/8-20) && (x0 < canvas.getWidth()/8+20) && (y0 > canvas.getHeight()/2-20) 
 					&& (y0 < canvas.getHeight()/2+20)){

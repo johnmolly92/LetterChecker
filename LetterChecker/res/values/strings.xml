@@ -57,5 +57,8 @@
     <string name="title_activity_triangle">Triangle</string>
     <string name="title_activity_square">Square</string>
     <string name="title_activity_test">Test</string>
+    <string name="title_activity_line">Line</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_letter">LetterA</string>
 
 </resources>
