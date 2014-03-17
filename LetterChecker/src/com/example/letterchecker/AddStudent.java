@@ -30,21 +30,23 @@ public class AddStudent extends Activity {
 			public void onClick(View v){
 				String n = name.getText().toString();
 				boolean didItWork=true;
+				boolean validData=true;
+				if(n.equals("")){
+					validData=false;
+					didItWork=false;
+				}
 				try{
-					Database entry = new Database(AddStudent.this);
-					entry.open();
-					String email ="";
-	            	if (extras != null) {
-	        		    email = extras.getString("email");
-	        		}
-					entry.createStudentEntry(n, email, 0);
-					entry.close();
-					
-					/*
-					Intent i = new Intent(getApplicationContext(), TeacherLoggedIn.class);
-					i.putExtra("email", email);
-	            	startActivity(i);
-	            	*/
+					if(validData){
+						Database entry = new Database(AddStudent.this);
+						entry.open();
+						String email ="";
+						if (extras != null) {
+							email = extras.getString("email");
+						}
+						entry.createStudentEntry(n, email, 0);
+						entry.close();
+					}
+
 				}
 				catch(Exception ex){
 					didItWork=false;
@@ -62,6 +64,25 @@ public class AddStudent extends Activity {
 								AddStudent.this);
 						alertDialogBuilder.setTitle("Student Added to Class");
 						alertDialogBuilder.setMessage("Click Ok to return to Homepage");
+						alertDialogBuilder.setNeutralButton("Ok",new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int id) {
+								String email ="";
+				            	if (extras != null) {
+				        		    email = extras.getString("email");
+				        		}
+								Intent i = new Intent(getApplicationContext(), TeacherLoggedIn.class);
+								i.putExtra("email", email);
+				            	startActivity(i);
+							}
+						  });
+						AlertDialog alertDialog = alertDialogBuilder.create();
+						alertDialog.show();
+					}
+					else{
+						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+								AddStudent.this);
+						alertDialogBuilder.setTitle("Unable to Add Student to Class");
+						alertDialogBuilder.setMessage("Please try again later, Click Ok to return to Homepage");
 						alertDialogBuilder.setNeutralButton("Ok",new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) {
 								String email ="";
