@@ -12,7 +12,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
@@ -38,9 +37,7 @@ public class Triangle extends Activity {
 	}
 	
 	public class OurView extends View {
-		Thread t = null;
-		SurfaceHolder holder;
-		boolean okToRun = false;
+		
 	
 		private Paint paint = new Paint();
 		private Paint red = new Paint();
@@ -69,8 +66,7 @@ public class Triangle extends Activity {
 		RectF mid5 = new RectF();
 		RectF end = new RectF();
 		
-		public LayoutParams params;
-		LinearLayout parentLinearLayout;
+		
 		
 		public OurView(Context context) {
 			//Constructor
@@ -84,12 +80,12 @@ public class Triangle extends Activity {
 				red.setColor(Color.RED);
 				green.setColor(Color.GREEN);
 				green.setStyle(Paint.Style.FILL);
-				blue.setColor(Color.CYAN);
+				blue.setColor(Color.YELLOW);
 				blue.setStyle(Paint.Style.FILL); 
 				black.setColor(Color.BLACK);
 				black.setStyle(Paint.Style.FILL);
 				
-				parentLinearLayout = new LinearLayout(context);
+				
 		}
 		
 		@Override
@@ -146,7 +142,6 @@ public class Triangle extends Activity {
 			if((x0 > canvas.getWidth()/2-20) && (x0 < canvas.getWidth()/2+20) 
 					&& (y0 > canvas.getHeight()/3*2-20) && (y0 < canvas.getHeight()/3*2+20)){
 				middle1 = true;
-				canvas.drawRect(end,red);
 			}
 			
 			//middle2

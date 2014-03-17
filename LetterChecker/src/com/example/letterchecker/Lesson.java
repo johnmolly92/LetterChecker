@@ -42,9 +42,7 @@ public class Lesson extends Activity {
 	
 	public class OurView extends View {
 
-		Thread t = null;
-		SurfaceHolder holder;
-		boolean okToRun = false;
+		
 	
 		private Paint paint = new Paint();
 		private Paint red = new Paint();
@@ -65,9 +63,6 @@ public class Lesson extends Activity {
 		RectF end = new RectF();
 		RectF mid1 = new RectF();
 		
-		public LayoutParams params;
-		LinearLayout parentLinearLayout;
-		
 		public OurView(Context context) {
 		//Constructor
 			super(context);
@@ -80,12 +75,12 @@ public class Lesson extends Activity {
 			red.setColor(Color.RED);
 			green.setColor(Color.GREEN);
 			green.setStyle(Paint.Style.FILL);
-			blue.setColor(Color.CYAN);
+			blue.setColor(Color.YELLOW);
 			blue.setStyle(Paint.Style.FILL); 
 			black.setColor(Color.BLACK);
 			black.setStyle(Paint.Style.FILL);
 			
-			parentLinearLayout = new LinearLayout(context);
+			
 		}
 		
 		@Override
