@@ -26,7 +26,7 @@ public class ListOfStudents extends Activity {
     	if (extras != null) {
 		    teacherName = extras.getString("name");
 		}
-    	
+    	final String tmpTeacherEmail = teacherName;
     	try{
 			Database info = new Database(this);
 			info.open();
@@ -41,7 +41,9 @@ public class ListOfStudents extends Activity {
 						int position, long id) {
 					String studentName = ((TextView)view).getText().toString();
 					Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
-					i.putExtra("studentName", studentName);
+					extras.putString("studentName", studentName);
+					extras.putString("email", getTeacherEmail(tmpTeacherEmail));
+					i.putExtras(extras);
 					startActivity(i);
 					
 				}

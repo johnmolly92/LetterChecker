@@ -96,8 +96,42 @@ public class Database{
 		myHelper.close();
 	}
 	
+	
 	public void deleteStudent(String studentName, String teacherEmail) throws SQLException{
-		myDatabase.delete(DATABASE_S_TABLE, KEY_S_NAME + "=" + studentName, null);
+		String[] array = getStudentInfo();
+		String row, name, email, lesson;
+		int rowToBeDeleted=-1;
+		for(int i=0; i<array.length; i=i+4){
+			row = array[i];
+			name= array[i+1];
+			email = array[i+2];
+			lesson = array[i+3];
+			if(studentName.equals(name) && teacherEmail.equals(email)){
+				rowToBeDeleted=Integer.parseInt(row);
+				i = array.length + 1;
+			}
+		}
+		myDatabase.delete(DATABASE_S_TABLE, KEY_S_ROWID + "=" + rowToBeDeleted, null);
+	}
+	
+	public void changeNextLesson(String studentName, String teacherEmail,int intLesson) throws SQLException {
+		//get student row
+		String[] array = getStudentInfo();
+		String row, name, email, lesson;
+		int rowToBeUpdated=-1;
+		for(int i=0; i<array.length; i=i+4){
+			row = array[i];
+			name= array[i+1];
+			email = array[i+2];
+			lesson = array[i+3];
+			if(studentName.equals(name) && teacherEmail.equals(email)){
+				rowToBeUpdated=Integer.parseInt(row);
+				i = array.length + 1;
+			}
+		}
+		ContentValues cv = new ContentValues();
+		cv.put(KEY_S_NEXT_LESSON, intLesson);
+		myDatabase.update(DATABASE_S_TABLE, cv, KEY_S_ROWID + "=" + rowToBeUpdated, null);
 	}
 
 	public long createEntry(String n, String e, String p) throws SQLException{
@@ -108,7 +142,7 @@ public class Database{
 		 return myDatabase.insert(DATABASE_TABLE, null, cv);
 	}
 	
-	public long createStudentEntry(String n, String e, int l){
+	public long createStudentEntry(String n, String e, int l) throws SQLException{
 		ContentValues cv = new ContentValues();
 		cv.put(KEY_S_NAME, n);
 		cv.put(KEY_S_TEACHER_EMAIL, e);
@@ -117,7 +151,7 @@ public class Database{
 		
 	}
 
-	public long createReportEntry(int studentId, int mark, int complete){
+	public long createReportEntry(int studentId, int mark, int complete) throws SQLException{
 		ContentValues cv = new ContentValues();
 		cv.put(KEY_R_STUDENTID, studentId);
 		cv.put(KEY_R_MARK, mark);
@@ -146,6 +180,7 @@ public class Database{
 	}
 	
 	//returns an array of teacher names
+	/*
 	public String[] getTeacherNames() throws SQLException {
 		String columns[] = new String[]{ KEY_ROWID, KEY_NAME, KEY_EMAIL, KEY_PASSWORD};
 		Cursor c = myDatabase.query(DATABASE_TABLE, columns, null, null, null, null, null);
@@ -165,6 +200,23 @@ public class Database{
 		String[] results = list.toArray(new String[list.size()]);
 		return results;
 	}
+	*/
+	
+	public String[] getTeacherNames() throws SQLException{
+		String[] tmp = getTeacherInfo();
+		ArrayList<String> list = new ArrayList<String>();
+		String row, name, email, password;
+		for(int i=0; i<tmp.length; i=i+4){
+			row = tmp[i];
+			name = tmp[i+1];
+			email = tmp[i+2];
+			password = tmp[1+3];
+			list.add(name);
+		}
+		String[] results = list.toArray(new String[list.size()]);
+		return results;	
+	}
+	
 	
 	//returns an array of login info eg {email,password,email,password....}
 	public String[] getTeacherLoginInfo() throws SQLException{
@@ -185,6 +237,25 @@ public class Database{
 		String [] results = list.toArray(new String[list.size()]);
 		return results;
 	}
+	//returns an array of login info eg {email,password,email,password....}
+	/*
+	public String[] getTeacherLoginInfo() throws SQLException{
+		String[] tmp = getTeacherInfo();
+		ArrayList<String> list = new ArrayList<String>();
+		String row, name, email, password;
+		for(int i=0; i<tmp.length; i=i+4){
+			row = tmp[i];
+			name = tmp[i+1];
+			email = tmp[i+2];
+			password = tmp[1+3];
+			list.add(email);
+			list.add(password);
+		}
+		String[] results = list.toArray(new String[list.size()]);
+		return results;	
+	}
+	*/
+	
 	
 	public String[] getStudentInfo() throws SQLException{
 		String columns[] = new String[]{ KEY_S_ROWID, KEY_S_NAME, KEY_S_TEACHER_EMAIL, KEY_S_NEXT_LESSON};
@@ -206,7 +277,7 @@ public class Database{
 		
 	}
 	
-	public String[] getStudentNames() throws SQLException{
+	/*public String[] getStudentNames() throws SQLException{
 		String columns[] = new String[]{ KEY_S_ROWID, KEY_S_NAME, KEY_S_TEACHER_EMAIL, KEY_S_NEXT_LESSON};
 		Cursor c = myDatabase.query(DATABASE_S_TABLE, columns, null, null, null, null, null);
 		ArrayList<String> list = new ArrayList<String>();
@@ -225,11 +296,38 @@ public class Database{
 		return results;
 		
 	}
+	*/
+	
+	public String[] getStudentNames()throws SQLException{
+		String[] tmp = getStudentInfo();
+		ArrayList<String> list = new ArrayList<String>();
+		String row, name, email, lesson;
+		for(int i=0; i<tmp.length; i=i+4){
+			row = tmp[i];
+			name = tmp[i+1];
+			email = tmp[i+2];
+			lesson = tmp[1+3];
+			list.add(name);
+		}
+		String[] results = list.toArray(new String[list.size()]);
+		return results;
+	}
 
-	public void changeNextLesson(String tmpStudent, String tmpEmail,
-			int intLesson) {
-		//myDatabase.execSQL("UPDATE " + DATABASE_S_TABLE + )
-		
+	public String getStudentNextLesson(String studentName, String teacherEmail){
+		String[] tmp = getStudentInfo();
+		String row, name, email, lesson;
+		String result="";
+		for(int i=0; i<tmp.length; i=i+4){
+			row = tmp[i];
+			name = tmp[i+1];
+			email = tmp[i+2];
+			lesson = tmp[i+3];
+			if(name.equals(studentName) && email.equals(teacherEmail)){
+				result = lesson;
+				i = tmp.length + 1;
+			}
+		}
+		return result;
 	}
 }
 
