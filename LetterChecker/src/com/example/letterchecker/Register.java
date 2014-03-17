@@ -32,23 +32,26 @@ public class Register extends Activity {
 		{
 
 			public void onClick(View v) {
+				boolean didItWork = true;
+				boolean validData = true;
 				String n = name.getText().toString();
 				String e = email.getText().toString();
 				String p = password.getText().toString();
-				boolean didItWork = true;
+				if(n.equals("") || e.equals("") || p.equals("")){
+					didItWork = false;
+					validData = false;
+				}
 				long test;
 				String output="";
 				
 				try{
-				
-					Database entry = new Database(Register.this);
-				
-					entry.open();
-					test = entry.createEntry(n,e,p);
-					output = String.valueOf(test);
-					
-				
-					entry.close();
+					if(validData){
+						Database entry = new Database(Register.this);			
+						entry.open();
+						test = entry.createEntry(n,e,p);
+						output = String.valueOf(test);
+						entry.close();
+					}
 				}
 				catch(Exception ex){
 					didItWork = false;

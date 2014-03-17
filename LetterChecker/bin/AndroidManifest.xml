@@ -110,6 +110,14 @@
             android:name="com.example.letterchecker.LetterA"
             android:label="@string/title_activity_letter" >
         </activity>
+        <activity
+            android:name="com.example.letterchecker.ViewResults"
+            android:label="View Results" >
+        </activity>
+        <activity
+            android:name="com.example.letterchecker.ViewResultsPartTwo"
+            android:label="View Results" >
+        </activity>
     </application>
 
 </manifest>

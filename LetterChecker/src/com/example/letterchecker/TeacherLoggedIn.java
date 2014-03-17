@@ -54,15 +54,14 @@ public class TeacherLoggedIn extends Activity {
         {
             public void onClick(View v)
             {
-            	/*
-            	Intent i = new Intent(getApplicationContext(), RemoveStudent.class);
+            	Intent i = new Intent(getApplicationContext(), ViewResults.class);
             	String email ="";
             	if (extras != null) {
         		    email = extras.getString("email");
         		}
             	i.putExtra("email", email);
             	startActivity(i);
-            	*/
+       
             	
             }
         });
