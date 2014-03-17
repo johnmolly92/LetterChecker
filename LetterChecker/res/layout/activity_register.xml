@@ -9,34 +9,33 @@
 
     <EditText
         android:id="@+id/nameRegister"
-        android:layout_width="match_parent"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_marginTop = "40dp"
         android:hint="name.."
-         >
+        android:inputType="textPersonName" >
 
         <requestFocus />
     </EditText>
 
     <EditText
         android:id="@+id/emailRegister"
-        android:layout_width="match_parent"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        android:layout_marginTop = "20dp"
-        android:hint="email.." />
+        android:hint="email.."
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/passwordRegister"
-        android:layout_width="match_parent"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:ems="10"
-        android:inputType="textPassword" 
-        android:layout_marginTop = "20dp"
-        android:hint="password.."/>
+        android:hint="password.."
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/registerBtn"

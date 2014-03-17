@@ -28,11 +28,11 @@
         </activity>
         <activity
             android:name="com.example.letterchecker.TeacherLogin"
-            android:label="@string/title_activity_teacher_login" >
+            android:label="Teacher Login" >
         </activity>
         <activity
             android:name="com.example.letterchecker.Register"
-            android:label="@string/title_activity_register" >
+            android:label="Registration" >
         </activity>
         <activity
             android:name="com.example.letterchecker.ShowClassNames"
@@ -40,35 +40,35 @@
         </activity>
         <activity
             android:name="com.example.letterchecker.ListOfTeachers"
-            android:label="@string/title_activity_list_of_teachers" >
+            android:label="Choose your Teacher" >
         </activity>
         <activity
             android:name="com.example.letterchecker.TeacherLoggedIn"
-            android:label="@string/title_activity_teacher_logged_in" >
+            android:label="Logged In" >
         </activity>
         <activity
             android:name="com.example.letterchecker.ManageStudents"
-            android:label="@string/title_activity_manage_students" >
+            android:label="Manage Students" >
         </activity>
         <activity
             android:name="com.example.letterchecker.ViewStudents"
-            android:label="@string/title_activity_view_students" >
+            android:label="View Students" >
         </activity>
         <activity
             android:name="com.example.letterchecker.AddStudent"
-            android:label="@string/title_activity_add_student" >
+            android:label="Add Student" >
         </activity>
         <activity
             android:name="com.example.letterchecker.RemoveStudent"
-            android:label="@string/title_activity_remove_student" >
+            android:label="Remove Student" >
         </activity>
         <activity
             android:name="com.example.letterchecker.StudentLoggedIn"
-            android:label="@string/title_activity_student_logged_in" >
+            android:label="Logged In" >
         </activity>
         <activity
             android:name="com.example.letterchecker.ListOfStudents"
-            android:label="@string/title_activity_list_of_students" >
+            android:label="Choose Your Name" >
         </activity>
         <activity
             android:name="com.example.letterchecker.Lesson"
@@ -80,11 +80,11 @@
         </activity>
         <activity
             android:name="com.example.letterchecker.ChooseLessons"
-            android:label="@string/title_activity_choose_lessons" >
+            android:label="Choose Lessons" >
         </activity>
         <activity
             android:name="com.example.letterchecker.ChooseLessonsPartTwo"
-            android:label="@string/title_activity_choose_lessons_part_two" >
+            android:label="Choose Lessons" >
         </activity>
         <activity
             android:name="com.example.letterchecker.Triangle"
