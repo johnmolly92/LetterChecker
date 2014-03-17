@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -71,6 +73,13 @@ public class LetterA extends Activity {
 		RectF mid7 = new RectF();
 		RectF mid8 = new RectF();
 		
+		Bitmap arrow_left;
+		Bitmap arrow_right;
+		Bitmap arrow_up;
+		Bitmap arrow_down;
+		
+		Bitmap a;
+		
 		public OurView(Context context) {
 		//Constructor
 			super(context);
@@ -87,6 +96,12 @@ public class LetterA extends Activity {
 			blue.setStyle(Paint.Style.FILL); 
 			black.setColor(Color.BLACK);
 			black.setStyle(Paint.Style.FILL);
+			
+			arrow_left = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_left);
+			arrow_right = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_right);
+			arrow_up = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_up);
+			arrow_down = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_down);
+			a = BitmapFactory.decodeResource(getResources(), R.drawable.a);
 		}
 		
 		@Override
@@ -112,6 +127,22 @@ public class LetterA extends Activity {
 			if(startBool == true && middle1 == true && middle2 == true && middle3 == true && middle4 == true && 
 					middle5 == true && middle6 == true && middle7 == true && endBool == true){
 				canvas.drawRect(ourRect, blue);
+			}
+			
+			canvas.drawBitmap(a, width/100*40, 10, black);
+			
+			canvas.drawBitmap(arrow_left, width/100*50,height/100*26, black);
+			if(!middle2 == false){
+				canvas.drawBitmap(arrow_down, width/100*10,height/100*55, black);
+			}
+			if(!middle3 == false){
+				canvas.drawBitmap(arrow_right, width/100*48,height/100*78, black);
+			}
+			if(!middle5 == false && middle6 == false){
+				canvas.drawBitmap(arrow_up, width/100*75,height/100*55, black);
+			}
+			if(!middle6 == false){
+				canvas.drawBitmap(arrow_down, width/100*75,height/100*55, black);
 			}
 			
  			canvas.drawRect(start, green);
