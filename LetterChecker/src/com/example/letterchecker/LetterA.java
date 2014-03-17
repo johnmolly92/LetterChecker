@@ -49,6 +49,12 @@ public class LetterA extends Activity {
 		
 		boolean startBool = false;
 		boolean middle1 = false;
+		boolean middle2 = false;
+		boolean middle3 = false;
+		boolean middle4 = false;
+		boolean middle5 = false;
+		boolean middle6 = false;
+		boolean middle7 = false;
 		boolean endBool = false;
 		
 		Rect ourRect = new Rect();
@@ -99,11 +105,14 @@ public class LetterA extends Activity {
 			mid5.set((width/100*65)-10, (height/100*73)-10, (width/100*65)+10, (height/100*73)+10);
 			mid6.set((width/100*70)-10, (height/100*57)-10, (width/100*70)+10, (height/100*57)+10);
 			mid7.set((width/100*73)-10, (height/100*79)-10, (width/100*73)+10, (height/100*79)+10);
-			
-			
 			end.set((width/100*87)-20, (height/100*75)-20, (width/100*87)+20, (height/100*75)+20);
 			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
 			
+			//check drawn correct
+			if(startBool == true && middle1 == true && middle2 == true && middle3 == true && middle4 == true && 
+					middle5 == true && middle6 == true && middle7 == true && endBool == true){
+				canvas.drawRect(ourRect, blue);
+			}
 			
  			canvas.drawRect(start, green);
 			canvas.drawRect(end,red);
@@ -116,20 +125,49 @@ public class LetterA extends Activity {
 			canvas.drawRect(mid7, black);			
 			canvas.drawRect(topLine, black);
 			canvas.drawRect(bottomLine, black);
-			//canvas.drawCircle(canvas.getWidth()/3, canvas.getHeight()/2, 20, green);
-			//canvas.drawCircle((canvas.getWidth()/3)*2, canvas.getHeight()/2, 20, red);
-			//canvas.drawRect(100, 150, 120, 170, green);
 			
-			if((x0 > canvas.getWidth()/8-20) && (x0 < canvas.getWidth()/8+20) && (y0 > canvas.getHeight()/2-20) 
-					&& (y0 < canvas.getHeight()/2+20)){
+			if((x0 > (width/100*75)-20) && (x0 < (width/100*75)+20) && (y0 > (height/100*40)-20) 
+					&& (y0 < (height/100*40)+20)){
 				startBool = true;
 			}
-			if(startBool == true && (x0 > canvas.getWidth()/2-20) && (x0 < canvas.getWidth()/2+20) 
-					&& (y0 > canvas.getHeight()/2-20) && (y0 < canvas.getHeight()/2+20)){
+		
+			if((x0 > (width/100*50)-20) && (x0 < (width/100*50)+20) && (y0 > (height/100*35)-20) 
+					&& (y0 < (height/100*35)+20)){
 				middle1 = true;
 			}
-			if(startBool == true && middle1 == true && x0 > ((canvas.getWidth()/8*7)-20) && x0 < ((canvas.getWidth()/8*7)+20) 
-					&& y0 > (canvas.getHeight()/2-20) && y0 < (canvas.getHeight()/2+20)){
+			
+			if((x0 > (width/100*33)-20) && (x0 < (width/100*33)+20) && (y0 > (height/100*48)-20) 
+					&& (y0 < (height/100*48)+20)){
+				middle2 = true;
+			}
+			
+			if((x0 > (width/100*29)-20) && (x0 < (width/100*29)+20) && (y0 > (height/100*65)-20) 
+					&& (y0 < (height/100*65)+20)){
+				middle3 = true;
+			}
+		
+			if((x0 > (width/100*45)-20) && (x0 < (width/100*45)+20) && (y0 > (height/100*80)-20) 
+					&& (y0 < (height/100*80)+20)){
+				middle4 = true;
+			}
+			
+			if((x0 > (width/100*65)-20) && (x0 < (width/100*65)+20) && (y0 > (height/100*73)-20) 
+					&& (y0 < (height/100*73)+20)){
+				middle5 = true;
+			}
+			
+			if((x0 > (width/100*70)-20) && (x0 < (width/100*70)+20) && (y0 > (height/100*57)-20) 
+					&& (y0 < (height/100*57)+20)){
+				middle6 = true;
+			}
+			
+			if((x0 > (width/100*73)-20) && (x0 < (width/100*73)+20) && (y0 > (height/100*79)-20) 
+					&& (y0 < (height/100*79)+20)){
+				middle7 = true;
+			}
+			
+			if((x0 > (width/100*87)-20) && (x0 < (width/100*87)+20) && (y0 > (height/100*75)-20) 
+					&& (y0 < (height/100*75)+20)){
 				endBool = true;
 			}
 			

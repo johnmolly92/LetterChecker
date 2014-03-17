@@ -93,9 +93,6 @@ public class Lesson extends Activity {
  			canvas.drawRect(start, green);
 			canvas.drawRect(end,red);
 			canvas.drawRect(mid1, black);
-			//canvas.drawCircle(canvas.getWidth()/3, canvas.getHeight()/2, 20, green);
-			//canvas.drawCircle((canvas.getWidth()/3)*2, canvas.getHeight()/2, 20, red);
-			//canvas.drawRect(100, 150, 120, 170, green);
 			
 			if((x0 > canvas.getWidth()/8-20) && (x0 < canvas.getWidth()/8+20) && (y0 > canvas.getHeight()/2-20) 
 					&& (y0 < canvas.getHeight()/2+20)){
