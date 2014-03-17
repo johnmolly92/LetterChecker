@@ -98,6 +98,18 @@
             android:name="com.example.letterchecker.Test"
             android:label="@string/title_activity_test" >
         </activity>
+        <activity
+            android:name="com.example.letterchecker.Line"
+            android:label="@string/title_activity_line" >
+        </activity>
+        <activity
+            android:name="com.example.letterchecker.MainActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
+        <activity
+            android:name="com.example.letterchecker.LetterA"
+            android:label="@string/title_activity_letter" >
+        </activity>
     </application>
 
 </manifest>
