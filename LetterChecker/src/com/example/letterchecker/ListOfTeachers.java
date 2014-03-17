@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.view.Menu;
 
-public class ListOfTeachers extends Activity {
+public class ListOfTeachers extends Activity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

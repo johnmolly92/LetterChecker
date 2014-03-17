@@ -39,40 +39,41 @@ public final class R {
     public static final class id {
         public static final int ChooseLessonsPartTwoLV=0x7f090003;
         public static final int ChooseLessonsStudentLV=0x7f090002;
-        public static final int LogoutBtn=0x7f09001d;
-        public static final int RegisterBtn=0x7f090011;
-        public static final int StudentLoginBtn=0x7f09000f;
-        public static final int TeacherLoginBtn=0x7f090010;
-        public static final int action_settings=0x7f090023;
-        public static final int addStudentsBtn=0x7f090008;
+        public static final int LogoutBtn=0x7f09001c;
+        public static final int RegisterBtn=0x7f090010;
+        public static final int StudentLoginBtn=0x7f09000e;
+        public static final int TeacherLoginBtn=0x7f09000f;
+        public static final int ViewResultsPartTwoLV=0x7f090022;
+        public static final int action_settings=0x7f090024;
+        public static final int addStudentsBtn=0x7f090007;
         public static final int addToClassBtn=0x7f090001;
-        public static final int chooseLessonsBtn=0x7f09001b;
-        public static final int className=0x7f090018;
-        public static final int emailLogin=0x7f09001e;
-        public static final int emailRegister=0x7f09000b;
-        public static final int enterBtn=0x7f090019;
-        public static final int lessonBtn=0x7f090014;
-        public static final int list=0x7f090017;
-        public static final int listView=0x7f090006;
-        public static final int loginBtn=0x7f090020;
-        public static final int manageStudentsBtn=0x7f09001a;
-        public static final int nameRegister=0x7f09000a;
-        public static final int passwordLogin=0x7f09001f;
-        public static final int passwordRegister=0x7f09000c;
-        public static final int registerBtn=0x7f09000d;
-        public static final int removeStudentListview=0x7f09000e;
-        public static final int removeStudentsBtn=0x7f090009;
-        public static final int squareBtn=0x7f090012;
-        public static final int startLessonBtn=0x7f090015;
-        public static final int studentListView=0x7f090022;
-        public static final int studentLogoutBtn=0x7f090016;
+        public static final int chooseLessonsBtn=0x7f09001a;
+        public static final int className=0x7f090017;
+        public static final int emailLogin=0x7f09001d;
+        public static final int emailRegister=0x7f09000a;
+        public static final int enterBtn=0x7f090018;
+        public static final int lessonBtn=0x7f090013;
+        public static final int list=0x7f090016;
+        public static final int listView=0x7f090005;
+        public static final int loginBtn=0x7f09001f;
+        public static final int manageStudentsBtn=0x7f090019;
+        public static final int nameRegister=0x7f090009;
+        public static final int passwordLogin=0x7f09001e;
+        public static final int passwordRegister=0x7f09000b;
+        public static final int registerBtn=0x7f09000c;
+        public static final int removeStudentListview=0x7f09000d;
+        public static final int removeStudentsBtn=0x7f090008;
+        public static final int squareBtn=0x7f090011;
+        public static final int startLessonBtn=0x7f090014;
+        public static final int studentListView=0x7f090023;
+        public static final int studentLogoutBtn=0x7f090015;
         public static final int studentName=0x7f090000;
-        public static final int studentsListviewLogin=0x7f090005;
-        public static final int testLV=0x7f090021;
-        public static final int textView1=0x7f090004;
-        public static final int triangleBtn=0x7f090013;
-        public static final int viewResultsBtn=0x7f09001c;
-        public static final int viewStudentsBtn=0x7f090007;
+        public static final int studentsListviewLogin=0x7f090004;
+        public static final int testLV=0x7f090020;
+        public static final int triangleBtn=0x7f090012;
+        public static final int viewResultsBtn=0x7f09001b;
+        public static final int viewResultsLV=0x7f090021;
+        public static final int viewStudentsBtn=0x7f090006;
     }
     public static final class layout {
         public static final int activity_add_student=0x7f030000;
@@ -94,7 +95,9 @@ public final class R {
         public static final int activity_teacher_login=0x7f030010;
         public static final int activity_test=0x7f030011;
         public static final int activity_triangle=0x7f030012;
-        public static final int activity_view_students=0x7f030013;
+        public static final int activity_view_results=0x7f030013;
+        public static final int activity_view_results_part_two=0x7f030014;
+        public static final int activity_view_students=0x7f030015;
     }
     public static final class menu {
         public static final int add_student=0x7f080000;
@@ -119,7 +122,9 @@ public final class R {
         public static final int teacher_login=0x7f080013;
         public static final int test=0x7f080014;
         public static final int triangle=0x7f080015;
-        public static final int view_students=0x7f080016;
+        public static final int view_results=0x7f080016;
+        public static final int view_results_part_two=0x7f080017;
+        public static final int view_students=0x7f080018;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -147,6 +152,8 @@ public final class R {
         public static final int title_activity_teacher_login=0x7f050004;
         public static final int title_activity_test=0x7f050016;
         public static final int title_activity_triangle=0x7f050014;
+        public static final int title_activity_view_results=0x7f05001a;
+        public static final int title_activity_view_results_part_two=0x7f05001b;
         public static final int title_activity_view_students=0x7f05000b;
     }
     public static final class style {

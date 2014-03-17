@@ -20,7 +20,8 @@
         android:id="@+id/studentLogoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_yellow_button"
+        android:background="@drawable/custom_logout_button"
+        android:textColor="#FFFFFF"
         android:text="Logout" 
         android:layout_marginTop = "20dp"/>
 

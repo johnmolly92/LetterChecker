@@ -31,11 +31,12 @@ public class Database{
 	public static final String KEY_R_ROWID = "_id";
 	public static final String KEY_R_STUDENTID = "student_fk";   
 	public static final String KEY_R_MARK = "mark";
+	public static final String KEY_R_LESSON = "lesson";
 	public static final String KEY_R_COMPLETE = "complete";
 	
 	
 	private static final String DATABASE_NAME = "letter_checker_db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	
 	
 	private DbHelper myHelper;
@@ -67,7 +68,8 @@ public class Database{
 				db.execSQL("CREATE TABLE " + DATABASE_R_TABLE + " (" +
 							KEY_R_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 							KEY_R_STUDENTID + " INTEGER, " +
-							KEY_R_MARK + " INTEGER, " + 
+							KEY_R_MARK + " INTEGER, " +
+							KEY_R_LESSON + " INTEGER, " +
 							KEY_R_COMPLETE + " INTEGER);"
 							);
 		}
@@ -151,10 +153,11 @@ public class Database{
 		
 	}
 
-	public long createReportEntry(int studentId, int mark, int complete) throws SQLException{
+	public long createReportEntry(int studentId, int mark, int lesson, int complete) throws SQLException{
 		ContentValues cv = new ContentValues();
 		cv.put(KEY_R_STUDENTID, studentId);
 		cv.put(KEY_R_MARK, mark);
+		cv.put(KEY_R_LESSON, lesson);
 		cv.put(KEY_R_COMPLETE, complete);
 		return myDatabase.insert(DATABASE_R_TABLE, null, cv);
 	}
@@ -328,6 +331,45 @@ public class Database{
 			}
 		}
 		return result;
+	}
+	
+	public String getStudentRow(String studentName, String teacherEmail){
+		String[] tmp = getStudentInfo();
+		String row, name, email, lesson;
+		String result="";
+		for(int i=0; i<tmp.length; i=i+4){
+			row = tmp[i];
+			name = tmp[i+1];
+			email = tmp[i+2];
+			lesson = tmp[i+3];
+			if(name.equals(studentName) && email.equals(teacherEmail)){
+				result = row;
+				i = tmp.length + 1;
+			}
+		}
+		return result;
+	}
+
+	public String[] getReports(String studentSelected, String teacherEmail) throws SQLException {
+		String studentRow = getStudentRow(studentSelected, teacherEmail);
+		String columns[] = new String[]{ KEY_R_ROWID, KEY_R_STUDENTID, KEY_R_MARK, KEY_R_LESSON, KEY_R_COMPLETE};
+		Cursor c = myDatabase.query(DATABASE_R_TABLE, columns, null, null, null, null, null);
+		ArrayList<String> list = new ArrayList<String>();
+		int iRow = c.getColumnIndex(KEY_R_ROWID);
+		int iStudentID = c.getColumnIndex(KEY_R_STUDENTID);
+		int iMark = c.getColumnIndex(KEY_R_MARK);
+		int iLesson = c.getColumnIndex(KEY_R_LESSON);
+		int iComplete = c.getColumnIndex(KEY_R_COMPLETE);
+		for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+			list.add(c.getString(iRow));
+			list.add(c.getString(iStudentID));
+			list.add(c.getString(iMark));
+			list.add(c.getString(iLesson));
+			list.add(c.getString(iComplete));
+		}
+		c.close();
+		String [] results = list.toArray(new String[list.size()]);
+		return results;
 	}
 }
 
