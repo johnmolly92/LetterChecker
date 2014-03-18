@@ -352,8 +352,7 @@ public class Database{
 		return result;
 	}
 
-	public String[] getReports(String studentSelected, String teacherEmail) throws SQLException {
-		String studentRow = getStudentRow(studentSelected, teacherEmail);
+	public String[] getReports() throws SQLException {
 		String columns[] = new String[]{ KEY_R_ROWID, KEY_R_STUDENTID, KEY_R_MARK, KEY_R_LESSON, KEY_R_COMPLETE};
 		Cursor c = myDatabase.query(DATABASE_R_TABLE, columns, null, null, null, null, null);
 		ArrayList<String> list = new ArrayList<String>();
@@ -371,6 +370,41 @@ public class Database{
 		}
 		c.close();
 		String [] results = list.toArray(new String[list.size()]);
+		return results;
+	}
+	
+	public String[] getReportsForTeacher(String student, String teacherEmail) throws SQLException{
+		String studentRow = getStudentRow(student, teacherEmail);
+		String[] tmp = getReports();
+		ArrayList<String> list = new ArrayList<String>();
+		String row, studentID, mark, lesson, complete;
+		for(int i=0; i<tmp.length; i=i+5){
+			row = tmp[i];
+			studentID = tmp[i+1];
+			mark = tmp[i+2];
+			lesson = tmp[i+3];
+			complete = tmp[i+4];
+			if(studentRow.equals(studentID)){
+				list.add("Report Number: " + row);
+				//list.add("studentId: " + studentID);
+				list.add("Student Name: " + student);
+				list.add("mark: " + mark + "%");
+				if(lesson.equals("0")){
+					list.add("Lesson: Line");
+				}
+				if(lesson.equals("1")){
+					list.add("Lesson: Square");
+				}				
+				if(lesson.equals("2")){
+					list.add("Lesson: Triangle");
+				}
+				if(lesson.equals("3")){
+					list.add("Lesson: letter 'a'");
+				}
+			}
+		}
+		String[] results = list.toArray(new String[list.size()]);
+		//String [] results = tmp;
 		return results;
 	}
 }
