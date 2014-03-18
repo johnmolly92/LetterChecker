@@ -27,7 +27,7 @@ public class ViewResults extends Activity {
 		    teacherEmail = extras.getString("email");
 		    extras.putString("email", teacherEmail);
 		}
-    	
+    	final String tmpTeacherEmail = teacherEmail;
     	try{
 			Database info = new Database(this);
 			info.open();
@@ -43,6 +43,7 @@ public class ViewResults extends Activity {
 					String studentName = ((TextView)view).getText().toString();
 					Intent i = new Intent(getApplicationContext(), ViewResultsPartTwo.class);
 					extras.putString("studentName", studentName);
+					extras.putString("email", tmpTeacherEmail);
 					i.putExtras(extras);
 					startActivity(i);
 					

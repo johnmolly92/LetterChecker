@@ -33,7 +33,7 @@ public class ViewResultsPartTwo extends Activity {
     	try{
     		Database db = new Database(ViewResultsPartTwo.this);
     		db.open();
-    		String[] tmpArray = db.getReports(tmpStudent, tmpEmail);
+    		String[] tmpArray = db.getReportsForTeacher(tmpStudent, tmpEmail);
     		db.close();
     		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,tmpArray);
     		listview.setAdapter(adapter);

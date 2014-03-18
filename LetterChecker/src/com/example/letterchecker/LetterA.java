@@ -53,6 +53,8 @@ public class LetterA extends Activity {
 		float x0 =0;
 		float y0 =0;
 		
+		boolean reportCreated=false;
+		
 		boolean startBool = false;
 		boolean middle1 = false;
 		boolean middle2 = false;
@@ -114,6 +116,7 @@ public class LetterA extends Activity {
 			super.onDraw(canvas);
 			float height = canvas.getHeight();
 			float width = canvas.getWidth();
+			
 			topLine.set(0,(height/100*25)-5,width,(height/100*25)+5);
 			bottomLine.set(0,(height/100*85)-5,width,(height/100*85)+5);
 			start.set((width/100*75)-20, (height/100*40)-20, (width/100*75)+20,(height/100*40)+20);
@@ -129,7 +132,7 @@ public class LetterA extends Activity {
 			
 			//check drawn correct
 			if(startBool == true && middle1 == true && middle2 == true && middle3 == true && middle4 == true && 
-					middle5 == true && middle6 == true && middle7 == true && endBool == true){
+					middle5 == true && middle6 == true && middle7 == true && endBool == true && !reportCreated){
 				canvas.drawRect(ourRect, blue);
 				Bundle extras = getIntent().getExtras();
 				String studentSelected ="";
@@ -145,6 +148,9 @@ public class LetterA extends Activity {
 					db.createReportEntry(studentSelected, teacherEmail, mark, 3, 1);
 					db.close();
 					Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
+					
+					reportCreated = true;
+					
         			extras.putString("studentName", studentSelected);
 					extras.putString("email", teacherEmail);
 					i.putExtras(extras);
@@ -159,7 +165,6 @@ public class LetterA extends Activity {
 					tv.setText(error);
 					d.setContentView(tv);
 					d.show();
-					
 				}
 			}
 			

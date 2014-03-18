@@ -2,7 +2,9 @@ package com.example.letterchecker;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -13,6 +15,7 @@ import android.graphics.RectF;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 public class Lesson extends Activity {
 
@@ -46,6 +49,8 @@ public class Lesson extends Activity {
 		
 		float x0 =0;
 		float y0 =0;
+		
+		boolean reportCreated=false;
 		
 		boolean startBool = false;
 		boolean middle1 = false;
@@ -86,8 +91,39 @@ public class Lesson extends Activity {
 			end.set((canvas.getWidth()/8*7)-20,canvas.getHeight()/2-20,(canvas.getWidth()/8*7)+20,canvas.getHeight()/2+20);
 			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
 			
-			if(startBool == true && middle1 == true && endBool == true){
+			if(startBool == true && middle1 == true && endBool == true && !reportCreated){
 				canvas.drawRect(ourRect, blue);
+				Bundle extras = getIntent().getExtras();
+				String studentSelected ="";
+				String teacherEmail = "";
+				if (extras != null) {
+			    	studentSelected = extras.getString("studentName");
+			    	teacherEmail = extras.getString("email");
+				}
+				try{
+					int mark = 100;
+					Database db = new Database(Lesson.this);
+					db.open();
+					db.createReportEntry(studentSelected, teacherEmail, mark, 0, 1);
+					db.close();
+					Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
+					reportCreated = true;
+        			extras.putString("studentName", studentSelected);
+					extras.putString("email", teacherEmail);
+					i.putExtras(extras);
+                	startActivity(i);
+				}
+				catch(Exception ex){
+					Dialog d = new Dialog(Lesson.this);
+					String error = ex.toString();
+					//String error = studentSelected + " " + teacherEmail;
+					d.setTitle("failed to get data");
+					TextView tv = new TextView(Lesson.this);
+					tv.setText(error);
+					d.setContentView(tv);
+					d.show();
+					
+				}
 			}
 			
  			canvas.drawRect(start, green);
