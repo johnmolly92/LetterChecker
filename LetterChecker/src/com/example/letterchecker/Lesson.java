@@ -50,6 +50,8 @@ public class Lesson extends Activity {
 		float x0 =0;
 		float y0 =0;
 		
+		boolean reportCreated=false;
+		
 		boolean startBool = false;
 		boolean middle1 = false;
 		boolean endBool = false;
@@ -89,7 +91,7 @@ public class Lesson extends Activity {
 			end.set((canvas.getWidth()/8*7)-20,canvas.getHeight()/2-20,(canvas.getWidth()/8*7)+20,canvas.getHeight()/2+20);
 			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
 			
-			if(startBool == true && middle1 == true && endBool == true){
+			if(startBool == true && middle1 == true && endBool == true && !reportCreated){
 				canvas.drawRect(ourRect, blue);
 				Bundle extras = getIntent().getExtras();
 				String studentSelected ="";
@@ -105,6 +107,7 @@ public class Lesson extends Activity {
 					db.createReportEntry(studentSelected, teacherEmail, mark, 0, 1);
 					db.close();
 					Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
+					reportCreated = true;
         			extras.putString("studentName", studentSelected);
 					extras.putString("email", teacherEmail);
 					i.putExtras(extras);

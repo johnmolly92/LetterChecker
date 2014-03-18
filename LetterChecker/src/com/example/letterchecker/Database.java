@@ -36,7 +36,7 @@ public class Database{
 	
 	
 	private static final String DATABASE_NAME = "letter_checker_db";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 	
 	
 	private DbHelper myHelper;
@@ -385,10 +385,9 @@ public class Database{
 			lesson = tmp[i+3];
 			complete = tmp[i+4];
 			if(studentRow.equals(studentID)){
-				list.add("Report Number: " + row);
+				list.add("Report ID: " + row);
 				//list.add("studentId: " + studentID);
 				list.add("Student Name: " + student);
-				list.add("Mark: " + mark + "%");
 				if(lesson.equals("0")){
 					list.add("Lesson: Line");
 				}
@@ -399,8 +398,9 @@ public class Database{
 					list.add("Lesson: Triangle");
 				}
 				if(lesson.equals("3")){
-					list.add("Lesson: letter 'a'");
+					list.add("Lesson: Letter 'a'");
 				}
+				list.add("Mark: " + mark + "%");
 			}
 		}
 		String[] results = list.toArray(new String[list.size()]);

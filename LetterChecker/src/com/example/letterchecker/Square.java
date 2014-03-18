@@ -4,8 +4,10 @@ import com.example.letterchecker.Triangle.OurView;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ActionBar.LayoutParams;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Menu;
 
 import android.graphics.Canvas;
@@ -18,6 +20,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class Square extends Activity {
 
@@ -46,6 +49,8 @@ public class Square extends Activity {
 		private Paint blue = new Paint();
 		private Paint black = new Paint();
 		private Path path = new Path();
+		
+		boolean reportCreated=false;
 		
 		float x0 =0;
 		float y0 =0;
@@ -106,8 +111,39 @@ public class Square extends Activity {
 			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
 			
 			if(startBool == true && middle1 == true && middle2 == true && middle3 == true
-					 && endBool == true ){
+					 && endBool == true && !reportCreated){
 				canvas.drawRect(ourRect, blue);
+				Bundle extras = getIntent().getExtras();
+				String studentSelected ="";
+				String teacherEmail = "";
+				if (extras != null) {
+			    	studentSelected = extras.getString("studentName");
+			    	teacherEmail = extras.getString("email");
+				}
+				try{
+					int mark = 100;
+					Database db = new Database(Square.this);
+					db.open();
+					db.createReportEntry(studentSelected, teacherEmail, mark, 1, 1);
+					db.close();
+					Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
+					reportCreated = true;
+        			extras.putString("studentName", studentSelected);
+					extras.putString("email", teacherEmail);
+					i.putExtras(extras);
+                	startActivity(i);
+				}
+				catch(Exception ex){
+					Dialog d = new Dialog(Square.this);
+					String error = ex.toString();
+					//String error = studentSelected + " " + teacherEmail;
+					d.setTitle("failed to get data");
+					TextView tv = new TextView(Square.this);
+					tv.setText(error);
+					d.setContentView(tv);
+					d.show();
+					
+				}
 			}
 			if(middle1 == false)
 				canvas.drawRect(start, green);
