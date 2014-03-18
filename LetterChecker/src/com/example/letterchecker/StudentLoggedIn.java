@@ -45,12 +45,44 @@ public class StudentLoggedIn extends Activity {
         		db.open();
         		String lesson = db.getStudentNextLesson(studentSelected, teacherEmail);
         		db.close(); 
+        		if(lesson.equals("0")){
+        			Intent i = new Intent(getApplicationContext(), Lesson.class);
+        			extras.putString("studentName", studentSelected);
+					extras.putString("email", teacherEmail);
+					i.putExtras(extras);
+                	startActivity(i);
+        		}
+        		if(lesson.equals("1")){
+        			Intent i = new Intent(getApplicationContext(), Square.class);
+        			extras.putString("studentName", studentSelected);
+					extras.putString("email", teacherEmail);
+					i.putExtras(extras);
+                	startActivity(i);
+        		}
+        		if(lesson.equals("2")){
+        			Intent i = new Intent(getApplicationContext(), Triangle.class);
+        			extras.putString("studentName", studentSelected);
+					extras.putString("email", teacherEmail);
+					i.putExtras(extras);
+                	startActivity(i);
+        		}
+        		if(lesson.equals("3")){
+        			Intent i = new Intent(getApplicationContext(), LetterA.class);
+        			extras.putString("studentName", studentSelected);
+					extras.putString("email", teacherEmail);
+					i.putExtras(extras);
+                	startActivity(i);
+                	
+        		}
+        		
+        		/*
             	Dialog d = new Dialog(StudentLoggedIn.this);
     			d.setTitle("Next Lesson is");
     			TextView tv = new TextView(StudentLoggedIn.this);
     			tv.setText(lesson);
     			d.setContentView(tv);
     			d.show();
+    			*/
     			/*
             	Intent i = new Intent(getApplicationContext(), Test.class);
             	startActivity(i);

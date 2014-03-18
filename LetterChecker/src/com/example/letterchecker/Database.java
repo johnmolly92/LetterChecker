@@ -153,9 +153,11 @@ public class Database{
 		
 	}
 
-	public long createReportEntry(int studentId, int mark, int lesson, int complete) throws SQLException{
+	public long createReportEntry(String studentName, String teacherEmail, int mark, int lesson, int complete) throws SQLException{
 		ContentValues cv = new ContentValues();
-		cv.put(KEY_R_STUDENTID, studentId);
+		String studentRow = getStudentRow(studentName, teacherEmail);
+		int row = Integer.parseInt(studentRow);
+		cv.put(KEY_R_STUDENTID, row);
 		cv.put(KEY_R_MARK, mark);
 		cv.put(KEY_R_LESSON, lesson);
 		cv.put(KEY_R_COMPLETE, complete);
