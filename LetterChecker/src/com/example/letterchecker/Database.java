@@ -388,7 +388,7 @@ public class Database{
 				list.add("Report Number: " + row);
 				//list.add("studentId: " + studentID);
 				list.add("Student Name: " + student);
-				list.add("mark: " + mark + "%");
+				list.add("Mark: " + mark + "%");
 				if(lesson.equals("0")){
 					list.add("Lesson: Line");
 				}
