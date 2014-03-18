@@ -2,7 +2,9 @@ package com.example.letterchecker;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.view.Menu;
@@ -37,6 +39,7 @@ public class ChooseLessonsPartTwo extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long id) {
+				boolean didItWork = true;
 				try{
 					String lesson = ((TextView)view).getText().toString();
 					Database db = new Database(ChooseLessonsPartTwo.this);
@@ -44,11 +47,9 @@ public class ChooseLessonsPartTwo extends Activity {
 					int IntLesson = lessonStringToInt(lesson);
 					db.changeNextLesson(tmpStudent, tmpEmail, IntLesson);
 					db.close();
-					Intent i = new Intent(getApplicationContext(), TeacherLoggedIn.class);
-					i.putExtra("email", tmpEmail);
-					startActivity(i);
 				}
 				catch(Exception ex){
+					didItWork=false;
 					Dialog d = new Dialog(ChooseLessonsPartTwo.this);
 					String error = ex.toString();
 					d.setTitle("failed to get data");
@@ -56,6 +57,35 @@ public class ChooseLessonsPartTwo extends Activity {
 					tv.setText(error);
 					d.setContentView(tv);
 					d.show();
+				}
+				finally{
+					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ChooseLessonsPartTwo.this);
+					Intent i;
+					if(didItWork){
+						alertDialogBuilder.setTitle("Lesson has been assigned to Student");
+						alertDialogBuilder.setMessage("Click Ok to return to Homepage");
+					}
+					else{
+						alertDialogBuilder.setTitle("Lesson could not be assigned to Student");
+						alertDialogBuilder.setMessage("Please try again later");
+					}
+					final boolean whereToGo = didItWork;
+					alertDialogBuilder.setNeutralButton("Ok",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							Intent i;
+							if(whereToGo){
+								i = new Intent(getApplicationContext(), TeacherLoggedIn.class);
+								i.putExtra("email", tmpEmail);
+							}
+							else{
+								i = new Intent(getApplicationContext(), TeacherLoggedIn.class);
+								i.putExtra("email", tmpEmail);
+							}
+				            startActivity(i);
+						}
+					});
+					AlertDialog alertDialog = alertDialogBuilder.create();
+					alertDialog.show();
 				}
 				
 			}
