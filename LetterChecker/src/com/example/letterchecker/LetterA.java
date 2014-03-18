@@ -4,7 +4,9 @@ import com.example.letterchecker.Lesson.OurView;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Menu;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +19,7 @@ import android.graphics.RectF;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 public class LetterA extends Activity {
 
@@ -28,6 +31,7 @@ public class LetterA extends Activity {
 		setContentView(R.layout.activity_letter);
 		view = new OurView(this);
 		setContentView(view);
+		
 	}
 
 	@Override
@@ -127,6 +131,36 @@ public class LetterA extends Activity {
 			if(startBool == true && middle1 == true && middle2 == true && middle3 == true && middle4 == true && 
 					middle5 == true && middle6 == true && middle7 == true && endBool == true){
 				canvas.drawRect(ourRect, blue);
+				Bundle extras = getIntent().getExtras();
+				String studentSelected ="";
+				String teacherEmail = "";
+				if (extras != null) {
+			    	studentSelected = extras.getString("studentName");
+			    	teacherEmail = extras.getString("email");
+				}
+				try{
+					int mark = 100;
+					Database db = new Database(LetterA.this);
+					db.open();
+					db.createReportEntry(studentSelected, teacherEmail, mark, 3, 1);
+					db.close();
+					Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
+        			extras.putString("studentName", studentSelected);
+					extras.putString("email", teacherEmail);
+					i.putExtras(extras);
+                	startActivity(i);
+				}
+				catch(Exception ex){
+					Dialog d = new Dialog(LetterA.this);
+					String error = ex.toString();
+					//String error = studentSelected + " " + teacherEmail;
+					d.setTitle("failed to get data");
+					TextView tv = new TextView(LetterA.this);
+					tv.setText(error);
+					d.setContentView(tv);
+					d.show();
+					
+				}
 			}
 			
 			canvas.drawBitmap(a, width/100*40, 10, black);
