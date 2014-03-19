@@ -118,6 +118,10 @@
             android:name="com.example.letterchecker.ViewResultsPartTwo"
             android:label="View Results" >
         </activity>
+        <activity
+            android:name="com.example.letterchecker.LetterT"
+            android:label="@string/title_activity_letter_t" >
+        </activity>
     </application>
 
 </manifest>

@@ -62,5 +62,6 @@
     <string name="title_activity_letter">LetterA</string>
     <string name="title_activity_view_results">ViewResults</string>
     <string name="title_activity_view_results_part_two">ViewResultsPartTwo</string>
+    <string name="title_activity_letter_t">LetterT</string>
 
 </resources>
