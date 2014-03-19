@@ -3,11 +3,15 @@ package com.example.letterchecker;
 import android.os.Bundle;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -71,6 +75,12 @@ public class Triangle extends Activity {
 		RectF mid5 = new RectF();
 		RectF end = new RectF();
 		
+		Bitmap arrow_right;
+		Bitmap arrow_up;
+		Bitmap arrow_down;
+		
+		int mark = 0;
+		
 		
 		
 		public OurView(Context context) {
@@ -90,6 +100,10 @@ public class Triangle extends Activity {
 				black.setColor(Color.BLACK);
 				black.setStyle(Paint.Style.FILL);
 				
+				arrow_right = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_right);
+				arrow_up = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_up);
+				arrow_down = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_down);
+				
 				
 		}
 		
@@ -97,6 +111,9 @@ public class Triangle extends Activity {
 		protected void onDraw(Canvas canvas) {
 			// TODO Auto-generated method stub
 			super.onDraw(canvas);
+			
+			float height = canvas.getHeight();
+			float width = canvas.getWidth();
 			
 			start.set(canvas.getWidth()/8-20, canvas.getHeight()/3*2-20,
 					canvas.getWidth()/8+20, canvas.getHeight()/3*2+20);
@@ -120,40 +137,68 @@ public class Triangle extends Activity {
 					canvas.getWidth()/8+20, canvas.getHeight()/3*2+20);
 			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
 			
-			if(startBool == true && middle1 == true && middle2 == true && middle3 == true
-					&& middle4 == true && middle5 == true && endBool == true && !reportCreated ){
-				canvas.drawRect(ourRect, blue);
-				Bundle extras = getIntent().getExtras();
-				String studentSelected ="";
-				String teacherEmail = "";
-				if (extras != null) {
-			    	studentSelected = extras.getString("studentName");
-			    	teacherEmail = extras.getString("email");
-				}
-				try{
-					int mark = 100;
-					Database db = new Database(Triangle.this);
-					db.open();
-					db.createReportEntry(studentSelected, teacherEmail, mark, 2, 1);
-					db.close();
-					Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
-					reportCreated = true;
-        			extras.putString("studentName", studentSelected);
-					extras.putString("email", teacherEmail);
-					i.putExtras(extras);
-                	startActivity(i);
-				}
-				catch(Exception ex){
-					Dialog d = new Dialog(Triangle.this);
-					String error = ex.toString();
-					//String error = studentSelected + " " + teacherEmail;
-					d.setTitle("failed to get data");
-					TextView tv = new TextView(Triangle.this);
-					tv.setText(error);
-					d.setContentView(tv);
-					d.show();
-					
-				}
+			if(endBool == true && !reportCreated ){
+				if(startBool == true)
+					mark += 100;
+				if( middle1 == true)
+					mark +=100;
+				if(middle2 == true)
+					mark += 100;
+				if(middle3 == true)
+					mark += 100;
+				if(middle4 == true)
+					mark += 100;
+				if(middle5 == true)
+					mark += 100;
+				if(endBool == true)
+					mark += 100;
+				
+				mark = (mark/7);
+				
+				reportCreated = true;
+				
+				//canvas.drawRect(ourRect, green);
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Triangle.this);
+				alertDialogBuilder.setTitle("Lesson Complete");
+				alertDialogBuilder.setMessage("Click Ok to continue");
+				alertDialogBuilder.setNeutralButton("Ok",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						Bundle extras = getIntent().getExtras();
+						String studentSelected ="";
+						String teacherEmail = "";
+						if (extras != null) {
+					    	studentSelected = extras.getString("studentName");
+					    	teacherEmail = extras.getString("email");
+						}
+						try{
+							//int mark = 100;
+							Database db = new Database(Triangle.this);
+							db.open();
+							db.createReportEntry(studentSelected, teacherEmail, mark, 2, 1);
+							db.close();
+							Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
+							
+							//reportCreated = true;
+							
+		        			extras.putString("studentName", studentSelected);
+							extras.putString("email", teacherEmail);
+							i.putExtras(extras);
+		                	startActivity(i);
+						}
+						catch(Exception ex){
+							Dialog d = new Dialog(Triangle.this);
+							String error = ex.toString();
+							//String error = studentSelected + " " + teacherEmail;
+							d.setTitle("failed to get data");
+							TextView tv = new TextView(Triangle.this);
+							tv.setText(error);
+							d.setContentView(tv);
+							d.show();
+						}
+					}
+				});
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
 			}
 			if(middle1 == false)
 				canvas.drawRect(start, green);
@@ -164,9 +209,11 @@ public class Triangle extends Activity {
 			canvas.drawRect(mid3, black);
 			canvas.drawRect(mid4, black);
 			canvas.drawRect(mid5, black);
-			//canvas.drawCircle(canvas.getWidth()/3, canvas.getHeight()/2, 20, green);
-			//canvas.drawCircle((canvas.getWidth()/3)*2, canvas.getHeight()/2, 20, red);
-			//canvas.drawRect(100, 150, 120, 170, green);
+			
+			canvas.drawBitmap(arrow_right, width/100*20,height/100*70, black);
+			canvas.drawBitmap(arrow_up, width/100*80,height/100*50, black);
+			canvas.drawBitmap(arrow_down, width/100*23,height/100*33, black);
+			
 			
 			//start
 			if((x0 > canvas.getWidth()/8-20) && (x0 < canvas.getWidth()/8+20) && 
@@ -204,9 +251,7 @@ public class Triangle extends Activity {
 				middle5 = true;
 			}
 			//end
-			if(startBool == true && middle1 == true && middle2 == true && 
-					middle3 == true && middle4 == true && middle5 == true &&
-					(x0 > canvas.getWidth()/8-20) && (x0 < canvas.getWidth()/8+20) && 
+			if(middle1 == true && (x0 > canvas.getWidth()/8-20) && (x0 < canvas.getWidth()/8+20) && 
 					(y0 > canvas.getHeight()/3*2-20) && (y0 < canvas.getHeight()/3*2+20)){
 				endBool = true;
 			}

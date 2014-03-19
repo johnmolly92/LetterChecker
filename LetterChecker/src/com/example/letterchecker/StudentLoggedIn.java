@@ -77,7 +77,33 @@ public class StudentLoggedIn extends Activity {
 					i.putExtras(extras);
                 	startActivity(i);
                 	
+<<<<<<< HEAD
         		}   
+=======
+        		}
+        		if(lesson.equals("22")){
+        			Intent i = new Intent(getApplicationContext(), LetterT.class);
+        			extras.putString("studentName", studentSelected);
+					extras.putString("email", teacherEmail);
+					i.putExtras(extras);
+                	startActivity(i);
+                	
+        		}
+        		
+        		/*
+            	Dialog d = new Dialog(StudentLoggedIn.this);
+    			d.setTitle("Next Lesson is");
+    			TextView tv = new TextView(StudentLoggedIn.this);
+    			tv.setText(lesson);
+    			d.setContentView(tv);
+    			d.show();
+    			*/
+    			/*
+            	Intent i = new Intent(getApplicationContext(), Test.class);
+            	startActivity(i);
+            	*/
+            
+>>>>>>> FETCH_HEAD
             }
         });
 	}

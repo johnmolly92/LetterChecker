@@ -4,8 +4,10 @@ import com.example.letterchecker.Lesson.OurView;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.graphics.Bitmap;
@@ -20,6 +22,7 @@ import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+
 
 public class LetterT extends Activity {
 
@@ -147,7 +150,7 @@ public class LetterT extends Activity {
 				mid7.set((width/100*64)-10, (height/100*82)-10, (width/100*64)+10, (height/100*82)+10);
 			end.set((width/100*59)-20, (height/100*48)-20, (width/100*59)+20, (height/100*48)+20);
 			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
-			canvas.drawRect(ourRect, white);
+			
 			
 			/*if(endBool == true && attempts <4){
 				//calculate mark
@@ -188,60 +191,70 @@ public class LetterT extends Activity {
 					middle5 == true && middle6 == true && middle7 == true && endBool == true && !reportCreated){*/
 			if(endBool == true && !reportCreated){
 				
-				/*if(startBool == true)
-					mark += 1;
+				if(startBool == true)
+					mark += 100;
 				if( middle1 == true)
-					mark +=1;
+					mark +=100;
 				if(middle2 == true)
-					mark += 1;
+					mark += 100;
 				if(middle3 == true)
-					mark += 1;
+					mark += 100;
 				if(middle4 == true)
-					mark += 1;
+					mark += 100;
 				if(middle5 == true)
-					mark += 1;
+					mark += 100;
 				if(middle6 == true)
-					mark += 1;
+					mark += 100;
 				if(middle7 == true)
-					mark += 1;
+					mark += 100;
 				if(endBool == true)
-					mark += 1;*/
+					mark += 100;
 				
-				mark = (mark/8)*100;
+				mark = (mark/9);
+				reportCreated = true;
 					
-				canvas.drawRect(ourRect, blue);
-				/*Bundle extras = getIntent().getExtras();
-				String studentSelected ="";
-				String teacherEmail = "";
-				if (extras != null) {
-			    	studentSelected = extras.getString("studentName");
-			    	teacherEmail = extras.getString("email");
-				}
-				try{
-					//int mark = 100;
-					Database db = new Database(LetterT.this);
-					db.open();
-					db.createReportEntry(studentSelected, teacherEmail, mark, 22, 1);
-					db.close();
-					Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
-					
-					reportCreated = true;
-					
-        			extras.putString("studentName", studentSelected);
-					extras.putString("email", teacherEmail);
-					i.putExtras(extras);
-                	startActivity(i);
-				}
-				catch(Exception ex){
-					Dialog d = new Dialog(LetterT.this);
-					String error = ex.toString();
-					//String error = studentSelected + " " + teacherEmail;
-					d.setTitle("failed to get data");
-					TextView tv = new TextView(LetterT.this);
-					tv.setText(error);
-					d.setContentView(tv);
-					d.show();
-				}*/
+				//canvas.drawRect(ourRect, green);
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LetterT.this);
+				alertDialogBuilder.setTitle("Lesson Complete");
+				alertDialogBuilder.setMessage("Click Ok to continue");
+				alertDialogBuilder.setNeutralButton("Ok",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						Bundle extras = getIntent().getExtras();
+						String studentSelected ="";
+						String teacherEmail = "";
+						if (extras != null) {
+					    	studentSelected = extras.getString("studentName");
+					    	teacherEmail = extras.getString("email");
+						}
+						try{
+							//int mark = 100;
+							Database db = new Database(LetterT.this);
+							db.open();
+							db.createReportEntry(studentSelected, teacherEmail, mark, 22, 1);
+							db.close();
+							Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
+							
+							//reportCreated = true;
+							
+		        			extras.putString("studentName", studentSelected);
+							extras.putString("email", teacherEmail);
+							i.putExtras(extras);
+		                	startActivity(i);
+						}
+						catch(Exception ex){
+							Dialog d = new Dialog(LetterT.this);
+							String error = ex.toString();
+							//String error = studentSelected + " " + teacherEmail;
+							d.setTitle("failed to get data");
+							TextView tv = new TextView(LetterT.this);
+							tv.setText(error);
+							d.setContentView(tv);
+							d.show();
+						}
+					}
+				});
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
 			}
 			
 			
