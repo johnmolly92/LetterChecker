@@ -48,6 +48,7 @@ public class LetterA extends Activity {
 		private Paint green = new Paint();
 		private Paint blue = new Paint();
 		private Paint black = new Paint();
+		private Paint white = new Paint();
 		private Path path = new Path();
 		
 		float x0 =0;
@@ -64,6 +65,10 @@ public class LetterA extends Activity {
 		boolean middle6 = false;
 		boolean middle7 = false;
 		boolean endBool = false;
+		
+		int mark = 0;
+		int totalMark = 0;
+		int attempts = 0;
 		
 		Rect ourRect = new Rect();
 		RectF topLine = new RectF();
@@ -86,6 +91,8 @@ public class LetterA extends Activity {
 		
 		Bitmap a;
 		
+		Bitmap tick;
+		
 		public OurView(Context context) {
 		//Constructor
 			super(context);
@@ -102,18 +109,23 @@ public class LetterA extends Activity {
 			blue.setStyle(Paint.Style.FILL); 
 			black.setColor(Color.BLACK);
 			black.setStyle(Paint.Style.FILL);
+			white.setColor(Color.WHITE);
+			white.setStyle(Paint.Style.FILL);
 			
 			arrow_left = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_left);
 			arrow_right = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_right);
 			arrow_up = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_up);
 			arrow_down = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_down);
 			a = BitmapFactory.decodeResource(getResources(), R.drawable.a);
+			tick = BitmapFactory.decodeResource(getResources(), R.drawable.green_tick);
+			
 		}
 		
 		@Override
 		protected void onDraw(Canvas canvas) {
 			// TODO Auto-generated method stub
 			super.onDraw(canvas);
+			
 			float height = canvas.getHeight();
 			float width = canvas.getWidth();
 			
@@ -129,10 +141,68 @@ public class LetterA extends Activity {
 			mid7.set((width/100*73)-10, (height/100*79)-10, (width/100*73)+10, (height/100*79)+10);
 			end.set((width/100*87)-20, (height/100*75)-20, (width/100*87)+20, (height/100*75)+20);
 			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
+			canvas.drawRect(ourRect, white);
+			
+			/*if(endBool == true && attempts <4){
+				//calculate mark
+				if(startBool == true)
+					mark += 1;
+				if( middle1 == true)
+					mark +=1;
+				if(middle2 == true)
+					mark += 1;
+				if(middle3 == true)
+					mark += 1;
+				if(middle4 == true)
+					mark += 1;
+				if(middle5 == true)
+					mark += 1;
+				if(middle6 == true)
+					mark += 1;
+				if(middle7 == true)
+					mark += 1;
+				if(endBool == true)
+					mark += 1;
+				
+				mark = (mark/8)*100;
+				totalMark += mark;
+				//draw bitmap
+				//canvas.drawBitmap(tick, 0, height/100*20, black);
+				canvas.drawRect(ourRect, blue);
+				
+				//erase line
+				path.reset();
+				//reset booleans
+				startBool = middle1 = middle2 = middle3 = middle4 = middle5 = middle6 = middle7 = endBool = false;
+				attempts++;
+			}*/
 			
 			//check drawn correct
-			if(startBool == true && middle1 == true && middle2 == true && middle3 == true && middle4 == true && 
-					middle5 == true && middle6 == true && middle7 == true && endBool == true && !reportCreated){
+			/*if(startBool == true && middle1 == true && middle2 == true && middle3 == true && middle4 == true && 
+					middle5 == true && middle6 == true && middle7 == true && endBool == true && !reportCreated){*/
+			if(endBool == true && !reportCreated){
+				
+				if(startBool == true)
+					mark += 1;
+				if( middle1 == true)
+					mark +=1;
+				if(middle2 == true)
+					mark += 1;
+				if(middle3 == true)
+					mark += 1;
+				if(middle4 == true)
+					mark += 1;
+				if(middle5 == true)
+					mark += 1;
+				if(middle6 == true)
+					mark += 1;
+				if(middle7 == true)
+					mark += 1;
+				if(endBool == true)
+					mark += 1;
+				
+				mark = (mark/8)*100;
+					
 				canvas.drawRect(ourRect, blue);
 				Bundle extras = getIntent().getExtras();
 				String studentSelected ="";
@@ -142,7 +212,7 @@ public class LetterA extends Activity {
 			    	teacherEmail = extras.getString("email");
 				}
 				try{
-					int mark = 100;
+					//int mark = 100;
 					Database db = new Database(LetterA.this);
 					db.open();
 					db.createReportEntry(studentSelected, teacherEmail, mark, 3, 1);
@@ -167,6 +237,7 @@ public class LetterA extends Activity {
 					d.show();
 				}
 			}
+			
 			
 			canvas.drawBitmap(a, width/100*40, 10, black);
 			
