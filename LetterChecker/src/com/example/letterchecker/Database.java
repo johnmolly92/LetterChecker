@@ -353,6 +353,9 @@ public class Database{
 				if(lesson.equals("3")){
 					list.add("Lesson: Letter 'a'");
 				}
+				if(lesson.equals("22")){
+					list.add("Lesson: Letter 't'");
+				}
 				list.add("Mark: " + mark + "%");
 			}
 		}
