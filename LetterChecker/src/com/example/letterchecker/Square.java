@@ -1,15 +1,16 @@
 package com.example.letterchecker;
 
-import com.example.letterchecker.Triangle.OurView;
-
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ActionBar.LayoutParams;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -17,9 +18,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class Square extends Activity {
@@ -68,6 +67,13 @@ public class Square extends Activity {
 		RectF mid3 = new RectF();
 		RectF end = new RectF();
 		
+		Bitmap arrow_left;
+		Bitmap arrow_right;
+		Bitmap arrow_up;
+		Bitmap arrow_down;
+		
+		int mark = 0;
+		
 		
 		
 		public OurView(Context context) {
@@ -87,12 +93,20 @@ public class Square extends Activity {
 				black.setColor(Color.BLACK);
 				black.setStyle(Paint.Style.FILL);
 				
+				arrow_left = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_left);
+				arrow_right = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_right);
+				arrow_up = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_up);
+				arrow_down = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_down);
+				
 		}
 		
 		@Override
 		protected void onDraw(Canvas canvas) {
 			// TODO Auto-generated method stub
 			super.onDraw(canvas);
+			
+			float height = canvas.getHeight();
+			float width = canvas.getWidth();
 			
 			start.set(canvas.getWidth()/8-20, canvas.getHeight()/4*3-20,
 					canvas.getWidth()/8+20, canvas.getHeight()/4*3+20);
@@ -110,40 +124,64 @@ public class Square extends Activity {
 					canvas.getWidth()/8+20, canvas.getHeight()/4*3+20);
 			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
 			
-			if(startBool == true && middle1 == true && middle2 == true && middle3 == true
-					 && endBool == true && !reportCreated){
-				canvas.drawRect(ourRect, blue);
-				Bundle extras = getIntent().getExtras();
-				String studentSelected ="";
-				String teacherEmail = "";
-				if (extras != null) {
-			    	studentSelected = extras.getString("studentName");
-			    	teacherEmail = extras.getString("email");
-				}
-				try{
-					int mark = 100;
-					Database db = new Database(Square.this);
-					db.open();
-					db.createReportEntry(studentSelected, teacherEmail, mark, 1, 1);
-					db.close();
-					Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
-					reportCreated = true;
-        			extras.putString("studentName", studentSelected);
-					extras.putString("email", teacherEmail);
-					i.putExtras(extras);
-                	startActivity(i);
-				}
-				catch(Exception ex){
-					Dialog d = new Dialog(Square.this);
-					String error = ex.toString();
-					//String error = studentSelected + " " + teacherEmail;
-					d.setTitle("failed to get data");
-					TextView tv = new TextView(Square.this);
-					tv.setText(error);
-					d.setContentView(tv);
-					d.show();
-					
-				}
+			if(endBool == true && !reportCreated){
+				if(startBool == true)
+					mark += 100;
+				if( middle1 == true)
+					mark +=100;
+				if(middle2 == true)
+					mark += 100;
+				if(middle3 == true)
+					mark+=100;
+				if(endBool == true)
+					mark += 100;
+				
+				mark = mark/5;
+				
+				reportCreated = true;
+				
+				//canvas.drawRect(ourRect, green);
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Square.this);
+				alertDialogBuilder.setTitle("Lesson Complete");
+				alertDialogBuilder.setMessage("Click Ok to continue");
+				alertDialogBuilder.setNeutralButton("Ok",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						Bundle extras = getIntent().getExtras();
+						String studentSelected ="";
+						String teacherEmail = "";
+						if (extras != null) {
+					    	studentSelected = extras.getString("studentName");
+					    	teacherEmail = extras.getString("email");
+						}
+						try{
+							//int mark = 100;
+							Database db = new Database(Square.this);
+							db.open();
+							db.createReportEntry(studentSelected, teacherEmail, mark, 1, 1);
+							db.close();
+							Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
+							
+							//reportCreated = true;
+							
+		        			extras.putString("studentName", studentSelected);
+							extras.putString("email", teacherEmail);
+							i.putExtras(extras);
+		                	startActivity(i);
+						}
+						catch(Exception ex){
+							Dialog d = new Dialog(Square.this);
+							String error = ex.toString();
+							//String error = studentSelected + " " + teacherEmail;
+							d.setTitle("failed to get data");
+							TextView tv = new TextView(Square.this);
+							tv.setText(error);
+							d.setContentView(tv);
+							d.show();
+						}
+					}
+				});
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
 			}
 			if(middle1 == false)
 				canvas.drawRect(start, green);
@@ -152,6 +190,15 @@ public class Square extends Activity {
 			canvas.drawRect(mid1, black);
 			canvas.drawRect(mid2, black);
 			canvas.drawRect(mid3, black);
+			
+			canvas.drawBitmap(arrow_right, width/100*30,height/100*65, black);
+			canvas.drawBitmap(arrow_right, width/100*55,height/100*65, black);
+			canvas.drawBitmap(arrow_up, width/100*70,height/100*35, black);
+			canvas.drawBitmap(arrow_up, width/100*70,height/100*55, black);
+			canvas.drawBitmap(arrow_left, width/100*30,height/100*30, black);
+			canvas.drawBitmap(arrow_left, width/100*55,height/100*30, black);
+			canvas.drawBitmap(arrow_down, width/100*15,height/100*55, black);
+			canvas.drawBitmap(arrow_down, width/100*15,height/100*35, black);
 			
 			//canvas.drawCircle(canvas.getWidth()/3, canvas.getHeight()/2, 20, green);
 			//canvas.drawCircle((canvas.getWidth()/3)*2, canvas.getHeight()/2, 20, red);
@@ -183,9 +230,7 @@ public class Square extends Activity {
 			
 			
 			//end
-			if(startBool == true && middle1 == true && middle2 == true && 
-					middle3 == true  &&
-					(x0 > canvas.getWidth()/8-20) && (x0 < canvas.getWidth()/8+20) && 
+			if(middle1 == true  && (x0 > canvas.getWidth()/8-20) && (x0 < canvas.getWidth()/8+20) && 
 					(y0 > canvas.getHeight()/4*3-20) && (y0 < canvas.getHeight()/4*3+20)){
 				endBool = true;
 			}

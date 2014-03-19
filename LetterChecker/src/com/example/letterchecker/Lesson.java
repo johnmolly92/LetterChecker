@@ -2,10 +2,14 @@ package com.example.letterchecker;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -60,6 +64,11 @@ public class Lesson extends Activity {
 		RectF start = new RectF();
 		RectF end = new RectF();
 		RectF mid1 = new RectF();
+
+		Bitmap arrow_right;
+		
+		int mark = 0;
+	
 		
 		public OurView(Context context) {
 		//Constructor
@@ -78,6 +87,9 @@ public class Lesson extends Activity {
 			black.setColor(Color.BLACK);
 			black.setStyle(Paint.Style.FILL);
 			
+			arrow_right = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_right);
+			
+			
 			
 		}
 		
@@ -86,59 +98,88 @@ public class Lesson extends Activity {
 			// TODO Auto-generated method stub
 			super.onDraw(canvas);
 			
+			float height = canvas.getHeight();
+			float width = canvas.getWidth();
+			
 			start.set(canvas.getWidth()/8-20, canvas.getHeight()/2-20, canvas.getWidth()/8+20, canvas.getHeight()/2+20);
 			mid1.set(canvas.getWidth()/2-20, canvas.getHeight()/2-20, canvas.getWidth()/2+20, canvas.getHeight()/2+20);
 			end.set((canvas.getWidth()/8*7)-20,canvas.getHeight()/2-20,(canvas.getWidth()/8*7)+20,canvas.getHeight()/2+20);
 			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
 			
-			if(startBool == true && middle1 == true && endBool == true && !reportCreated){
-				canvas.drawRect(ourRect, blue);
-				Bundle extras = getIntent().getExtras();
-				String studentSelected ="";
-				String teacherEmail = "";
-				if (extras != null) {
-			    	studentSelected = extras.getString("studentName");
-			    	teacherEmail = extras.getString("email");
-				}
-				try{
-					int mark = 100;
-					Database db = new Database(Lesson.this);
-					db.open();
-					db.createReportEntry(studentSelected, teacherEmail, mark, 0, 1);
-					db.close();
-					Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
-					reportCreated = true;
-        			extras.putString("studentName", studentSelected);
-					extras.putString("email", teacherEmail);
-					i.putExtras(extras);
-                	startActivity(i);
-				}
-				catch(Exception ex){
-					Dialog d = new Dialog(Lesson.this);
-					String error = ex.toString();
-					//String error = studentSelected + " " + teacherEmail;
-					d.setTitle("failed to get data");
-					TextView tv = new TextView(Lesson.this);
-					tv.setText(error);
-					d.setContentView(tv);
-					d.show();
-					
-				}
+			if(endBool == true && !reportCreated){
+				if(startBool == true)
+					mark += 100;
+				if( middle1 == true)
+					mark +=100;
+				if(endBool == true)
+					mark += 100;
+				
+				mark = mark/3;
+				
+				reportCreated = true;
+				
+				//canvas.drawRect(ourRect, green);
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Lesson.this);
+				alertDialogBuilder.setTitle("Lesson Complete");
+				alertDialogBuilder.setMessage("Click Ok to continue");
+				alertDialogBuilder.setNeutralButton("Ok",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						Bundle extras = getIntent().getExtras();
+						String studentSelected ="";
+						String teacherEmail = "";
+						if (extras != null) {
+					    	studentSelected = extras.getString("studentName");
+					    	teacherEmail = extras.getString("email");
+						}
+						try{
+							//int mark = 100;
+							Database db = new Database(Lesson.this);
+							db.open();
+							db.createReportEntry(studentSelected, teacherEmail, mark, 0, 1);
+							db.close();
+							Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
+							
+							//reportCreated = true;
+							
+		        			extras.putString("studentName", studentSelected);
+							extras.putString("email", teacherEmail);
+							i.putExtras(extras);
+		                	startActivity(i);
+						}
+						catch(Exception ex){
+							Dialog d = new Dialog(Lesson.this);
+							String error = ex.toString();
+							//String error = studentSelected + " " + teacherEmail;
+							d.setTitle("failed to get data");
+							TextView tv = new TextView(Lesson.this);
+							tv.setText(error);
+							d.setContentView(tv);
+							d.show();
+						}
+					}
+				});
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
 			}
 			
  			canvas.drawRect(start, green);
 			canvas.drawRect(end,red);
 			canvas.drawRect(mid1, black);
+			canvas.drawBitmap(arrow_right, width/100*10,height/100*40, black);
+			canvas.drawBitmap(arrow_right, width/100*32,height/100*40, black);
+			canvas.drawBitmap(arrow_right, width/100*54,height/100*40, black);
+			canvas.drawBitmap(arrow_right, width/100*76,height/100*40, black);
+			
 			
 			if((x0 > canvas.getWidth()/8-20) && (x0 < canvas.getWidth()/8+20) && (y0 > canvas.getHeight()/2-20) 
 					&& (y0 < canvas.getHeight()/2+20)){
 				startBool = true;
 			}
-			if(startBool == true && (x0 > canvas.getWidth()/2-20) && (x0 < canvas.getWidth()/2+20) 
+			if((x0 > canvas.getWidth()/2-20) && (x0 < canvas.getWidth()/2+20) 
 					&& (y0 > canvas.getHeight()/2-20) && (y0 < canvas.getHeight()/2+20)){
 				middle1 = true;
 			}
-			if(startBool == true && middle1 == true && x0 > ((canvas.getWidth()/8*7)-20) && x0 < ((canvas.getWidth()/8*7)+20) 
+			if(x0 > ((canvas.getWidth()/8*7)-20) && x0 < ((canvas.getWidth()/8*7)+20) 
 					&& y0 > (canvas.getHeight()/2-20) && y0 < (canvas.getHeight()/2+20)){
 				endBool = true;
 			}

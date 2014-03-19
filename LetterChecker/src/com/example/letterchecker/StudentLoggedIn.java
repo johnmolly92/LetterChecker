@@ -74,6 +74,14 @@ public class StudentLoggedIn extends Activity {
                 	startActivity(i);
                 	
         		}
+        		if(lesson.equals("22")){
+        			Intent i = new Intent(getApplicationContext(), LetterT.class);
+        			extras.putString("studentName", studentSelected);
+					extras.putString("email", teacherEmail);
+					i.putExtras(extras);
+                	startActivity(i);
+                	
+        		}
         		
         		/*
             	Dialog d = new Dialog(StudentLoggedIn.this);
