@@ -76,11 +76,8 @@ public class StudentLoggedIn extends Activity {
 					extras.putString("email", teacherEmail);
 					i.putExtras(extras);
                 	startActivity(i);
-                	
-<<<<<<< HEAD
         		}   
-=======
-        		}
+
         		if(lesson.equals("22")){
         			Intent i = new Intent(getApplicationContext(), LetterT.class);
         			extras.putString("studentName", studentSelected);
@@ -103,7 +100,6 @@ public class StudentLoggedIn extends Activity {
             	startActivity(i);
             	*/
             
->>>>>>> FETCH_HEAD
             }
         });
 	}
