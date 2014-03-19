@@ -36,6 +36,7 @@ public final class R {
         public static final int custom_yellow_button=0x7f020009;
         public static final int green_tick=0x7f02000a;
         public static final int ic_launcher=0x7f02000b;
+        public static final int t=0x7f02000c;
     }
     public static final class id {
         public static final int ChooseLessonsPartTwoLV=0x7f090003;
@@ -83,22 +84,23 @@ public final class R {
         public static final int activity_drawing_board=0x7f030003;
         public static final int activity_lesson=0x7f030004;
         public static final int activity_letter=0x7f030005;
-        public static final int activity_list_of_students=0x7f030006;
-        public static final int activity_list_of_teachers=0x7f030007;
-        public static final int activity_manage_students=0x7f030008;
-        public static final int activity_register=0x7f030009;
-        public static final int activity_remove_student=0x7f03000a;
-        public static final int activity_square=0x7f03000b;
-        public static final int activity_start=0x7f03000c;
-        public static final int activity_student_logged_in=0x7f03000d;
-        public static final int activity_student_login=0x7f03000e;
-        public static final int activity_teacher_logged_in=0x7f03000f;
-        public static final int activity_teacher_login=0x7f030010;
-        public static final int activity_test=0x7f030011;
-        public static final int activity_triangle=0x7f030012;
-        public static final int activity_view_results=0x7f030013;
-        public static final int activity_view_results_part_two=0x7f030014;
-        public static final int activity_view_students=0x7f030015;
+        public static final int activity_letter_t=0x7f030006;
+        public static final int activity_list_of_students=0x7f030007;
+        public static final int activity_list_of_teachers=0x7f030008;
+        public static final int activity_manage_students=0x7f030009;
+        public static final int activity_register=0x7f03000a;
+        public static final int activity_remove_student=0x7f03000b;
+        public static final int activity_square=0x7f03000c;
+        public static final int activity_start=0x7f03000d;
+        public static final int activity_student_logged_in=0x7f03000e;
+        public static final int activity_student_login=0x7f03000f;
+        public static final int activity_teacher_logged_in=0x7f030010;
+        public static final int activity_teacher_login=0x7f030011;
+        public static final int activity_test=0x7f030012;
+        public static final int activity_triangle=0x7f030013;
+        public static final int activity_view_results=0x7f030014;
+        public static final int activity_view_results_part_two=0x7f030015;
+        public static final int activity_view_students=0x7f030016;
     }
     public static final class menu {
         public static final int add_student=0x7f080000;
@@ -107,25 +109,26 @@ public final class R {
         public static final int drawing_board=0x7f080003;
         public static final int lesson=0x7f080004;
         public static final int letter=0x7f080005;
-        public static final int line=0x7f080006;
-        public static final int list_of_students=0x7f080007;
-        public static final int list_of_teachers=0x7f080008;
-        public static final int main=0x7f080009;
-        public static final int manage_students=0x7f08000a;
-        public static final int register=0x7f08000b;
-        public static final int remove_student=0x7f08000c;
-        public static final int square=0x7f08000d;
-        public static final int start=0x7f08000e;
-        public static final int student_logged_in=0x7f08000f;
-        public static final int student_login=0x7f080010;
-        public static final int teacher_list=0x7f080011;
-        public static final int teacher_logged_in=0x7f080012;
-        public static final int teacher_login=0x7f080013;
-        public static final int test=0x7f080014;
-        public static final int triangle=0x7f080015;
-        public static final int view_results=0x7f080016;
-        public static final int view_results_part_two=0x7f080017;
-        public static final int view_students=0x7f080018;
+        public static final int letter_t=0x7f080006;
+        public static final int line=0x7f080007;
+        public static final int list_of_students=0x7f080008;
+        public static final int list_of_teachers=0x7f080009;
+        public static final int main=0x7f08000a;
+        public static final int manage_students=0x7f08000b;
+        public static final int register=0x7f08000c;
+        public static final int remove_student=0x7f08000d;
+        public static final int square=0x7f08000e;
+        public static final int start=0x7f08000f;
+        public static final int student_logged_in=0x7f080010;
+        public static final int student_login=0x7f080011;
+        public static final int teacher_list=0x7f080012;
+        public static final int teacher_logged_in=0x7f080013;
+        public static final int teacher_login=0x7f080014;
+        public static final int test=0x7f080015;
+        public static final int triangle=0x7f080016;
+        public static final int view_results=0x7f080017;
+        public static final int view_results_part_two=0x7f080018;
+        public static final int view_students=0x7f080019;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -137,6 +140,7 @@ public final class R {
         public static final int title_activity_drawing_board=0x7f050011;
         public static final int title_activity_lesson=0x7f050010;
         public static final int title_activity_letter=0x7f050019;
+        public static final int title_activity_letter_t=0x7f05001c;
         public static final int title_activity_line=0x7f050017;
         public static final int title_activity_list_of_students=0x7f05000f;
         public static final int title_activity_list_of_teachers=0x7f050009;

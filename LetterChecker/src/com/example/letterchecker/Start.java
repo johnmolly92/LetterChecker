@@ -79,7 +79,7 @@ public class Start extends Activity {
 		{
 			public void onClick(View v)
 		    {
-				Intent i = new Intent(getApplicationContext(), Square.class);
+				Intent i = new Intent(getApplicationContext(), LetterT.class);
             	startActivity(i);
 		    }
 		});
