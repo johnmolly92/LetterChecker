@@ -17,23 +17,28 @@ public class ViewStudents extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_students);
 		final ListView listview;
-		final Bundle extras = getIntent().getExtras();
+		final Bundle EXTRAS = getIntent().getExtras();
 		listview = (ListView)findViewById(R.id.studentListView);
 		String email ="";
-    	if (extras != null) {
-		    email = extras.getString("email");
+    	if (EXTRAS != null) {
+		    email = EXTRAS.getString("email");
 		}
 		try{
 			Database info = new Database(this);
 			info.open();
+			//get student info from database
 			String[] tmpData = info.getStudentInfo();
 			info.close();
+			//get data relevant to student
 			String[] data = getRelevantData(tmpData,email);
 			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
+			// display to screen
 			listview.setAdapter(adapter);
 			
 		}
+		//catches SQL exceptions
 		catch(Exception ex){
+			//output the error for debugging
 			Dialog d = new Dialog(ViewStudents.this);
 			String error = ex.toString();
 			d.setTitle("failed to get data");

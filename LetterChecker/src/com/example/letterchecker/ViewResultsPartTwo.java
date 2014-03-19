@@ -12,33 +12,43 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
+//the viewing results process is a two step process
+//1. step one is selecting the student
+//2. step two is displaying the reports
+// this is step 2
+
 public class ViewResultsPartTwo extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_results_part_two);
-		final Bundle extras = getIntent().getExtras();
+		final Bundle EXTRAS = getIntent().getExtras();
 		String studentSelected ="";
 		String teacherEmail = "";
-    	if (extras != null) {
-		    studentSelected = extras.getString("studentName");
-		    teacherEmail = extras.getString("email");
+		//get student and teacher from previous activity
+    	if (EXTRAS != null) {
+		    studentSelected = EXTRAS.getString("studentName");
+		    teacherEmail = EXTRAS.getString("email");
 		}
-    	final String tmpStudent = studentSelected; 
-    	final String tmpEmail = teacherEmail;
-    	
+    	final String STUDENT = studentSelected; 
+    	final String TEACHEREMAIL = teacherEmail;
+    	// listview from xml
     	ListView listview = (ListView)findViewById(R.id.ViewResultsPartTwoLV);
     
     	try{
     		Database db = new Database(ViewResultsPartTwo.this);
     		db.open();
-    		String[] tmpArray = db.getReportsForTeacher(tmpStudent, tmpEmail);
+    		//get reports from database
+    		String[] tmpArray = db.getReportsForTeacher(STUDENT, TEACHEREMAIL);
     		db.close();
+    		//display reports to teacher
     		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,tmpArray);
     		listview.setAdapter(adapter);
     	}
+    	//catches SQL exceptions
     	catch(Exception ex){
+    		//output the error for debugging
     		Dialog d = new Dialog(ViewResultsPartTwo.this);
 			String error = ex.toString();
 			d.setTitle("failed to get data");
@@ -46,8 +56,7 @@ public class ViewResultsPartTwo extends Activity {
 			tv.setText(error);
 			d.setContentView(tv);
 			d.show();
-    	}
-    	
+    	}	
 	}
 
 	

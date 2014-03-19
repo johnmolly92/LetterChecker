@@ -14,6 +14,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
+// the viewing results process is a two step process
+// 1. step one is selecting the student
+// 2. step two is displaying the reports
+// this is step one
 public class ViewResults extends Activity {
 
 	@Override
@@ -21,37 +25,44 @@ public class ViewResults extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_results);
 		ListView listview = (ListView)findViewById(R.id.viewResultsLV);
-		final Bundle extras = getIntent().getExtras();
+		final Bundle EXTRAS = getIntent().getExtras();
 		String teacherEmail ="";
-    	if (extras != null) {
-		    teacherEmail = extras.getString("email");
-		    extras.putString("email", teacherEmail);
+		// get teacher's email from previous activity
+    	if (EXTRAS != null) {
+		    teacherEmail = EXTRAS.getString("email");
+		    EXTRAS.putString("email", teacherEmail);
 		}
-    	final String tmpTeacherEmail = teacherEmail;
+    	final String TEACHEREMAIL = teacherEmail;
     	try{
 			Database info = new Database(this);
 			info.open();
+			//get student info from database
 			String[] tmpData = info.getStudentInfo();
 			info.close();
+			//get teacher's student
 			String[] data = getTeachersStudents(tmpData,teacherEmail);
+			//display student's to screen
 			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
 			listview.setAdapter(adapter);
+			//wait for user to select student
 			listview.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View view,
 						int position, long id) {
 					String studentName = ((TextView)view).getText().toString();
 					Intent i = new Intent(getApplicationContext(), ViewResultsPartTwo.class);
-					extras.putString("studentName", studentName);
-					extras.putString("email", tmpTeacherEmail);
-					i.putExtras(extras);
+					// send student's name and teacher's email to next activity
+					EXTRAS.putString("studentName", studentName);
+					EXTRAS.putString("email", TEACHEREMAIL);
+					i.putExtras(EXTRAS);
 					startActivity(i);
-					
 				}
 	        });
 			
 		}
+    	//catches SQL exceptions
 		catch(Exception ex){
+			//output the error for debugging
 			Dialog d = new Dialog(ViewResults.this);
 			String error = ex.toString();
 			d.setTitle("failed to get data");
@@ -62,9 +73,7 @@ public class ViewResults extends Activity {
 		}
 	}
 	
-	
-	
-	
+	//get students who are relevant to the teacher
 	public String[] getTeachersStudents(String[] array, String email){
 		String id, name, teacherEmail, nextLesson;
 		ArrayList<String> tmp = new ArrayList<String>();

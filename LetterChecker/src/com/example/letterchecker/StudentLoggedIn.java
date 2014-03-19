@@ -17,10 +17,11 @@ public class StudentLoggedIn extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_student_logged_in);
+		//get buttons from xml
 		Button Logout = (Button)findViewById(R.id.studentLogoutBtn);
 		Button StartLesson = (Button)findViewById(R.id.startLessonBtn);
 		
-		
+		//if they want to logout
 		Logout.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -30,6 +31,7 @@ public class StudentLoggedIn extends Activity {
             }
         });
 		
+		//start lesson button
 		StartLesson.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -43,8 +45,10 @@ public class StudentLoggedIn extends Activity {
     			}
         		Database db = new Database(StudentLoggedIn.this);
         		db.open();
+        		//get students next lesson
         		String lesson = db.getStudentNextLesson(studentSelected, teacherEmail);
         		db.close(); 
+        		//based on next lesson open relevant lesson page and send student's name and teacher's email to it
         		if(lesson.equals("0")){
         			Intent i = new Intent(getApplicationContext(), Lesson.class);
         			extras.putString("studentName", studentSelected);
@@ -73,21 +77,7 @@ public class StudentLoggedIn extends Activity {
 					i.putExtras(extras);
                 	startActivity(i);
                 	
-        		}
-        		
-        		/*
-            	Dialog d = new Dialog(StudentLoggedIn.this);
-    			d.setTitle("Next Lesson is");
-    			TextView tv = new TextView(StudentLoggedIn.this);
-    			tv.setText(lesson);
-    			d.setContentView(tv);
-    			d.show();
-    			*/
-    			/*
-            	Intent i = new Intent(getApplicationContext(), Test.class);
-            	startActivity(i);
-            	*/
-            
+        		}   
             }
         });
 	}

@@ -14,6 +14,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
+//student login in is a two part process
+//1. displaying a list of teachers
+//2. displaying a list of students
+//this is part two
 public class ListOfStudents extends Activity {
 
 	@Override
@@ -21,36 +25,42 @@ public class ListOfStudents extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_of_students);
 		ListView listview = (ListView)findViewById(R.id.studentsListviewLogin);
-		final Bundle extras = getIntent().getExtras();
+		final Bundle EXTRAS = getIntent().getExtras();
+		//get the teachers name from previous activity
 		String teacherName ="";
-    	if (extras != null) {
-		    teacherName = extras.getString("name");
+    	if (EXTRAS != null) {
+		    teacherName = EXTRAS.getString("name");
 		}
-    	final String tmpTeacherEmail = teacherName;
+    	final String TEACHEREMAIL = teacherName;
     	try{
 			Database info = new Database(this);
 			info.open();
+			//get student info from database
 			String[] tmpData = info.getStudentInfo();
 			info.close();
+			//get students that are relevant to a teacher
 			String[] data = getTeachersStudents(tmpData,teacherName);
+			//display it to the screen
 			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
 			listview.setAdapter(adapter);
+			//wait for a click on a name
 			listview.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View view,
 						int position, long id) {
 					String studentName = ((TextView)view).getText().toString();
 					Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
-					extras.putString("studentName", studentName);
-					extras.putString("email", getTeacherEmail(tmpTeacherEmail));
-					i.putExtras(extras);
+					//send the student's name and the teacher's email to the next activity
+					EXTRAS.putString("studentName", studentName);
+					EXTRAS.putString("email", getTeacherEmail(TEACHEREMAIL));
+					i.putExtras(EXTRAS);
 					startActivity(i);
-					
 				}
 	        });
-			
 		}
+    	//catches SQlExceptions
 		catch(Exception ex){
+			//outputs error for debugging
 			Dialog d = new Dialog(ListOfStudents.this);
 			String error = ex.toString();
 			d.setTitle("failed to get data");
@@ -61,7 +71,7 @@ public class ListOfStudents extends Activity {
 		}
 	}
 	
-	
+	//get a teacher's email based on their name
 	public String getTeacherEmail(String teacher_name){
 		Database info = new Database(this);
 		info.open();
@@ -81,6 +91,7 @@ public class ListOfStudents extends Activity {
 		return result;
 	}
 	
+	//get a teacher's students
 	public String[] getTeachersStudents(String[] array, String teacherName){
 		String email = getTeacherEmail(teacherName);
 		String id, name, teacherEmail, nextLesson;

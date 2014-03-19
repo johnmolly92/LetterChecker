@@ -16,6 +16,7 @@ public class Start extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_start);
 
+		//get buttons from xml
 		Button StudentLogin = (Button)findViewById(R.id.StudentLoginBtn);
 		Button TeacherLogin = (Button)findViewById(R.id.TeacherLoginBtn);
 		Button Register = (Button)findViewById(R.id.RegisterBtn);

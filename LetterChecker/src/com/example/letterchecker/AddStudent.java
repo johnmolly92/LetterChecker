@@ -21,15 +21,18 @@ public class AddStudent extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_student);
 		
+		// get from xml
 		name = (EditText)(findViewById(R.id.studentName));
 		add = (Button)(findViewById(R.id.addToClassBtn));
-		final Bundle extras = getIntent().getExtras();
+		final Bundle EXTRAS = getIntent().getExtras();
 		
+		//listen for user to press add button
 		add.setOnClickListener(new View.OnClickListener(){
 		
 			public void onClick(View v){
 				String n = name.getText().toString();
 				boolean didItWork=true;
+				//did the user enter valid data?
 				boolean validData=true;
 				if(n.equals("")){
 					validData=false;
@@ -37,19 +40,24 @@ public class AddStudent extends Activity {
 				}
 				try{
 					if(validData){
+						//if they entered a valid name
 						Database entry = new Database(AddStudent.this);
 						entry.open();
 						String email ="";
-						if (extras != null) {
-							email = extras.getString("email");
+						//get the teacher email from the previous activity
+						if (EXTRAS != null) {
+							email = EXTRAS.getString("email");
 						}
+						//create an entry in the student table
 						entry.createStudentEntry(n, email, 0);
 						entry.close();
 					}
 
 				}
+				//catches SQL exceptions
 				catch(Exception ex){
 					didItWork=false;
+					//output the error for debugging
 					Dialog d = new Dialog(AddStudent.this);
 					String error = ex.toString();
 					d.setTitle("failed to enter data");
@@ -60,18 +68,23 @@ public class AddStudent extends Activity {
 				}
 				finally{
 					if(didItWork){
+						//let the user know it worked
 						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 								AddStudent.this);
 						alertDialogBuilder.setTitle("Student Added to Class");
 						alertDialogBuilder.setMessage("Click Ok to return to Homepage");
+						//if they press ok
 						alertDialogBuilder.setNeutralButton("Ok",new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) {
 								String email ="";
-				            	if (extras != null) {
-				        		    email = extras.getString("email");
+				            	if (EXTRAS != null) {
+				            		//get teacher email from previous activity
+				        		    email = EXTRAS.getString("email");
 				        		}
 								Intent i = new Intent(getApplicationContext(), TeacherLoggedIn.class);
+								//send the email to the next activity
 								i.putExtra("email", email);
+								//back to teacher logged in page
 				            	startActivity(i);
 							}
 						  });
@@ -79,18 +92,23 @@ public class AddStudent extends Activity {
 						alertDialog.show();
 					}
 					else{
+						//let the user know the process didnt work
 						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 								AddStudent.this);
 						alertDialogBuilder.setTitle("Unable to Add Student to Class");
 						alertDialogBuilder.setMessage("Please try again later, Click Ok to return to Homepage");
+						//if they press ok
 						alertDialogBuilder.setNeutralButton("Ok",new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int id) {
 								String email ="";
-				            	if (extras != null) {
-				        		    email = extras.getString("email");
+				            	if (EXTRAS != null) {
+				            		//get teacher email from previous activity
+				        		    email = EXTRAS.getString("email");
 				        		}
 								Intent i = new Intent(getApplicationContext(), TeacherLoggedIn.class);
+								//send the email to the next activity
 								i.putExtra("email", email);
+								//back to teacher logged in page
 				            	startActivity(i);
 							}
 						  });

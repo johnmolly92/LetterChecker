@@ -15,18 +15,21 @@ import android.widget.TextView;
 
 public class Database{
 	
+	//Teacher Table
 	private static final String DATABASE_TABLE = "teacher_table";
 	public static final String KEY_ROWID = "_id";
 	public static final String KEY_NAME = "teachers_name";
 	public static final String KEY_EMAIL = "teachers_email";
 	public static final String KEY_PASSWORD = "teachers_pswrd";
 	
+	//Student Table
 	private static final String DATABASE_S_TABLE = "student_table";
 	public static final String KEY_S_ROWID = "_id";
 	public static final String KEY_S_NAME = "students_name";
 	public static final String KEY_S_TEACHER_EMAIL = "foreign_key";
 	public static final String KEY_S_NEXT_LESSON = "next_lesson";
 	
+	//Reports Table
 	private static final String DATABASE_R_TABLE = "report_table";
 	public static final String KEY_R_ROWID = "_id";
 	public static final String KEY_R_STUDENTID = "student_fk";   
@@ -34,7 +37,7 @@ public class Database{
 	public static final String KEY_R_LESSON = "lesson";
 	public static final String KEY_R_COMPLETE = "complete";
 	
-	
+	//Database name
 	private static final String DATABASE_NAME = "letter_checker_db";
 	private static final int DATABASE_VERSION = 3;
 	
@@ -50,7 +53,7 @@ public class Database{
 			
 		}
 
-		@Override
+		//SQl instructions to create the database
 		public void onCreate(SQLiteDatabase db) throws SQLiteException {
 			// TODO Auto-generated method stub
 				db.execSQL("CREATE TABLE " + DATABASE_TABLE + " (" +
@@ -74,7 +77,7 @@ public class Database{
 							);
 		}
 
-		@Override
+		//when upgrading the database drop all old tables
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			// TODO Auto-generated method stub
 			db.execSQL(" DROP TABLE IF EXISTS " + DATABASE_TABLE);
@@ -98,7 +101,7 @@ public class Database{
 		myHelper.close();
 	}
 	
-	
+	//deletes a student based on the student's name and the teacher's email passed in as parameters
 	public void deleteStudent(String studentName, String teacherEmail) throws SQLException{
 		String[] array = getStudentInfo();
 		String row, name, email, lesson;
@@ -116,6 +119,7 @@ public class Database{
 		myDatabase.delete(DATABASE_S_TABLE, KEY_S_ROWID + "=" + rowToBeDeleted, null);
 	}
 	
+	//changes a student's next lesson 
 	public void changeNextLesson(String studentName, String teacherEmail,int intLesson) throws SQLException {
 		//get student row
 		String[] array = getStudentInfo();
@@ -136,6 +140,7 @@ public class Database{
 		myDatabase.update(DATABASE_S_TABLE, cv, KEY_S_ROWID + "=" + rowToBeUpdated, null);
 	}
 
+	//creates an entry in the teacher table
 	public long createEntry(String n, String e, String p) throws SQLException{
 		ContentValues cv = new ContentValues();
 		cv.put(KEY_NAME, n);
@@ -144,6 +149,7 @@ public class Database{
 		 return myDatabase.insert(DATABASE_TABLE, null, cv);
 	}
 	
+	//creates an entry in the student table
 	public long createStudentEntry(String n, String e, int l) throws SQLException{
 		ContentValues cv = new ContentValues();
 		cv.put(KEY_S_NAME, n);
@@ -153,6 +159,7 @@ public class Database{
 		
 	}
 
+	//creates an entry in the report table
 	public long createReportEntry(String studentName, String teacherEmail, int mark, int lesson, int complete) throws SQLException{
 		ContentValues cv = new ContentValues();
 		String studentRow = getStudentRow(studentName, teacherEmail);
@@ -164,6 +171,7 @@ public class Database{
 		return myDatabase.insert(DATABASE_R_TABLE, null, cv);
 	}
 	
+	//get all information on all teachers in the teachers table
 	public String[] getTeacherInfo() throws SQLException {
 		String columns[] = new String[]{ KEY_ROWID, KEY_NAME, KEY_EMAIL, KEY_PASSWORD};
 		Cursor c = myDatabase.query(DATABASE_TABLE, columns, null, null, null, null, null);
@@ -173,7 +181,6 @@ public class Database{
 		int iEmail = c.getColumnIndex(KEY_EMAIL);
 		int iPassword = c.getColumnIndex(KEY_PASSWORD);
 		for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
-			//result = result + c.getString(iRow) + " " + c.getString(iName) + " " + c.getString(iEmail) + " " + c.getString(iPassword) + "\n";
 			list.add(c.getString(iRow));
 			list.add(c.getString(iName));
 			list.add(c.getString(iEmail));
@@ -184,29 +191,8 @@ public class Database{
 		return results;
 	}
 	
-	//returns an array of teacher names
-	/*
-	public String[] getTeacherNames() throws SQLException {
-		String columns[] = new String[]{ KEY_ROWID, KEY_NAME, KEY_EMAIL, KEY_PASSWORD};
-		Cursor c = myDatabase.query(DATABASE_TABLE, columns, null, null, null, null, null);
-		ArrayList<String> list = new ArrayList<String>();
-		int iRow = c.getColumnIndex(KEY_ROWID);
-		int iName = c.getColumnIndex(KEY_NAME);
-		int iEmail = c.getColumnIndex(KEY_EMAIL);
-		int iPassword = c.getColumnIndex(KEY_PASSWORD);
-		for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
-			//result = result + c.getString(iRow) + " " + c.getString(iName) + " " + c.getString(iEmail) + " " + c.getString(iPassword) + "\n";
-			c.getString(iRow);
-			list.add(c.getString(iName));
-			c.getString(iEmail);
-			c.getString(iPassword);
-		}
-		c.close();
-		String[] results = list.toArray(new String[list.size()]);
-		return results;
-	}
-	*/
 	
+	//get all teacher names in the teacher table
 	public String[] getTeacherNames() throws SQLException{
 		String[] tmp = getTeacherInfo();
 		ArrayList<String> list = new ArrayList<String>();
@@ -242,26 +228,9 @@ public class Database{
 		String [] results = list.toArray(new String[list.size()]);
 		return results;
 	}
-	//returns an array of login info eg {email,password,email,password....}
-	/*
-	public String[] getTeacherLoginInfo() throws SQLException{
-		String[] tmp = getTeacherInfo();
-		ArrayList<String> list = new ArrayList<String>();
-		String row, name, email, password;
-		for(int i=0; i<tmp.length; i=i+4){
-			row = tmp[i];
-			name = tmp[i+1];
-			email = tmp[i+2];
-			password = tmp[1+3];
-			list.add(email);
-			list.add(password);
-		}
-		String[] results = list.toArray(new String[list.size()]);
-		return results;	
-	}
-	*/
 	
 	
+	//get all information on all students in the students table
 	public String[] getStudentInfo() throws SQLException{
 		String columns[] = new String[]{ KEY_S_ROWID, KEY_S_NAME, KEY_S_TEACHER_EMAIL, KEY_S_NEXT_LESSON};
 		Cursor c = myDatabase.query(DATABASE_S_TABLE, columns, null, null, null, null, null);
@@ -282,27 +251,8 @@ public class Database{
 		
 	}
 	
-	/*public String[] getStudentNames() throws SQLException{
-		String columns[] = new String[]{ KEY_S_ROWID, KEY_S_NAME, KEY_S_TEACHER_EMAIL, KEY_S_NEXT_LESSON};
-		Cursor c = myDatabase.query(DATABASE_S_TABLE, columns, null, null, null, null, null);
-		ArrayList<String> list = new ArrayList<String>();
-		int iRow = c.getColumnIndex(KEY_S_ROWID);
-		int iName = c.getColumnIndex(KEY_S_NAME);
-		int iEmail = c.getColumnIndex(KEY_S_TEACHER_EMAIL);
-		int iLesson = c.getColumnIndex(KEY_S_NEXT_LESSON);
-		for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
-			c.getString(iRow);
-			list.add(c.getString(iName));
-			c.getString(iEmail);
-			c.getString(iLesson);
-		}
-		c.close();
-		String [] results = list.toArray(new String[list.size()]);
-		return results;
-		
-	}
-	*/
-	
+
+	//get all student names from the student table
 	public String[] getStudentNames()throws SQLException{
 		String[] tmp = getStudentInfo();
 		ArrayList<String> list = new ArrayList<String>();
@@ -318,6 +268,7 @@ public class Database{
 		return results;
 	}
 
+	//get student's next lesson based on the student's name and teacher's email
 	public String getStudentNextLesson(String studentName, String teacherEmail){
 		String[] tmp = getStudentInfo();
 		String row, name, email, lesson;
@@ -335,6 +286,7 @@ public class Database{
 		return result;
 	}
 	
+	//get student's row in student table
 	public String getStudentRow(String studentName, String teacherEmail){
 		String[] tmp = getStudentInfo();
 		String row, name, email, lesson;
@@ -352,6 +304,7 @@ public class Database{
 		return result;
 	}
 
+	//get all reports from the reports table
 	public String[] getReports() throws SQLException {
 		String columns[] = new String[]{ KEY_R_ROWID, KEY_R_STUDENTID, KEY_R_MARK, KEY_R_LESSON, KEY_R_COMPLETE};
 		Cursor c = myDatabase.query(DATABASE_R_TABLE, columns, null, null, null, null, null);
@@ -373,6 +326,7 @@ public class Database{
 		return results;
 	}
 	
+	//get a report based on the the student's name and teacher's email
 	public String[] getReportsForTeacher(String student, String teacherEmail) throws SQLException{
 		String studentRow = getStudentRow(student, teacherEmail);
 		String[] tmp = getReports();
@@ -386,7 +340,6 @@ public class Database{
 			complete = tmp[i+4];
 			if(studentRow.equals(studentID)){
 				list.add("Report ID: " + row);
-				//list.add("studentId: " + studentID);
 				list.add("Student Name: " + student);
 				if(lesson.equals("0")){
 					list.add("Lesson: Line");
@@ -404,7 +357,6 @@ public class Database{
 			}
 		}
 		String[] results = list.toArray(new String[list.size()]);
-		//String [] results = tmp;
 		return results;
 	}
 }

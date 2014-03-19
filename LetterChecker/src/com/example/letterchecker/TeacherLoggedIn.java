@@ -13,12 +13,15 @@ public class TeacherLoggedIn extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_teacher_logged_in);
+		//get button from xml
 		Button ManageStudents = (Button)findViewById(R.id.manageStudentsBtn);
 		Button ChooseLessons = (Button)findViewById(R.id.chooseLessonsBtn);
 		Button ViewResults = (Button)findViewById(R.id.viewResultsBtn);
 		Button Logout = (Button)findViewById(R.id.LogoutBtn);
-		final Bundle extras = getIntent().getExtras();
+		final Bundle EXTRAS = getIntent().getExtras();
 		
+		///wait for user to press button and open the corresponding page and
+		// send the next activity the teacher's email
 		
 		ManageStudents.setOnClickListener(new View.OnClickListener()
         {
@@ -27,8 +30,8 @@ public class TeacherLoggedIn extends Activity {
             	
             	Intent i = new Intent(getApplicationContext(), ManageStudents.class);
             	String email ="";
-            	if (extras != null) {
-        		    email = extras.getString("email");
+            	if (EXTRAS != null) {
+        		    email = EXTRAS.getString("email");
         		}
             	i.putExtra("email", email);
             	startActivity(i);
@@ -42,8 +45,8 @@ public class TeacherLoggedIn extends Activity {
             {
             	Intent i = new Intent(getApplicationContext(), ChooseLessons.class);
             	String email ="";
-            	if (extras != null) {
-        		    email = extras.getString("email");
+            	if (EXTRAS != null) {
+        		    email = EXTRAS.getString("email");
         		}
             	i.putExtra("email", email);
             	startActivity(i);	
@@ -56,8 +59,8 @@ public class TeacherLoggedIn extends Activity {
             {
             	Intent i = new Intent(getApplicationContext(), ViewResults.class);
             	String email ="";
-            	if (extras != null) {
-        		    email = extras.getString("email");
+            	if (EXTRAS != null) {
+        		    email = EXTRAS.getString("email");
         		}
             	i.putExtra("email", email);
             	startActivity(i);

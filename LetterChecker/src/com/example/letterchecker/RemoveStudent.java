@@ -24,42 +24,51 @@ public class RemoveStudent extends Activity {
 		setContentView(R.layout.activity_remove_student);
 		super.onCreate(savedInstanceState);
 		final ListView listview;
-		final Bundle extras = getIntent().getExtras();
+		final Bundle EXTRAS = getIntent().getExtras();
 		listview = (ListView)findViewById(R.id.removeStudentListview);
 		String email ="";
-    	if (extras != null) {
-		    email = extras.getString("email");
+		//get teacher's email from previous activity
+    	if (EXTRAS != null) {
+		    email = EXTRAS.getString("email");
 		}
-    	final String teacherEmail = email;
+    	final String TEACHEREMAIL = email;
 		try{
+			//get students from databases
 			Database info = new Database(this);
 			info.open();
 			String[] tmpData = info.getStudentInfo();
 			info.close();
 			String[] data = getRelevantData(tmpData,email);
+			//display students to users
 			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
 			listview.setAdapter(adapter);
+			//wait for user to select a student
 			listview.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View view,
 						int position, long id) {
-					final String studentName = ((TextView)view).getText().toString();
+					final String STUDENTNAME = ((TextView)view).getText().toString();
 					AlertDialog.Builder warningBuilder = new AlertDialog.Builder(RemoveStudent.this);
+					//ask the user if they definitely want to delete the student
 					warningBuilder.setTitle("Warning");
 					warningBuilder.setMessage("Are you sure you want to delete this student?");
 					warningBuilder.setNeutralButton("Yes",new DialogInterface.OnClickListener() {
+						//if they do want to
 						public void onClick(DialogInterface dialog,int id) {
 							Database db = new Database(RemoveStudent.this);
 							try{
+								//delete student from database
 								db.open();
-								db.deleteStudent(studentName, teacherEmail);
+								db.deleteStudent(STUDENTNAME, TEACHEREMAIL);
 								db.close();
-							
+								//send email to next activity
 								Intent i = new Intent(getApplicationContext(), TeacherLoggedIn.class);
-								i.putExtra("email", teacherEmail);
+								i.putExtra("email", TEACHEREMAIL);
 								startActivity(i);
 							}
+							//catches SQL exceptions
 							catch(Exception ex){
+								//output the error for debugging
 								Dialog d = new Dialog(RemoveStudent.this);
 								String error = ex.toString();
 								d.setTitle("failed to get data");
@@ -76,7 +85,9 @@ public class RemoveStudent extends Activity {
 	        });
 			
 		}
+		//catches SQL exceptions
 		catch(Exception ex){
+			//output the error for debugging
 			Dialog d = new Dialog(RemoveStudent.this);
 			String error = ex.toString();
 			d.setTitle("failed to get data");

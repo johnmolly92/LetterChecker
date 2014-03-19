@@ -22,30 +22,30 @@ public class Register extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
-		
+		//get edit texts and buttons from xml 
 		name = (EditText)findViewById(R.id.nameRegister);
 		email = (EditText)findViewById(R.id.emailRegister);
 		password = (EditText)findViewById(R.id.passwordRegister);
 		register = (Button)findViewById(R.id.registerBtn);
-		
+		//wait for user to press register button
 		register.setOnClickListener(new View.OnClickListener()
 		{
-
 			public void onClick(View v) {
 				boolean didItWork = true;
 				boolean validData = true;
 				String n = name.getText().toString();
 				String e = email.getText().toString();
 				String p = password.getText().toString();
+				//was the data valid
 				if(n.equals("") || e.equals("") || p.equals("")){
 					didItWork = false;
 					validData = false;
 				}
 				long test;
 				String output="";
-				
 				try{
 					if(validData){
+						//create a teacher entry in the database
 						Database entry = new Database(Register.this);			
 						entry.open();
 						test = entry.createEntry(n,e,p);
@@ -53,17 +53,19 @@ public class Register extends Activity {
 						entry.close();
 					}
 				}
+				//catches SQL exceptions
 				catch(Exception ex){
+					//output the error for debugging
 					didItWork = false;
-					/*Dialog d = new Dialog(Register.this);
+					Dialog d = new Dialog(Register.this);
 					String error = ex.toString();
 					d.setTitle("failed to enter data");
 					TextView tv = new TextView(Register.this);
 					tv.setText(error);
 					d.setContentView(tv);
 					d.show();
-					*/
 				}
+				//let the user if it worked
 				finally{						
 					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Register.this);
 					Intent i;
@@ -79,6 +81,7 @@ public class Register extends Activity {
 					alertDialogBuilder.setNeutralButton("Ok",new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog,int id) {
 							Intent i;
+							//take the user to the next activity
 							if(whereToGo){
 								i = new Intent(getApplicationContext(), TeacherLogin.class);
 							}

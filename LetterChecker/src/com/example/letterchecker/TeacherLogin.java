@@ -26,6 +26,7 @@ public class TeacherLogin extends Activity {
         {
             public void onClick(View v)
             {
+            	//get edit texts from xml
             	EditText email = (EditText)findViewById(R.id.emailLogin);
         		EditText password = (EditText)findViewById(R.id.passwordLogin);
         		String e,p;
@@ -35,26 +36,22 @@ public class TeacherLogin extends Activity {
             		e = email.getText().toString();
             		p = password.getText().toString();
             		db.open();
+            		// get login info from database
             		String[] data = db.getTeacherLoginInfo();
             		db.close();
+            		// is the info entered a valid login?
             		for(int i=0; i<data.length; i=i+2){
             			if((data[i].equals(e)) && (data[i+1].equals(p))){
             				didItWork = true;
             				i = data.length + 1;
             			}
             		}
-            		/*if(correct){
-            			Intent i = new Intent(getApplicationContext(), TeacherLoggedIn.class);
-            			//pass on teacher's email to next activity
-            			i.putExtra("email", e);
-            			startActivity(i);
-            		}
-            		*/
             		
             	}
+            	//catches SQL exceptions
             	catch(Exception ex){
+            		//output the error for debugging
             		didItWork=false;
-            		/*
             		Dialog d = new Dialog(TeacherLogin.this);
         			String error = ex.toString();
         			d.setTitle("failed to get data");
@@ -62,7 +59,6 @@ public class TeacherLogin extends Activity {
         			tv.setText(error);
         			d.setContentView(tv);
         			d.show();
-        			*/
             	}
             	finally{
             		if(didItWork){
@@ -73,6 +69,7 @@ public class TeacherLogin extends Activity {
             			startActivity(i);
             		}
             		else{
+            			//tell the user the login failed and let them try again
             			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 								TeacherLogin.this);
 						alertDialogBuilder.setTitle("Unable to Login");
