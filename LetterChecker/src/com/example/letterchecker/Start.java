@@ -83,6 +83,7 @@ public class Start extends Activity {
             	startActivity(i);
 		    }
 		});
+	
 	}
 
 
