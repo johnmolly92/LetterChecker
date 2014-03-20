@@ -1,7 +1,5 @@
 package com.example.letterchecker;
 
-import com.example.letterchecker.Lesson.OurView;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,7 +16,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -26,10 +23,11 @@ import android.widget.TextView;
 
 public class LetterT extends Activity {
 
-	OurView view;
+	OurView view; //creates a new instace of the OurView class to handle all the drawing.
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		//when the activity is created we set our view to contain this activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_letter_t);
 		view = new OurView(this);
@@ -45,7 +43,7 @@ public class LetterT extends Activity {
 	}
 	
 	public class OurView extends View {
-		
+		//create different colour paints
 		private Paint paint = new Paint();
 		private Paint red = new Paint();
 		private Paint green = new Paint();
@@ -54,11 +52,14 @@ public class LetterT extends Activity {
 		private Paint white = new Paint();
 		private Path path = new Path();
 		
+		//these values store the co-ordinates of the users finger
 		float x0 =0;
 		float y0 =0;
 		
+		//true if a report has been submitted for the lesson
 		boolean reportCreated=false;
 		
+		//values for each point the user must hit
 		boolean startBool = false;
 		boolean middle1 = false;
 		boolean middle2 = false;
@@ -69,10 +70,12 @@ public class LetterT extends Activity {
 		boolean middle7 = false;
 		boolean endBool = false;
 		
+		//students mark, calculated at the end of the lesson
 		int mark = 0;
 		int totalMark = 0;
 		int attempts = 0;
 		
+		//rectangles to represent points the user must hit
 		Rect ourRect = new Rect();
 		RectF topLine = new RectF();
 		RectF bottomLine = new RectF();
@@ -87,6 +90,7 @@ public class LetterT extends Activity {
 		RectF mid7 = new RectF();
 		RectF mid8 = new RectF();
 		
+		//bitmaps to store the guide arrows
 		Bitmap arrow_left;
 		Bitmap arrow_right;
 		Bitmap arrow_up;
@@ -99,7 +103,7 @@ public class LetterT extends Activity {
 		public OurView(Context context) {
 		//Constructor
 			super(context);
-			
+			//set the different styles of each paint
 			paint.setAntiAlias(true);
 			paint.setColor(Color.BLACK);
 			paint.setStyle(Paint.Style.STROKE);
@@ -115,10 +119,13 @@ public class LetterT extends Activity {
 			white.setColor(Color.WHITE);
 			white.setStyle(Paint.Style.FILL);
 			
+			//decode the .png arrow file to a bitmap 
 			arrow_left = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_left);
 			arrow_right = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_right);
 			arrow_up = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_up);
 			arrow_down = BitmapFactory.decodeResource(getResources(), R.drawable.arrow_down);
+			
+			//decode the .png letter file to a bitmap 
 			t = BitmapFactory.decodeResource(getResources(), R.drawable.t);
 			tick = BitmapFactory.decodeResource(getResources(), R.drawable.green_tick);
 			
@@ -126,12 +133,14 @@ public class LetterT extends Activity {
 		
 		@Override
 		protected void onDraw(Canvas canvas) {
-			// TODO Auto-generated method stub
+			//This method is continuously called and handles drawing to the canvas
 			super.onDraw(canvas);
 			
+			//get the height and width of the drawable surface
 			float height = canvas.getHeight();
 			float width = canvas.getWidth();
 			
+			//set the position of the guide rectangles
 			topLine.set(0,(height/100*25)-5,width,(height/100*25)+5);
 			bottomLine.set(0,(height/100*85)-5,width,(height/100*85)+5);
 			if(startBool == false)
@@ -189,8 +198,10 @@ public class LetterT extends Activity {
 			//check drawn correct
 			/*if(startBool == true && middle1 == true && middle2 == true && middle3 == true && middle4 == true && 
 					middle5 == true && middle6 == true && middle7 == true && endBool == true && !reportCreated){*/
+			
+			//if the user has reached the last rectangle we calculate the mark and submit the report
 			if(endBool == true && !reportCreated){
-				
+				//calculate mark
 				if(startBool == true)
 					mark += 100;
 				if( middle1 == true)
@@ -213,12 +224,13 @@ public class LetterT extends Activity {
 				mark = (mark/9);
 				reportCreated = true;
 					
-				//canvas.drawRect(ourRect, green);
+				//alert box for when the lesson is finished
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LetterT.this);
 				alertDialogBuilder.setTitle("Lesson Complete");
 				alertDialogBuilder.setMessage("Click Ok to continue");
 				alertDialogBuilder.setNeutralButton("Ok",new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,int id) {
+						//pass the student name and teacher email to the next activity
 						Bundle extras = getIntent().getExtras();
 						String studentSelected ="";
 						String teacherEmail = "";
@@ -227,24 +239,26 @@ public class LetterT extends Activity {
 					    	teacherEmail = extras.getString("email");
 						}
 						try{
-							//int mark = 100;
+							//create an instance of the database in this activity
 							Database db = new Database(LetterT.this);
 							db.open();
+							//put the report into the database
 							db.createReportEntry(studentSelected, teacherEmail, mark, 22, 1);
 							db.close();
+							
+							//next activity will be the student logged in screen
 							Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
 							
-							//reportCreated = true;
-							
+							//pass the information to the next activity
 		        			extras.putString("studentName", studentSelected);
 							extras.putString("email", teacherEmail);
 							i.putExtras(extras);
 		                	startActivity(i);
 						}
 						catch(Exception ex){
+							//will display an error message if something goes wrong
 							Dialog d = new Dialog(LetterT.this);
 							String error = ex.toString();
-							//String error = studentSelected + " " + teacherEmail;
 							d.setTitle("failed to get data");
 							TextView tv = new TextView(LetterT.this);
 							tv.setText(error);
@@ -253,12 +267,15 @@ public class LetterT extends Activity {
 						}
 					}
 				});
+				//display the alert box
 				AlertDialog alertDialog = alertDialogBuilder.create();
 				alertDialog.show();
 			}
 			
 			
 			canvas.drawBitmap(t, width/100*25, 0, black);
+			
+			//draw the guide arrows to the canvas
 			if(middle7 == false){
 				canvas.drawBitmap(arrow_down, width/100*50,height/100*40, black);
 				canvas.drawBitmap(arrow_down, width/100*50,height/100*52, black);
@@ -270,7 +287,7 @@ public class LetterT extends Activity {
 				canvas.drawBitmap(arrow_right, width/100*54,height/100*37, black);
 			}
 			
-			
+			//draw the guide rectangles to the canvas
 			if(startBool == false)
 				canvas.drawRect(start, green);
 			else
@@ -292,6 +309,7 @@ public class LetterT extends Activity {
 			canvas.drawRect(topLine, black);
 			canvas.drawRect(bottomLine, black);
 			
+			//if the users finger passes over the guide rectangle change the boolean value corresponding to the rectangle
 			if((x0 > (width/100*47)-20) && (x0 < (width/100*47)+20) && (y0 > (height/100*40)-20) 
 					&& (y0 < (height/100*40)+20)){
 				startBool = true;
@@ -337,28 +355,34 @@ public class LetterT extends Activity {
 				endBool = true;
 			}
 			
+			//draw a line where the users finger travels 
 			canvas.drawPath(path, paint);	
 		}
 	
 		@Override
 		public boolean onTouchEvent(MotionEvent event) {
-			// TODO Auto-generated method stub
+		//users touching the screen is handled by this method
+			//get the users fingers x and y position
 			float x = event.getX();
 			float y = event.getY();
 			x0 = x;
 			y0 = y;
 			switch(event.getAction()){
 			case MotionEvent.ACTION_DOWN:
+				//when the users fingers touches down on the screen the path is moved to this point
 				path.moveTo(x, y);
 				return true;
 			case MotionEvent.ACTION_MOVE:
+			//when the users finger moves the path is drawn along the x and y co-ordinates
 				path.lineTo(x, y);
 				break;
 			case MotionEvent.ACTION_UP:
+			//nothing happens when the user removes the finger
 				break;
 			default:
 				return false;
 			}
+			//call invalidate(); to continually call this method and update the x and y co-ordinates
 			invalidate();
 			return true;
 		}
