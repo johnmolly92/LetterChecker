@@ -37,9 +37,10 @@ public class ListOfStudents extends Activity {
 			info.open();
 			//get student info from database
 			String[] tmpData = info.getStudentInfo();
-			info.close();
 			//get students that are relevant to a teacher
-			String[] data = getTeachersStudents(tmpData,teacherName);
+			String[] data = info.getTeachersStudentsByName(tmpData,teacherName);
+			//String[] data = getTeachersStudents(tmpData,teacherName);
+			info.close();
 			//display it to the screen
 			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
 			listview.setAdapter(adapter);
@@ -52,8 +53,11 @@ public class ListOfStudents extends Activity {
 					Intent i = new Intent(getApplicationContext(), StudentLoggedIn.class);
 					//send the student's name and the teacher's email to the next activity
 					EXTRAS.putString("studentName", studentName);
-					EXTRAS.putString("email", getTeacherEmail(TEACHEREMAIL));
+					Database info = new Database(ListOfStudents.this);
+					info.open();
+					EXTRAS.putString("email", info.getTeacherEmail(TEACHEREMAIL));
 					i.putExtras(EXTRAS);
+					info.close();
 					startActivity(i);
 				}
 	        });
@@ -69,44 +73,6 @@ public class ListOfStudents extends Activity {
 			d.setContentView(tv);
 			d.show();
 		}
-	}
-	
-	//get a teacher's email based on their name
-	public String getTeacherEmail(String teacher_name){
-		Database info = new Database(this);
-		info.open();
-		String[] tmpData = info.getTeacherInfo();
-		info.close();
-		String result="";
-		String id, name, email, password;
-		for(int i=0; i<tmpData.length; i=i+4){
-			id = tmpData[i];
-			name = tmpData[i+1];
-			email = tmpData[i+2];
-			password=tmpData[1+3];
-			if(name.equals(teacher_name)){
-				result=email;
-			}
-		}
-		return result;
-	}
-	
-	//get a teacher's students
-	public String[] getTeachersStudents(String[] array, String teacherName){
-		String email = getTeacherEmail(teacherName);
-		String id, name, teacherEmail, nextLesson;
-		ArrayList<String> tmp = new ArrayList<String>();
-		for(int i=0; i<array.length; i=i+4){
-			id = array[i];
-			name = array[i+1];
-			teacherEmail = array[i+2];
-			nextLesson = array[i+3];
-			if(teacherEmail.equals(email)){
-				tmp.add(name);
-			}
-		}
-		String[] result = tmp.toArray(new String[tmp.size()]);
-		return result;
 	}
 
 	@Override

@@ -33,23 +33,4 @@
         android:text="Register" 
         android:layout_marginTop = "20dp"/>
     
-    <Button
-        android:id="@+id/squareBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Square"
-        android:layout_marginTop = "20dp" />
-
-    <Button
-        android:id="@+id/triangleBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Triangle" />
-
-    <Button
-        android:id="@+id/lessonBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Line" />
-
 </LinearLayout>

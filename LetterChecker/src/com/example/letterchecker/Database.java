@@ -229,6 +229,59 @@ public class Database{
 		return results;
 	}
 	
+	//method to take array of all students and their info and returns an array of the names of students who have a teacher
+	//whos email is passed as a parameter
+	public String[] getTeachersStudentsByEmail(String[] array, String email){
+		String id, name, teacherEmail, nextLesson;
+		ArrayList<String> tmp = new ArrayList<String>();
+		for(int i=0; i<array.length; i=i+4){
+			id = array[i];
+			name = array[i+1];
+			teacherEmail = array[i+2];
+			nextLesson = array[i+3];
+			if(teacherEmail.equals(email)){
+				tmp.add(name);
+			}
+		}
+		String[] result = tmp.toArray(new String[tmp.size()]);
+		return result;
+	}
+	
+	//method to take array of all students and their info and returns an array of the names of students who have a teacher
+	//whos name is passed as a parameter
+	public String[] getTeachersStudentsByName(String[] array, String teacherName){
+		String email = getTeacherEmail(teacherName);
+		String id, name, teacherEmail, nextLesson;
+		ArrayList<String> tmp = new ArrayList<String>();
+		for(int i=0; i<array.length; i=i+4){
+			id = array[i];
+			name = array[i+1];
+			teacherEmail = array[i+2];
+			nextLesson = array[i+3];
+			if(teacherEmail.equals(email)){
+				tmp.add(name);
+			}
+		}
+		String[] result = tmp.toArray(new String[tmp.size()]);
+		return result;
+	}
+	
+	//gets a teacher's email based on their name
+	public String getTeacherEmail(String teacher_name){
+		String[] tmpData = getTeacherInfo();
+		String result="";
+		String id, name, email, password;
+		for(int i=0; i<tmpData.length; i=i+4){
+			id = tmpData[i];
+			name = tmpData[i+1];
+			email = tmpData[i+2];
+			password=tmpData[1+3];
+			if(name.equals(teacher_name)){
+				result=email;
+			}
+		}
+		return result;
+	}
 	
 	//get all information on all students in the students table
 	public String[] getStudentInfo() throws SQLException{
@@ -353,11 +406,16 @@ public class Database{
 				if(lesson.equals("3")){
 					list.add("Lesson: Letter 'a'");
 				}
+				if(lesson.equals("22")){
+					list.add("Lesson: Letter 't'");
+				}
 				list.add("Mark: " + mark + "%");
 			}
 		}
 		String[] results = list.toArray(new String[list.size()]);
 		return results;
 	}
+	
+	
 }
 

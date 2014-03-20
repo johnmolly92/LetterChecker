@@ -20,9 +20,6 @@ public class Start extends Activity {
 		Button StudentLogin = (Button)findViewById(R.id.StudentLoginBtn);
 		Button TeacherLogin = (Button)findViewById(R.id.TeacherLoginBtn);
 		Button Register = (Button)findViewById(R.id.RegisterBtn);
-		Button Lesson = (Button)findViewById(R.id.lessonBtn);
-		Button Triangle = (Button)findViewById(R.id.triangleBtn);
-		Button Square = (Button)findViewById(R.id.squareBtn);
 
 		//student login page
 		StudentLogin.setOnClickListener(new View.OnClickListener()
@@ -53,38 +50,6 @@ public class Start extends Activity {
             	startActivity(i);
             }
         });
-		
-		
-		//line page
-		Lesson.setOnClickListener(new View.OnClickListener()
-		{
-			public void onClick(View v)
-		    {
-				Intent i = new Intent(getApplicationContext(), LetterA.class);
-            	startActivity(i);
-		    }
-		});
-		
-		//triangle page
-		Triangle.setOnClickListener(new View.OnClickListener()
-		{
-			public void onClick(View v)
-		    {
-				Intent i = new Intent(getApplicationContext(), Triangle.class);
-            	startActivity(i);
-		    }
-		});
-		
-		//square page
-		Square.setOnClickListener(new View.OnClickListener()
-		{
-			public void onClick(View v)
-		    {
-				Intent i = new Intent(getApplicationContext(), LetterT.class);
-            	startActivity(i);
-		    }
-		});
-	
 	}
 
 

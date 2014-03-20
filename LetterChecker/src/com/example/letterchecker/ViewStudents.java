@@ -28,9 +28,10 @@ public class ViewStudents extends Activity {
 			info.open();
 			//get student info from database
 			String[] tmpData = info.getStudentInfo();
-			info.close();
 			//get data relevant to student
-			String[] data = getRelevantData(tmpData,email);
+			//String[] data = getRelevantData(tmpData,email);
+			String[] data = info.getTeachersStudentsByEmail(tmpData, email);
+			info.close();
 			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
 			// display to screen
 			listview.setAdapter(adapter);
@@ -48,22 +49,7 @@ public class ViewStudents extends Activity {
 			d.show();
 		}
 	}
-	//takes an array of all students and all there info and returns the students names who are relevant to the logged in teacher
-	public String[] getRelevantData(String[] array, String currentEmail){
-		String id, name, teacherEmail, nextLesson;
-		ArrayList<String> tmp = new ArrayList<String>();
-		for(int i=0; i<array.length; i=i+4){
-			id = array[i];
-			name = array[i+1];
-			teacherEmail = array[i+2];
-			nextLesson = array[i+3];
-			if(teacherEmail.equals(currentEmail)){
-				tmp.add(name);
-			}
-		}
-		String[] result = tmp.toArray(new String[tmp.size()]);
-		return result;
-	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

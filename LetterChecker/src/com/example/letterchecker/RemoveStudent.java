@@ -37,8 +37,9 @@ public class RemoveStudent extends Activity {
 			Database info = new Database(this);
 			info.open();
 			String[] tmpData = info.getStudentInfo();
+			//String[] data = getRelevantData(tmpData,email);
+			String[] data = info.getTeachersStudentsByEmail(tmpData, email);
 			info.close();
-			String[] data = getRelevantData(tmpData,email);
 			//display students to users
 			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
 			listview.setAdapter(adapter);
@@ -96,22 +97,6 @@ public class RemoveStudent extends Activity {
 			d.setContentView(tv);
 			d.show();
 		}
-	}
-	//takes an array of all students and all there info and returns the students names who are relevant to the logged in teacher
-	public String[] getRelevantData(String[] array, String currentEmail){
-		String id, name, teacherEmail, nextLesson;
-		ArrayList<String> tmp = new ArrayList<String>();
-		for(int i=0; i<array.length; i=i+4){
-			id = array[i];
-			name = array[i+1];
-			teacherEmail = array[i+2];
-			nextLesson = array[i+3];
-			if(teacherEmail.equals(currentEmail)){
-				tmp.add(name);
-			}
-		}
-		String[] result = tmp.toArray(new String[tmp.size()]);
-		return result;
 	}
 
 	@Override
