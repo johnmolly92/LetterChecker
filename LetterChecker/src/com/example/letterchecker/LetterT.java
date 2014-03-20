@@ -14,7 +14,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,7 +22,7 @@ import android.widget.TextView;
 
 public class LetterT extends Activity {
 
-	OurView view; //creates a new instace of the OurView class to handle all the drawing.
+	OurView view; //creates a new instance of the OurView class to handle all the drawing.
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +75,6 @@ public class LetterT extends Activity {
 		int attempts = 0;
 		
 		//rectangles to represent points the user must hit
-		Rect ourRect = new Rect();
 		RectF topLine = new RectF();
 		RectF bottomLine = new RectF();
 		RectF start = new RectF();
@@ -96,9 +94,9 @@ public class LetterT extends Activity {
 		Bitmap arrow_up;
 		Bitmap arrow_down;
 		
+		//bitmap to hold the guide letter
 		Bitmap t;
 		
-		Bitmap tick;
 		
 		public OurView(Context context) {
 		//Constructor
@@ -127,8 +125,6 @@ public class LetterT extends Activity {
 			
 			//decode the .png letter file to a bitmap 
 			t = BitmapFactory.decodeResource(getResources(), R.drawable.t);
-			tick = BitmapFactory.decodeResource(getResources(), R.drawable.green_tick);
-			
 		}
 		
 		@Override
@@ -143,61 +139,26 @@ public class LetterT extends Activity {
 			//set the position of the guide rectangles
 			topLine.set(0,(height/100*25)-5,width,(height/100*25)+5);
 			bottomLine.set(0,(height/100*85)-5,width,(height/100*85)+5);
+			
 			if(startBool == false)
+			//set the start rectangle to be bigger than the others
 				start.set((width/100*47)-20, (height/100*40)-20, (width/100*47)+20,(height/100*40)+20);
 			else
+			//when the user touches the start rectangle reduce its size to match the others
 				start.set((width/100*47)-10, (height/100*40)-10, (width/100*47)+10,(height/100*40)+10);
+			
 			mid1.set((width/100*35)-20, (height/100*48)-20, (width/100*35)+20, (height/100*48)+20);
 			mid2.set((width/100*47)-10, (height/100*48)-10, (width/100*47)+10, (height/100*48)+10);
 			mid3.set((width/100*47)-10, (height/100*56)-10, (width/100*47)+10, (height/100*56)+10);
 			mid4.set((width/100*47)-10, (height/100*64)-10, (width/100*47)+10, (height/100*64)+10);
 			mid5.set((width/100*47)-10, (height/100*72)-10, (width/100*47)+10, (height/100*72)+10);
 			mid6.set((width/100*52)-10, (height/100*80)-10, (width/100*52)+10, (height/100*80)+10);
+			
 			if(middle7 == false)
 				mid7.set((width/100*64)-20, (height/100*82)-20, (width/100*64)+20, (height/100*82)+20);
 			else
 				mid7.set((width/100*64)-10, (height/100*82)-10, (width/100*64)+10, (height/100*82)+10);
 			end.set((width/100*59)-20, (height/100*48)-20, (width/100*59)+20, (height/100*48)+20);
-			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
-			
-			
-			/*if(endBool == true && attempts <4){
-				//calculate mark
-				if(startBool == true)
-					mark += 1;
-				if( middle1 == true)
-					mark +=1;
-				if(middle2 == true)
-					mark += 1;
-				if(middle3 == true)
-					mark += 1;
-				if(middle4 == true)
-					mark += 1;
-				if(middle5 == true)
-					mark += 1;
-				if(middle6 == true)
-					mark += 1;
-				if(middle7 == true)
-					mark += 1;
-				if(endBool == true)
-					mark += 1;
-				
-				mark = (mark/8)*100;
-				totalMark += mark;
-				//draw bitmap
-				//canvas.drawBitmap(tick, 0, height/100*20, black);
-				canvas.drawRect(ourRect, blue);
-				
-				//erase line
-				path.reset();
-				//reset booleans
-				startBool = middle1 = middle2 = middle3 = middle4 = middle5 = middle6 = middle7 = endBool = false;
-				attempts++;
-			}*/
-			
-			//check drawn correct
-			/*if(startBool == true && middle1 == true && middle2 == true && middle3 == true && middle4 == true && 
-					middle5 == true && middle6 == true && middle7 == true && endBool == true && !reportCreated){*/
 			
 			//if the user has reached the last rectangle we calculate the mark and submit the report
 			if(endBool == true && !reportCreated){

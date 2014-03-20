@@ -1,7 +1,6 @@
 package com.example.letterchecker;
 
 import android.os.Bundle;
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -9,19 +8,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class Triangle extends Activity {
@@ -56,7 +51,7 @@ public class Triangle extends Activity {
 		//true if a report has been submitted for the lesson
 		boolean reportCreated=false;
 		
-		//these values store the co-ordinates of the users finger
+		//these values store the coordinates of the users finger
 		float x0 =0;
 		float y0 =0;
 		
@@ -70,7 +65,7 @@ public class Triangle extends Activity {
 		boolean endBool = false;
 		
 		//rectangles to represent points the user must hit
-		Rect ourRect = new Rect();
+		
 		RectF start = new RectF();
 		RectF mid1 = new RectF();
 		RectF mid2 = new RectF();
@@ -144,7 +139,6 @@ public class Triangle extends Activity {
 			
 			end.set(canvas.getWidth()/8-20, canvas.getHeight()/3*2-20,
 					canvas.getWidth()/8+20, canvas.getHeight()/3*2+20);
-			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
 			
 			//if the user has reached the last rectangle we calculate the mark and submit the report
 			if(endBool == true && !reportCreated ){
@@ -219,8 +213,10 @@ public class Triangle extends Activity {
 			
 			//draw the guide rectangles to the canvas
 			if(middle1 == false)
+				//draw the green starting rectangle
 				canvas.drawRect(start, green);
 			if(middle1 == true)
+				//when the user has moved off the starting rectangle change its colour to red so they know where to end
 				canvas.drawRect(end,red);
 			canvas.drawRect(mid1, black);
 			canvas.drawRect(mid2, black);
@@ -240,36 +236,31 @@ public class Triangle extends Activity {
 				startBool = true;
 			}
 			
-			//mid1
 			if((x0 > canvas.getWidth()/2-20) && (x0 < canvas.getWidth()/2+20) 
 					&& (y0 > canvas.getHeight()/3*2-20) && (y0 < canvas.getHeight()/3*2+20)){
 				middle1 = true;
 			}
-			
-			//middle2
+
 			if((x0 > canvas.getWidth()/8*7-20) && (x0 < canvas.getWidth()/8*7+20) 
 					&& (y0 > canvas.getHeight()/3*2-20) && (y0 < canvas.getHeight()/3*2+20)){
 				middle2 = true;
 			}
-			
-			//middle3
+
 			if((x0 > canvas.getWidth()/16*11-20) && (x0 < canvas.getWidth()/16*11+20) 
 					&& (y0 > canvas.getHeight()/2-20) && (y0 < canvas.getHeight()/2+20)){
 				middle3 = true;
 			}
-			
-			//middle4
+
 			if((x0 > canvas.getWidth()/2-20) && (x0 < canvas.getWidth()/2+20) 
 					&& (y0 > canvas.getHeight()/3-20) && (y0 < canvas.getHeight()/3+20)){
 				middle4 = true;
 			}
-			
-			//middle5
+
 			if((x0 > canvas.getWidth()/16*5-20) && (x0 < canvas.getWidth()/16*5+20) 
 					&& (y0 > canvas.getHeight()/2-20) && (y0 < canvas.getHeight()/2+20)){
 				middle5 = true;
 			}
-			//end
+
 			if(middle1 == true && (x0 > canvas.getWidth()/8-20) && (x0 < canvas.getWidth()/8+20) && 
 					(y0 > canvas.getHeight()/3*2-20) && (y0 < canvas.getHeight()/3*2+20)){
 				endBool = true;
