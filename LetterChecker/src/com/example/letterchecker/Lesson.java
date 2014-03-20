@@ -13,7 +13,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -22,7 +21,7 @@ import android.widget.TextView;
 
 public class Lesson extends Activity {
 	
-	OurView view; //creates a new instace of the OurView class to handle all the drawing.
+	OurView view; //creates a new instance of the OurView class to handle all the drawing.
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class Lesson extends Activity {
 		private Paint black = new Paint();
 		private Path path = new Path();
 		
-		//these values store the co-ordinates of the users finger
+		//these values store the coordinates of the users finger
 		float x0 =0;
 		float y0 =0;
 		
@@ -62,7 +61,6 @@ public class Lesson extends Activity {
 		boolean endBool = false;
 		
 		//rectangles to represent points the user must hit
-		Rect ourRect = new Rect();
 		RectF start = new RectF();
 		RectF end = new RectF();
 		RectF mid1 = new RectF();
@@ -113,7 +111,6 @@ public class Lesson extends Activity {
 			start.set(canvas.getWidth()/8-20, canvas.getHeight()/2-20, canvas.getWidth()/8+20, canvas.getHeight()/2+20);
 			mid1.set(canvas.getWidth()/2-20, canvas.getHeight()/2-20, canvas.getWidth()/2+20, canvas.getHeight()/2+20);
 			end.set((canvas.getWidth()/8*7)-20,canvas.getHeight()/2-20,(canvas.getWidth()/8*7)+20,canvas.getHeight()/2+20);
-			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
 			
 			//if the user has reached the last rectangle we calculate the mark and submit the report
 			if(endBool == true && !reportCreated){
@@ -222,11 +219,11 @@ public class Lesson extends Activity {
 				path.moveTo(x, y);
 				return true;
 			case MotionEvent.ACTION_MOVE:
-			//when the users finger moves the path is drawn along the x and y co-ordinates
+			//when the users finger moves the path is drawn along the x and y coordinates
 				path.lineTo(x, y);
 				break;
 			case MotionEvent.ACTION_UP:
-			//nothig happens when the user removes the finger
+			//nothing happens when the user removes the finger
 				break;
 			default:
 				return false;

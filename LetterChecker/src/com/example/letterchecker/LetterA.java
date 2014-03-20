@@ -1,7 +1,5 @@
 package com.example.letterchecker;
 
-import com.example.letterchecker.Lesson.OurView;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,14 +16,13 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
 public class LetterA extends Activity {
 
-	OurView view; //creates a new instace of the OurView class to handle all the drawing.
+	OurView view; //creates a new instance of the OurView class to handle all the drawing.
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +95,9 @@ public class LetterA extends Activity {
 		Bitmap arrow_up;
 		Bitmap arrow_down;
 		
+		//bitmap to hold the sample letter
 		Bitmap a;
 		
-		Bitmap tick;
 		
 		public OurView(Context context) {
 		//Constructor
@@ -129,8 +126,6 @@ public class LetterA extends Activity {
 			
 			//decode the .png letter file to a bitmap 
 			a = BitmapFactory.decodeResource(getResources(), R.drawable.a);
-			tick = BitmapFactory.decodeResource(getResources(), R.drawable.green_tick);
-			
 		}
 		
 		@Override
@@ -156,44 +151,6 @@ public class LetterA extends Activity {
 			end.set((width/100*87)-20, (height/100*75)-20, (width/100*87)+20, (height/100*75)+20);
 			ourRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
 			canvas.drawRect(ourRect, white);
-			
-			/*if(endBool == true && attempts <4){
-				//calculate mark
-				if(startBool == true)
-					mark += 1;
-				if( middle1 == true)
-					mark +=1;
-				if(middle2 == true)
-					mark += 1;
-				if(middle3 == true)
-					mark += 1;
-				if(middle4 == true)
-					mark += 1;
-				if(middle5 == true)
-					mark += 1;
-				if(middle6 == true)
-					mark += 1;
-				if(middle7 == true)
-					mark += 1;
-				if(endBool == true)
-					mark += 1;
-				
-				mark = (mark/8)*100;
-				totalMark += mark;
-				//draw bitmap
-				//canvas.drawBitmap(tick, 0, height/100*20, black);
-				canvas.drawRect(ourRect, blue);
-				
-				//erase line
-				path.reset();
-				//reset booleans
-				startBool = middle1 = middle2 = middle3 = middle4 = middle5 = middle6 = middle7 = endBool = false;
-				attempts++;
-			}*/
-			
-			//check drawn correct
-			/*if(startBool == true && middle1 == true && middle2 == true && middle3 == true && middle4 == true && 
-					middle5 == true && middle6 == true && middle7 == true && endBool == true && !reportCreated){*/
 			
 			//if the user has reached the last rectangle we calculate the mark and submit the report
 			if(endBool == true && !reportCreated){
@@ -269,7 +226,7 @@ public class LetterA extends Activity {
 				alertDialog.show();
 			}
 			
-			
+			//draw the guide letter
 			canvas.drawBitmap(a, width/100*40, 10, black);
 			
 			//draw the guide arrows to the canvas
@@ -278,9 +235,11 @@ public class LetterA extends Activity {
 			canvas.drawBitmap(arrow_right, width/100*48,height/100*78, black);
 			
 			if(middle6 == false){
+				//draw an up arrow when the user need to draw upwards
 				canvas.drawBitmap(arrow_up, width/100*75,height/100*55, black);
 			}
 			if(!middle6 == false){
+				//change to a down arrow when the user has drawn up to the top and needs to double back
 				canvas.drawBitmap(arrow_down, width/100*75,height/100*55, black);
 			}
 			
