@@ -38,9 +38,9 @@ public class ViewResults extends Activity {
 			info.open();
 			//get student info from database
 			String[] tmpData = info.getStudentInfo();
-			info.close();
 			//get teacher's student
-			String[] data = getTeachersStudents(tmpData,teacherEmail);
+			String[] data = info.getTeachersStudentsByEmail(tmpData,teacherEmail);
+			info.close();
 			//display student's to screen
 			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
 			listview.setAdapter(adapter);
@@ -71,23 +71,6 @@ public class ViewResults extends Activity {
 			d.setContentView(tv);
 			d.show();
 		}
-	}
-	
-	//get students who are relevant to the teacher
-	public String[] getTeachersStudents(String[] array, String email){
-		String id, name, teacherEmail, nextLesson;
-		ArrayList<String> tmp = new ArrayList<String>();
-		for(int i=0; i<array.length; i=i+4){
-			id = array[i];
-			name = array[i+1];
-			teacherEmail = array[i+2];
-			nextLesson = array[i+3];
-			if(teacherEmail.equals(email)){
-				tmp.add(name);
-			}
-		}
-		String[] result = tmp.toArray(new String[tmp.size()]);
-		return result;
 	}
 
 	@Override

@@ -38,10 +38,10 @@ public class ChooseLessons extends Activity {
 			info.open();
 			//get all student info
 			String[] tmpData = info.getStudentInfo();
-			info.close();
 			//get teacher's students based on teacher's email
 			//put all their names in data array
-			String[] data = getTeachersStudents(tmpData,teacherEmail);
+			String[] data = info.getTeachersStudentsByEmail(tmpData,teacherEmail);
+			info.close();
 			final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
 			//display array of names to screen
 			listview.setAdapter(adapter);
@@ -71,26 +71,6 @@ public class ChooseLessons extends Activity {
 			d.setContentView(tv);
 			d.show();
 		}
-	}
-	
-	
-	
-	//method to take array of all students and their info and returns an array of the names of students who have a teacher
-	//whos email is passed as a parameter
-	public String[] getTeachersStudents(String[] array, String email){
-		String id, name, teacherEmail, nextLesson;
-		ArrayList<String> tmp = new ArrayList<String>();
-		for(int i=0; i<array.length; i=i+4){
-			id = array[i];
-			name = array[i+1];
-			teacherEmail = array[i+2];
-			nextLesson = array[i+3];
-			if(teacherEmail.equals(email)){
-				tmp.add(name);
-			}
-		}
-		String[] result = tmp.toArray(new String[tmp.size()]);
-		return result;
 	}
 
 

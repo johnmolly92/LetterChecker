@@ -86,20 +86,7 @@ public class StudentLoggedIn extends Activity {
                 	startActivity(i);
                 	
         		}
-        		
-        		/*
-            	Dialog d = new Dialog(StudentLoggedIn.this);
-    			d.setTitle("Next Lesson is");
-    			TextView tv = new TextView(StudentLoggedIn.this);
-    			tv.setText(lesson);
-    			d.setContentView(tv);
-    			d.show();
-    			*/
-    			/*
-            	Intent i = new Intent(getApplicationContext(), Test.class);
-            	startActivity(i);
-            	*/
-            
+
             }
         });
 	}
